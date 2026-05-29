@@ -1,0 +1,107 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio cache/options
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# Logs
+*.log
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# NuGet Packages Cache
+.nuget/
+
+# Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Coverage files
+coverage/
+*.coverage
+*.coveragexml
+
+# Publish output
+publish/
+
+# Entity Framework
+*.mdf
+*.ldf
+
+# SQL Server files
+*.ndf
+
+# Azure
+*.publishsettings
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+
+# Windows image file caches
+ehthumbs.db
+
+# Recycle Bin
+$RECYCLE.BIN/
+
+# Mac files
+.DS_Store
+
+# JetBrains Rider
+*.sln.iml
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+
+# BenchmarkDotNet
+BenchmarkDotNet.Artifacts/
+
+# Generated files
+Generated/
+
+# Local settings
+appsettings.Development.json
+
+# Docker
+docker-compose.override.yml
+
+# Node.js (si tu proyecto tiene frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Angular / React build folders
+dist/
+build/
+
+# Secrets
+secrets.json
