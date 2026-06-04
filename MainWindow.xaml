@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HangmanClient"
+        xmlns:p="clr-namespace:HangmanClient.Properties"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        WindowState="Maximized" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Image Source="/Properties/Images/Menu.png"/>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="300" Margin="0,0,0,0">
+            <Button x:Name="btnComenzar" Content="" 
+                    Style="{StaticResource btnMain}"
+                    Width="260" Height="70" Click="Button_Click"/>
+        </StackPanel>
+
     </Grid>
 </Window>

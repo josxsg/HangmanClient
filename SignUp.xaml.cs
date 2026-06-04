@@ -10,22 +10,36 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HangmanClient
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para SignUp.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SignUp : Window
     {
-        public MainWindow()
+        public SignUp()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void txtName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtSecondName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtBoxEmail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void btnSignUp_Click(object sender, RoutedEventArgs e)
         {
 
         }

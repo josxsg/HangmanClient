@@ -1,0 +1,52 @@
+﻿<Window x:Class="HangmanClient.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HangmanClient"
+        mc:Ignorable="d"
+        xmlns:p="clr-namespace:HangmanClient.Properties"
+        WindowState="Maximized" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Image Source="/Properties/Images/Login.png" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
+
+        <Border Grid.Column="1">
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                <Label Content="inicio sesion}" 
+                           Style="{StaticResource lblTitulo}"/>
+
+                <Label Content="username" 
+                        Style="{StaticResource lblSubtitulo}"/>
+
+                <TextBox x:Name="txtBlockUsername" Width="350" Height="40" FontSize="18" FontFamily="Courier New" Margin="0,0,0,25"
+                        Style="{StaticResource txtNormal}" TextChanged="txtBlockUsername_TextChanged"/>
+
+                <Label Content="contraseña" 
+                        Style="{StaticResource lblSubtitulo}"/>
+
+                <PasswordBox x:Name="pwsBoxPassword" Width="350" Height="40" FontSize="18" Margin="0,0,0,40"
+                             Style="{StaticResource pwdNormal}"/>
+
+                <Button x:Name="btnLogIn" Content="inicia seison" 
+                        Style="{StaticResource btnMain}"
+                        Width="280" Height="65" Margin="0,0,0,15" Click="btnLogIn_Click"/>
+
+                <Label Content="ó" HorizontalAlignment="Center"
+                            Style="{StaticResource lblSubtitulo}"/>
+
+                <Button x:Name="btnSignIn" Content="registro" 
+                        Style="{StaticResource btnMain}"
+                        Width="280" Height="65" Click="btnSignIn_Click"/>
+
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>

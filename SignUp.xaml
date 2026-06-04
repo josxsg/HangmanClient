@@ -1,0 +1,62 @@
+﻿<Window x:Class="HangmanClient.SignUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HangmanClient"
+        mc:Ignorable="d"
+        xmlns:p="clr-namespace:HangmanClient.Properties"
+        WindowState="Maximized" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Source="/Properties/Images/Login.png" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
+
+        <Border Grid.Column="1" 
+                Padding="40,20">
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                <Label Content="REGISTRO" 
+                       Style="{StaticResource lblTitulo}"/>
+
+                <Grid Margin="0,0,0,25">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="170"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <Label Content="NOMBRE" Style="{StaticResource lblSubtitulo}"/>
+                        <TextBox x:Name="txtName" Style="{StaticResource txtNormal}" Width="170" TextChanged="txtName_TextChanged"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <Label Content="APELLIDO" Style="{StaticResource lblSubtitulo}"/>
+                        <TextBox x:Name="txtSecondName" Style="{StaticResource txtNormal}" Width="170" TextChanged="txtSecondName_TextChanged"/>
+                    </StackPanel>
+                </Grid>
+
+                <Label Content="CORREO ELECTRÓNICO" 
+                       Style="{StaticResource lblSubtitulo}"/>
+
+                <TextBox x:Name="txtBoxEmail" Style="{StaticResource txtNormal}"
+                         Margin="0,0,0,25" TextChanged="txtBoxEmail_TextChanged"/>
+
+                <Label Content="CONTRASEÑA" 
+                       Style="{StaticResource lblSubtitulo}"/>
+
+                <PasswordBox x:Name="pswBoxPassword" Style="{StaticResource pwdNormal}"
+                             Margin="0,0,0,40"/>
+
+                <Button x:Name="btnSignUp" Content="REGISTRARSE" 
+                        Style="{StaticResource btnMain}"
+                        Width="280" Height="65" Click="btnSignUp_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
