@@ -23,7 +23,7 @@
                     Width="160" Height="50" FontSize="18" Click="btnStart_Click"/>
         </StackPanel>
 
-        <Label Content="ESPERANDO RIVAL..." 
+        <Label x:Name="lbWaitingOpponent" Content="ESPERANDO RIVAL..." 
                Style="{StaticResource lblTitulo}" 
                FontSize="80" 
                HorizontalAlignment="Center" 

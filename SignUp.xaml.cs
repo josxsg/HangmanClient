@@ -43,5 +43,10 @@ namespace HangmanClient
         {
 
         }
+
+        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

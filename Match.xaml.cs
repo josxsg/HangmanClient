@@ -161,7 +161,7 @@ namespace HangmanClient
 
         private void btnChat_Click(object sender, RoutedEventArgs e)
         {
-
+            popChat.IsOpen = true;
         }
     }
 }

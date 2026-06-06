@@ -26,17 +26,17 @@ namespace HangmanClient
 
         private void btnMyPoints_Click(object sender, RoutedEventArgs e)
         {
-
+            popMyPoints.IsOpen = true;
         }
 
         private void btnLanguage_Click(object sender, RoutedEventArgs e)
         {
-
+            popLanguage.IsOpen = true;
         }
 
         private void btnEditProfile_Click(object sender, RoutedEventArgs e)
         {
-
+            popEditProfile.IsOpen = true;
         }
 
         private void btnCreateMatch_Click(object sender, RoutedEventArgs e)
@@ -47,6 +47,16 @@ namespace HangmanClient
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnSpanish_Click(object sender, RoutedEventArgs e)
+        {
+            popLanguage.IsOpen = false; 
+        }
+
+        private void btnEnglish_Click(object sender, RoutedEventArgs e)
+        {
+            popLanguage.IsOpen = false; 
         }
     }
 }

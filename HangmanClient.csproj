@@ -58,6 +58,9 @@
     <Compile Include="CreateMatch.xaml.cs">
       <DependentUpon>CreateMatch.xaml</DependentUpon>
     </Compile>
+    <Compile Include="JoinMatch.xaml.cs">
+      <DependentUpon>JoinMatch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -68,6 +71,10 @@
       <DependentUpon>SignUp.xaml</DependentUpon>
     </Compile>
     <Page Include="CreateMatch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="JoinMatch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,6 +152,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Properties\Images\Game.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\Images\brazoDer.png" />
+    <Resource Include="Properties\Images\brazoIzq.png" />
+    <Resource Include="Properties\Images\cabeza.png" />
+    <Resource Include="Properties\Images\cuerpo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\Images\piernaDer.png" />
+    <Resource Include="Properties\Images\piernaIzq.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,8 +15,7 @@
 
         <Image Source="/Properties/Images/Login.png" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
 
-        <Border Grid.Column="1" 
-                Padding="40,20">
+        <Border Grid.Column="1" Padding="40,20">
 
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
@@ -40,6 +39,12 @@
                         <TextBox x:Name="txtSecondName" Style="{StaticResource txtNormal}" Width="170" TextChanged="txtSecondName_TextChanged"/>
                     </StackPanel>
                 </Grid>
+
+                <Label Content="NOMBRE DE USUARIO" 
+                       Style="{StaticResource lblSubtitulo}"/>
+
+                <TextBox x:Name="txtUsername" Style="{StaticResource txtNormal}"
+                         Margin="0,0,0,25" TextChanged="txtUsername_TextChanged"/>
 
                 <Label Content="CORREO ELECTRÓNICO" 
                        Style="{StaticResource lblSubtitulo}"/>
