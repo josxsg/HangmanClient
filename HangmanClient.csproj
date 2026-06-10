@@ -62,6 +62,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\CatalogServiceRef\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\MatchmakingServiceRef\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="CreateMatch.xaml.cs">
       <DependentUpon>CreateMatch.xaml</DependentUpon>
     </Compile>
@@ -153,6 +163,35 @@
     <None Include="Connected Services\AccountServiceRef\HangmanClient.AccountServiceRef.UserDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\CatalogServiceRef\CatalogService.wsdl" />
+    <None Include="Connected Services\CatalogServiceRef\CatalogService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CatalogServiceRef\CatalogService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CatalogServiceRef\CatalogService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CatalogServiceRef\HangmanClient.CatalogServiceRef.CategoryDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CatalogServiceRef\HangmanClient.CatalogServiceRef.WordDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MatchmakingServiceRef\HangmanClient.MatchmakingServiceRef.AvailableMatchDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MatchmakingServiceRef\MatchmakingService.wsdl" />
+    <None Include="Connected Services\MatchmakingServiceRef\MatchmakingService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MatchmakingServiceRef\MatchmakingService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MatchmakingServiceRef\MatchmakingService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -188,6 +227,8 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\AccountServiceRef\" />
+    <WCFMetadataStorage Include="Connected Services\CatalogServiceRef\" />
+    <WCFMetadataStorage Include="Connected Services\MatchmakingServiceRef\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\AccountServiceRef\AccountService.disco" />
@@ -200,6 +241,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\AccountServiceRef\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MatchmakingServiceRef\MatchmakingService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MatchmakingServiceRef\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MatchmakingServiceRef\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MatchmakingServiceRef\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CatalogServiceRef\CatalogService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CatalogServiceRef\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CatalogServiceRef\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CatalogServiceRef\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

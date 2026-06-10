@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/HangmanServer.DTOs" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/HangmanServer.DTOs" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfAvailableMatchDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AvailableMatchDTO" nillable="true" type="tns:AvailableMatchDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAvailableMatchDTO" nillable="true" type="tns:ArrayOfAvailableMatchDTO" />
+  <xs:complexType name="AvailableMatchDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChallengerUsername" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreationDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CreatorUsername" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MatchId" type="xs:int" />
+      <xs:element minOccurs="0" name="StatusId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AvailableMatchDTO" nillable="true" type="tns:AvailableMatchDTO" />
+</xs:schema>

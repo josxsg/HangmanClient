@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:HangmanClient"
         mc:Ignorable="d"
         xmlns:p="clr-namespace:HangmanClient.Properties"
-        WindowState="Maximized" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        WindowState="Maximized" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Image Source="/Properties/Images/Menu.png" Grid.ColumnSpan="2" Stretch="UniformToFill" Opacity="0.5"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0">
             <Label Content="BIENVENIDO(A): " Style="{StaticResource lblSubtitulo}" FontSize="24"/>
-            <Label x:Name="lbUsername" Content="username" Style="{StaticResource lblSubtitulo}" FontSize="24" Foreground="Maroon"/>
+            <Label x:Name="lbUsername" Content="" Style="{StaticResource lblSubtitulo}" FontSize="24" Foreground="Maroon"/>
         </StackPanel>
 
         <Button x:Name="btnMyPoints" Content="" 

@@ -19,9 +19,21 @@ namespace HangmanClient
     /// </summary>
     public partial class MainMenu : Window
     {
+        private string _username;
+        private string _languageCode = "es";
+
         public MainMenu()
         {
             InitializeComponent();
+        }
+
+        public MainMenu(string username)
+        {
+            InitializeComponent();
+
+            _username = username;
+
+            lbUsername.Content = _username;
         }
 
         private void btnMyPoints_Click(object sender, RoutedEventArgs e)
@@ -41,12 +53,16 @@ namespace HangmanClient
 
         private void btnCreateMatch_Click(object sender, RoutedEventArgs e)
         {
-
+            CreateMatch createMatchWindow = new CreateMatch(_username, _languageCode);
+            createMatchWindow.Show();
+            this.Close();
         }
 
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
-
+            JoinMatch joinMatchWindow = new JoinMatch(_username, _languageCode);
+            joinMatchWindow.Show();
+            this.Close();
         }
 
         private void btnSpanish_Click(object sender, RoutedEventArgs e)

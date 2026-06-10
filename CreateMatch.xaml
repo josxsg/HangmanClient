@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:HangmanClient"
         mc:Ignorable="d"
         xmlns:p="clr-namespace:HangmanClient.Properties"
-        WindowState="Maximized" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        WindowState="Maximized" ResizeMode="CanResize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid>
         <Image Source="/Properties/Images/Match.png" Grid.ColumnSpan="2" Stretch="UniformToFill" Opacity="0.5"/>
+
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0">
             <Label Content="ID: " Style="{StaticResource lblSubtitulo}" FontSize="24"/>
-            <Label Content="0000" Style="{StaticResource lblSubtitulo}" FontSize="24" Foreground="Maroon"/>
+            <Label x:Name="lblMatchIdDisplay" Content="0000" Style="{StaticResource lblSubtitulo}" FontSize="24" Foreground="Maroon"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,40,40,0">
@@ -34,17 +35,11 @@
 
             <Label Content="CATEGORÍA:" Style="{StaticResource lblSubtitulo}" VerticalAlignment="Center"/>
 
-            <ComboBox x:Name="cmbCategory" Style="{StaticResource cmbNormal}" Margin="10,0,40,0" SelectionChanged="cmbCategory_SelectionChanged">
-                <ComboBoxItem Content=""/>
-                <ComboBoxItem Content=""/>
-            </ComboBox>
+            <ComboBox x:Name="cmbCategory" Style="{StaticResource cmbNormal}" Margin="10,0,40,0" SelectionChanged="cmbCategory_SelectionChanged"/>
 
             <Label Content="PALABRA:" Style="{StaticResource lblSubtitulo}" VerticalAlignment="Center"/>
 
-            <ComboBox x:Name="cmbWord" Style="{StaticResource cmbNormal}" Margin="10,0,0,0" SelectionChanged="cmbWord_SelectionChanged">
-                <ComboBoxItem Content="Caballo"/>
-                <ComboBoxItem Content="Elefante"/>
-            </ComboBox>
+            <ComboBox x:Name="cmbWord" Style="{StaticResource cmbNormal}" Margin="10,0,0,0" SelectionChanged="cmbWord_SelectionChanged"/>
 
         </StackPanel>
 

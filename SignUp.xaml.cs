@@ -15,9 +15,6 @@ using HangmanClient.AccountServiceRef;
 
 namespace HangmanClient
 {
-    /// <summary>
-    /// Lógica de interacción para SignUp.xaml
-    /// </summary>
     public partial class SignUp : Window
     {
         public SignUp()
@@ -25,56 +22,50 @@ namespace HangmanClient
             InitializeComponent();
         }
 
-        private void txtName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txtSecondName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txtBoxEmail_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private async void btnSignUp_Click(object sender, RoutedEventArgs e)
         {
             if (!IsFormValid()) return;
 
             btnSignUp.IsEnabled = false;
+            var nuevoUsuario = BuildUserDTO();
+            string password = pswBoxPassword.Password;
 
+            bool registroExitoso = await RequestUserRegistrationAsync(nuevoUsuario, password);
+
+            if (registroExitoso)
+            {
+                MessageBox.Show("¡Registro completado con éxito!", "Éxito",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                RedirectToLogin();
+            }
+            else
+            {
+                btnSignUp.IsEnabled = true;
+            }
+        }
+
+        private async Task<bool> RequestUserRegistrationAsync(UserDTO usuario, string password)
+        {
             try
             {
-                var nuevoUsuario = BuildUserDTO();
-
                 using (var client = new AccountServiceClient())
                 {
-                    bool registroExitoso = await client.RegisterUserAsync(nuevoUsuario, pswBoxPassword.Password);
+                    bool resultado = await client.RegisterUserAsync(usuario, password);
 
-                    if (registroExitoso)
+                    if (!resultado)
                     {
-                        MessageBox.Show("¡Registro completado con éxito!", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
-                        RedirectToLogin();
+                        MessageBox.Show("El correo electrónico o nombre de usuario ya existen.", "Error de Validación",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                    else
-                    {
-                        MessageBox.Show("El correo electrónico o nombre de usuario ya existen.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        btnSignUp.IsEnabled = true;
-                    }
+
+                    return resultado;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error de conexión: {ex.Message}", "Error de red", MessageBoxButton.OK, MessageBoxImage.Error);
-                btnSignUp.IsEnabled = true;
+                MessageBox.Show($"Error de conexión con el servidor de cuentas: {ex.Message}", "Error de Red",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
         }
 
@@ -86,8 +77,8 @@ namespace HangmanClient
                 string.IsNullOrWhiteSpace(txtBoxEmail.Text) ||
                 string.IsNullOrWhiteSpace(pswBoxPassword.Password))
             {
-                MessageBox.Show("Por favor, llena todos los campos obligatorios.", "Campos vacíos", MessageBoxButton.OK, 
-                    MessageBoxImage.Warning);
+                MessageBox.Show("Por favor, llena todos los campos obligatorios.", "Campos vacíos",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
             return true;
@@ -110,5 +101,10 @@ namespace HangmanClient
             loginWindow.Show();
             this.Close();
         }
+
+        private void txtName_TextChanged(object sender, TextChangedEventArgs e) { }
+        private void txtSecondName_TextChanged(object sender, TextChangedEventArgs e) { }
+        private void txtBoxEmail_TextChanged(object sender, TextChangedEventArgs e) { }
+        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e) { }
     }
 }

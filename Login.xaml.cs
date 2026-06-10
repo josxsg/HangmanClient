@@ -44,20 +44,23 @@ namespace HangmanClient
 
                     if (usuarioLogueado != null)
                     {
-                        MessageBox.Show($"¡Bienvenido de nuevo, {usuarioLogueado.Name}!", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show($"¡Bienvenido de nuevo, {usuarioLogueado.Name}!", "Éxito", 
+                            MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        RedirectToMainMenu();
+                        RedirectToMainMenu(usuarioLogueado.Username);
                     }
                     else
                     {
-                        MessageBox.Show("El usuario o la contraseña son incorrectos.", "Error de autenticación", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("El usuario o la contraseña son incorrectos.", "Error de autenticación", 
+                            MessageBoxButton.OK, MessageBoxImage.Error);
                         btnLogIn.IsEnabled = true;
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"No se pudo conectar con el servidor: {ex.Message}", "Error de red", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"No se pudo conectar con el servidor: {ex.Message}", "Error de red", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
                 btnLogIn.IsEnabled = true;
             }
         }
@@ -73,15 +76,16 @@ namespace HangmanClient
         {
             if (string.IsNullOrWhiteSpace(txtBlockUsername.Text) || string.IsNullOrWhiteSpace(pwsBoxPassword.Password))
             {
-                MessageBox.Show("Por favor, introduce tu usuario y contraseña.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Por favor, introduce tu usuario y contraseña.", "Campos vacíos", 
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
             return true;
         }
 
-        private void RedirectToMainMenu()
+        private void RedirectToMainMenu(string username)
         {
-            MainMenu mainMenuWindow = new MainMenu();
+            MainMenu mainMenuWindow = new MainMenu(username);
             mainMenuWindow.Show();
             this.Close();
         }

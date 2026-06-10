@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="c17f5fe5-dee2-4a7f-9693-5ef02ba5912b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:59294/Services/MatchmakingService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MatchmakingService.disco" MetadataType="Disco" ID="dadad9cd-7372-40cf-b441-7b1f3bc5a64b" SourceId="1" SourceUrl="http://localhost:59294/Services/MatchmakingService.svc?disco" />
+    <MetadataFile FileName="MatchmakingService.xsd" MetadataType="Schema" ID="1c36d3dd-02cc-4afe-be89-84325e7fa689" SourceId="1" SourceUrl="http://localhost:59294/Services/MatchmakingService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MatchmakingService.wsdl" MetadataType="Wsdl" ID="9094f53a-71ff-42b0-a2a5-7bb8fb59283d" SourceId="1" SourceUrl="http://localhost:59294/Services/MatchmakingService.svc?wsdl" />
+    <MetadataFile FileName="MatchmakingService1.xsd" MetadataType="Schema" ID="1c94c28e-7b31-4c30-a1bf-0cbe5df60e12" SourceId="1" SourceUrl="http://localhost:59294/Services/MatchmakingService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MatchmakingService2.xsd" MetadataType="Schema" ID="301ea248-364b-4222-b18c-905a59c66bab" SourceId="1" SourceUrl="http://localhost:59294/Services/MatchmakingService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HangmanClient"
         mc:Ignorable="d"
         xmlns:p="clr-namespace:HangmanClient.Properties"
-        WindowState="Maximized" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        WindowState="Maximized" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Image Source="/Properties/Images/Match.png" Grid.ColumnSpan="2" Stretch="UniformToFill" Opacity="0.5"/>
         <Border Style="{StaticResource bdrCuadroTexto}"          
@@ -21,7 +21,8 @@
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
                     <Button x:Name="btnBack" Content="◄ VOLVER" 
                             Style="{StaticResource btnMain}" Background="#A0522D"
-                            Width="140" Height="45" FontSize="18" Margin="0,0,30,0"/>
+                            Width="140" Height="45" FontSize="18" Margin="0,0,30,0" 
+                            Click="btnBack_Click"/>
 
                     <Label Content="PARTIDAS DISPONIBLES" Style="{StaticResource lblTitulo}" FontSize="40" VerticalAlignment="Center"/>
                 </StackPanel>
@@ -59,7 +60,8 @@
                                         <Button Grid.Column="1" Content="UNIRSE" 
                                                 Style="{StaticResource btnMain}" 
                                                 Width="160" Height="50" FontSize="20" VerticalAlignment="Center"
-                                                Tag="{Binding IdPartida}"/>
+                                                Tag="{Binding IdPartida}"
+                                                Click="btnJoin_Click"/>
                                     </Grid>
                                 </Border>
 

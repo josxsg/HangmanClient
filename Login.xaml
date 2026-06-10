@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HangmanClient"
         mc:Ignorable="d"
         xmlns:p="clr-namespace:HangmanClient.Properties"
-        WindowState="Maximized" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        WindowState="Maximized" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -34,7 +34,7 @@
                 <PasswordBox x:Name="pwsBoxPassword" Width="350" Height="40" FontSize="18" Margin="0,0,0,40"
                              Style="{StaticResource pwdNormal}"/>
 
-                <Button x:Name="btnLogIn" Content="inicia seison" 
+                <Button x:Name="btnLogIn" Content="inicia sesion" 
                         Style="{StaticResource btnMain}"
                         Width="280" Height="65" Margin="0,0,0,15" Click="btnLogIn_Click"/>
 
