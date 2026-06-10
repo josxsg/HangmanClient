@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HangmanClient.AccountServiceRef;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,14 +30,60 @@ namespace HangmanClient
 
         }
 
-        private void btnLogIn_Click(object sender, RoutedEventArgs e)
+        private async void btnLogIn_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsFormValid()) return;
 
+            btnLogIn.IsEnabled = false;
+
+            try
+            {
+                using (var client = new AccountServiceClient())
+                {
+                    var usuarioLogueado = await client.LoginAsync(txtBlockUsername.Text.Trim(), pwsBoxPassword.Password);
+
+                    if (usuarioLogueado != null)
+                    {
+                        MessageBox.Show($"¡Bienvenido de nuevo, {usuarioLogueado.Name}!", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        RedirectToMainMenu();
+                    }
+                    else
+                    {
+                        MessageBox.Show("El usuario o la contraseña son incorrectos.", "Error de autenticación", MessageBoxButton.OK, MessageBoxImage.Error);
+                        btnLogIn.IsEnabled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"No se pudo conectar con el servidor: {ex.Message}", "Error de red", MessageBoxButton.OK, MessageBoxImage.Error);
+                btnLogIn.IsEnabled = true;
+            }
         }
 
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
+            SignUp signUpWindow = new SignUp();
+            signUpWindow.Show();
+            this.Close();
+        }
 
+        private bool IsFormValid()
+        {
+            if (string.IsNullOrWhiteSpace(txtBlockUsername.Text) || string.IsNullOrWhiteSpace(pwsBoxPassword.Password))
+            {
+                MessageBox.Show("Por favor, introduce tu usuario y contraseña.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        private void RedirectToMainMenu()
+        {
+            MainMenu mainMenuWindow = new MainMenu();
+            mainMenuWindow.Show();
+            this.Close();
         }
     }
 }

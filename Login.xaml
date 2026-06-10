@@ -19,7 +19,7 @@
 
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
-                <Label Content="inicio sesion}" 
+                <Label Content="inicio sesion" 
                            Style="{StaticResource lblTitulo}"/>
 
                 <Label Content="username" 
