@@ -232,4 +232,17 @@
         <Setter Property="Foreground" Value="#3E2723"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
+
+    <Style x:Key="dpNormal" TargetType="DatePicker">
+        <Setter Property="Width" Value="350"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontFamily" Value="Courier New"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Background" Value="#F5F5DC"/>
+        <Setter Property="Foreground" Value="#3E2723"/>
+        <Setter Property="BorderBrush" Value="#8B4513"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
 </ResourceDictionary>

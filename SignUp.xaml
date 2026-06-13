@@ -15,14 +15,25 @@
 
         <Image Source="/Properties/Images/Login.png" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
 
+        <Button x:Name="btnBack" Content="◄ VOLVER" 
+                Style="{StaticResource btnMain}" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Margin="30,30,0,0" 
+                Width="140" Height="45" FontSize="18"
+                Grid.Column="0"
+                Click="btnBack_Click"/>
+
         <Border Grid.Column="1" Padding="40,20">
 
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
                 <Label Content="REGISTRO" 
-                       Style="{StaticResource lblTitulo}"/>
+                       Style="{StaticResource lblTitulo}" Margin="0,0,0,10"/>
 
-                <Grid Margin="0,0,0,25">
+                <Label Content="NOMBRE(S)" Style="{StaticResource lblSubtitulo}"/>
+                <TextBox x:Name="txtName" Style="{StaticResource txtNormal}" Width="350" Margin="0,0,0,15"/>
+
+                <Grid Margin="0,0,0,15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170"/>
                         <ColumnDefinition Width="10"/>
@@ -30,37 +41,34 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
-                        <Label Content="NOMBRE" Style="{StaticResource lblSubtitulo}"/>
-                        <TextBox x:Name="txtName" Style="{StaticResource txtNormal}" Width="170" TextChanged="txtName_TextChanged"/>
+                        <Label Content="APELLIDO PATERNO" Style="{StaticResource lblSubtitulo}" FontSize="15"/>
+                        <TextBox x:Name="txtSecondName" Style="{StaticResource txtNormal}" Width="170"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2">
-                        <Label Content="APELLIDO" Style="{StaticResource lblSubtitulo}"/>
-                        <TextBox x:Name="txtSecondName" Style="{StaticResource txtNormal}" Width="170" TextChanged="txtSecondName_TextChanged"/>
+                        <Label Content="APELLIDO MATERNO" Style="{StaticResource lblSubtitulo}" FontSize="15"/>
+                        <TextBox x:Name="txtApellidoMaterno" Style="{StaticResource txtNormal}" Width="170"/>
                     </StackPanel>
                 </Grid>
 
-                <Label Content="NOMBRE DE USUARIO" 
-                       Style="{StaticResource lblSubtitulo}"/>
+                <Label Content="FECHA DE NACIMIENTO" Style="{StaticResource lblSubtitulo}"/>
+                <DatePicker x:Name="dpFechaNacimiento" Style="{StaticResource dpNormal}" Margin="0,0,0,15"/>
 
-                <TextBox x:Name="txtUsername" Style="{StaticResource txtNormal}"
-                         Margin="0,0,0,25" TextChanged="txtUsername_TextChanged"/>
+                <Label Content="NOMBRE DE USUARIO" Style="{StaticResource lblSubtitulo}"/>
+                <TextBox x:Name="txtUsername" Style="{StaticResource txtNormal}" Width="350" Margin="0,0,0,15"/>
 
-                <Label Content="CORREO ELECTRÓNICO" 
-                       Style="{StaticResource lblSubtitulo}"/>
+                <Label Content="CORREO ELECTRÓNICO" Style="{StaticResource lblSubtitulo}"/>
+                <TextBox x:Name="txtBoxEmail" Style="{StaticResource txtNormal}" Width="350" Margin="0,0,0,15" />
 
-                <TextBox x:Name="txtBoxEmail" Style="{StaticResource txtNormal}"
-                         Margin="0,0,0,25" TextChanged="txtBoxEmail_TextChanged"/>
+                <Label Content="TELÉFONO" Style="{StaticResource lblSubtitulo}"/>
+                <TextBox x:Name="txtPhone" Style="{StaticResource txtNormal}" Width="350" Margin="0,0,0,15" />
 
-                <Label Content="CONTRASEÑA" 
-                       Style="{StaticResource lblSubtitulo}"/>
-
-                <PasswordBox x:Name="pswBoxPassword" Style="{StaticResource pwdNormal}"
-                             Margin="0,0,0,40"/>
+                <Label Content="CONTRASEÑA" Style="{StaticResource lblSubtitulo}"/>
+                <PasswordBox x:Name="pswBoxPassword" Style="{StaticResource pwdNormal}" Width="350" Margin="0,0,0,25"/>
 
                 <Button x:Name="btnSignUp" Content="REGISTRARSE" 
                         Style="{StaticResource btnMain}"
-                        Width="280" Height="65" Click="btnSignUp_Click"/>
+                        Width="280" Height="60" Click="btnSignUp_Click"/>
             </StackPanel>
         </Border>
     </Grid>

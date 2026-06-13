@@ -27,7 +27,9 @@ namespace HangmanClient
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            Login ventanaLogin = new Login();
+            ventanaLogin.Show();
+            this.Close();
         }
     }
 }

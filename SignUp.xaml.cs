@@ -102,9 +102,12 @@ namespace HangmanClient
             this.Close();
         }
 
-        private void txtName_TextChanged(object sender, TextChangedEventArgs e) { }
-        private void txtSecondName_TextChanged(object sender, TextChangedEventArgs e) { }
-        private void txtBoxEmail_TextChanged(object sender, TextChangedEventArgs e) { }
-        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e) { }
+       
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            Login ventanaLogin = new Login();
+            ventanaLogin.Show();
+            this.Close();
+        }
     }
 }
