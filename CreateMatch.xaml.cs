@@ -356,12 +356,34 @@ namespace HangmanClient
             this.Close();
         }
 
-        private void RedirectToMatch()
+        private async void RedirectToMatch()
         {
             _isNavigatingAway = true;
-            Match gameBoard = new Match();
+            int currentUserId = await GetCurrentUserIdAsync(_username);
+            if (currentUserId == 0)
+            {
+                MessageBox.Show("Error de sesión. No se pudo obtener el identificador del usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                RedirectToMainMenu(_username);
+                return;
+            }
+            Match gameBoard = new Match(_matchId, currentUserId, _isCreator, _username);
             gameBoard.Show();
             this.Close();
+        }
+
+        private async Task<int> GetCurrentUserIdAsync(string username)
+        {
+            try
+            {
+                using (var client = new MatchmakingServiceClient())
+                {
+                    return await client.GetUserIdByUsernameAsync(username);
+                }
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }

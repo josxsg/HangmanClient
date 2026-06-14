@@ -67,6 +67,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\GameServiceRef\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\MatchmakingServiceRef\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -179,6 +184,19 @@
     <None Include="Connected Services\CatalogServiceRef\HangmanClient.CatalogServiceRef.WordDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\GameServiceRef\GameService.wsdl" />
+    <None Include="Connected Services\GameServiceRef\GameService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\GameServiceRef\GameService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\GameServiceRef\GameService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\GameServiceRef\GameService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\MatchmakingServiceRef\HangmanClient.MatchmakingServiceRef.AvailableMatchDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -228,6 +246,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\AccountServiceRef\" />
     <WCFMetadataStorage Include="Connected Services\CatalogServiceRef\" />
+    <WCFMetadataStorage Include="Connected Services\GameServiceRef\" />
     <WCFMetadataStorage Include="Connected Services\MatchmakingServiceRef\" />
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +290,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\CatalogServiceRef\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\GameServiceRef\GameService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\GameServiceRef\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\GameServiceRef\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\GameServiceRef\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

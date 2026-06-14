@@ -12,12 +12,12 @@
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <Label Content="ID PARTIDA: " Style="{StaticResource lblSubtitulo}"/>
-                <Label Content="0000" Style="{StaticResource lblSubtitulo}" Foreground="Maroon"/>
+                <Label x:Name="lbMatchId" Content="0000" Style="{StaticResource lblSubtitulo}" Foreground="Maroon"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
                 <Label Content="CATEGORÍA: " Style="{StaticResource lblSubtitulo}"/>
-                <Label Content="ANIMALES" Style="{StaticResource lblSubtitulo}" Foreground="Maroon"/>
+                <Label x:Name="lbCategory" Content="ANIMALES" Style="{StaticResource lblSubtitulo}" Foreground="Maroon"/>
             </StackPanel>
         </StackPanel>
 
@@ -80,14 +80,37 @@
                 </Grid>
             </Border>
         </Popup>
-        <Border Style="{StaticResource bdrCuadroTexto}" 
-                Width="320" Height="auto" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,325,0,0">
 
-            <TextBlock x:Name="txtDescription" 
-                       Style="{StaticResource txtCuadro}" 
-                       Text="Aquí aparecerán los mensajes del juego, pistas o notificaciones..."/>
-        </Border>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,325,0,0" Width="320">
+
+            <Border Style="{StaticResource bdrCuadroTexto}" Height="auto">
+                <TextBlock x:Name="txtDescription" 
+                           Style="{StaticResource txtCuadro}" TextWrapping="Wrap"
+                           Text="Aquí aparecerán los mensajes del juego, pistas o notificaciones..."/>
+            </Border>
+
+            <Border x:Name="bdrCreatorGuide" Style="{StaticResource bdrCuadroTexto}" Margin="0,15,0,0" Visibility="Collapsed">
+                <StackPanel Margin="5">
+                    <TextBlock Text="PALABRA SECRETA (GUÍA):" Foreground="Maroon" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                    <ItemsControl x:Name="icSecretWordGuide" HorizontalAlignment="Center">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="4">
+                                    <TextBlock Text="{Binding Letter}" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Position}" FontSize="14" Foreground="Gray" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0">
 
@@ -127,6 +150,7 @@
                        Margin="0,20,0,0"/>
 
         </StackPanel>
+
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,40">
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
