@@ -43,12 +43,6 @@
   <wsdl:message name="IMatchmakingService_LeaveMatch_OutputMessage">
     <wsdl:part name="parameters" element="tns:LeaveMatchResponse" />
   </wsdl:message>
-  <wsdl:message name="IMatchmakingService_GetUserIdByUsername_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetUserIdByUsername" />
-  </wsdl:message>
-  <wsdl:message name="IMatchmakingService_GetUserIdByUsername_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetUserIdByUsernameResponse" />
-  </wsdl:message>
   <wsdl:portType name="IMatchmakingService">
     <wsdl:operation name="CreateMatch">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchmakingService/CreateMatch" message="tns:IMatchmakingService_CreateMatch_InputMessage" />
@@ -73,10 +67,6 @@
     <wsdl:operation name="LeaveMatch">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchmakingService/LeaveMatch" message="tns:IMatchmakingService_LeaveMatch_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMatchmakingService/LeaveMatchResponse" message="tns:IMatchmakingService_LeaveMatch_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetUserIdByUsername">
-      <wsdl:input wsaw:Action="http://tempuri.org/IMatchmakingService/GetUserIdByUsername" message="tns:IMatchmakingService_GetUserIdByUsername_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IMatchmakingService/GetUserIdByUsernameResponse" message="tns:IMatchmakingService_GetUserIdByUsername_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMatchmakingService" type="tns:IMatchmakingService">
@@ -128,15 +118,6 @@
     </wsdl:operation>
     <wsdl:operation name="LeaveMatch">
       <soap:operation soapAction="http://tempuri.org/IMatchmakingService/LeaveMatch" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUserIdByUsername">
-      <soap:operation soapAction="http://tempuri.org/IMatchmakingService/GetUserIdByUsername" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

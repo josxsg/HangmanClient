@@ -13,7 +13,6 @@ namespace HangmanClient
     public partial class CreateMatch : Window
     {
         private int _matchId = 0;
-        private string _username;
         private string _languageCode;
         private DispatcherTimer _opponentTimer;
         private bool _isCreator = true;
@@ -21,20 +20,18 @@ namespace HangmanClient
 
         public CreateMatch() { InitializeComponent(); }
 
-        public CreateMatch(string username, string languageCode)
+        public CreateMatch(string languageCode)
         {
             InitializeComponent();
-            _username = username;
             _languageCode = languageCode;
             _isCreator = true;
 
             InitializeSetup();
         }
 
-        public CreateMatch(string username, string languageCode, int matchId)
+        public CreateMatch(string languageCode, int matchId)
         {
             InitializeComponent();
-            _username = username;
             _languageCode = languageCode;
             _matchId = matchId;
             _isCreator = false;
@@ -124,7 +121,7 @@ namespace HangmanClient
         {
             if (_matchId == 0)
             {
-                RedirectToMainMenu(_username);
+                RedirectToMainMenu();
                 return;
             }
 
@@ -133,7 +130,7 @@ namespace HangmanClient
 
             if (successfullyLeft)
             {
-                RedirectToMainMenu(_username);
+                RedirectToMainMenu();
             }
             else
             {
@@ -169,7 +166,6 @@ namespace HangmanClient
                 btnLeave_Click(this, null);
             }
         }
-
 
         private void PopulateCategoriesComboBox(CategoryDTO[] categories)
         {
@@ -237,9 +233,9 @@ namespace HangmanClient
             }
             else if (matchStatus.StatusId == 4)
             {
-                MessageBox.Show("El anfitrión ha cancelado la sala.", "Sala Cerrada", 
+                MessageBox.Show("El anfitrión ha cancelado la sala.", "Sala Cerrada",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
-                RedirectToMainMenu(_username);
+                RedirectToMainMenu();
             }
             else
             {
@@ -287,7 +283,8 @@ namespace HangmanClient
             {
                 using (var client = new MatchmakingServiceClient())
                 {
-                    return await client.CreateMatchAsync(_username, categoryName, wordText, _languageCode);
+                    string currentUsername = UserSession.Instance.CurrentUser.Username;
+                    return await client.CreateMatchAsync(currentUsername, categoryName, wordText, _languageCode);
                 }
             }
             catch (Exception ex)
@@ -348,42 +345,24 @@ namespace HangmanClient
             }
         }
 
-        private void RedirectToMainMenu(string username)
+        private void RedirectToMainMenu()
         {
             _isNavigatingAway = true;
-            MainMenu mainMenuWindow = new MainMenu(username);
+            MainMenu mainMenuWindow = new MainMenu();
             mainMenuWindow.Show();
             this.Close();
         }
 
-        private async void RedirectToMatch()
+        private void RedirectToMatch()
         {
             _isNavigatingAway = true;
-            int currentUserId = await GetCurrentUserIdAsync(_username);
-            if (currentUserId == 0)
-            {
-                MessageBox.Show("Error de sesión. No se pudo obtener el identificador del usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                RedirectToMainMenu(_username);
-                return;
-            }
-            Match gameBoard = new Match(_matchId, currentUserId, _isCreator, _username);
+
+            int currentUserId = UserSession.Instance.CurrentUser.UserId;
+            string currentUsername = UserSession.Instance.CurrentUser.Username;
+
+            Match gameBoard = new Match(_matchId, currentUserId, _isCreator, currentUsername);
             gameBoard.Show();
             this.Close();
-        }
-
-        private async Task<int> GetCurrentUserIdAsync(string username)
-        {
-            try
-            {
-                using (var client = new MatchmakingServiceClient())
-                {
-                    return await client.GetUserIdByUsernameAsync(username);
-                }
-            }
-            catch
-            {
-                return 0;
-            }
         }
     }
 }

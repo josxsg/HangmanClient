@@ -348,7 +348,7 @@ namespace HangmanClient
                 return;
             }
             _isNavigatingAway = true;
-            MainMenu mainMenuWindow = new MainMenu(_username);
+            MainMenu mainMenuWindow = new MainMenu();
             mainMenuWindow.Show();
             this.Close();
         }

@@ -40,18 +40,20 @@ namespace HangmanClient
             {
                 using (var client = new AccountServiceClient())
                 {
-                    var usuarioLogueado = await client.LoginAsync(txtBlockUsername.Text.Trim(), pwsBoxPassword.Password);
+                    var loggedInUser = await client.LoginAsync(txtBlockUsername.Text.Trim(), pwsBoxPassword.Password);
 
-                    if (usuarioLogueado != null)
+                    if (loggedInUser != null)
                     {
-                        MessageBox.Show($"¡Bienvenido de nuevo, {usuarioLogueado.Name}!", "Éxito", 
+                        UserSession.Instance.CurrentUser = loggedInUser;
+
+                        MessageBox.Show($"¡Bienvenido de nuevo, {loggedInUser.Name}!", "Éxito",
                             MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        RedirectToMainMenu(usuarioLogueado.Username);
+                        RedirectToMainMenu();
                     }
                     else
                     {
-                        MessageBox.Show("El usuario o la contraseña son incorrectos.", "Error de autenticación", 
+                        MessageBox.Show("El usuario o la contraseña son incorrectos.", "Error de autenticación",
                             MessageBoxButton.OK, MessageBoxImage.Error);
                         btnLogIn.IsEnabled = true;
                     }
@@ -59,7 +61,7 @@ namespace HangmanClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"No se pudo conectar con el servidor: {ex.Message}", "Error de red", 
+                MessageBox.Show($"No se pudo conectar con el servidor: {ex.Message}", "Error de red",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 btnLogIn.IsEnabled = true;
             }
@@ -83,9 +85,9 @@ namespace HangmanClient
             return true;
         }
 
-        private void RedirectToMainMenu(string username)
+        private void RedirectToMainMenu()
         {
-            MainMenu mainMenuWindow = new MainMenu(username);
+            MainMenu mainMenuWindow = new MainMenu(); 
             mainMenuWindow.Show();
             this.Close();
         }

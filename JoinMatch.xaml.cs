@@ -103,13 +103,13 @@ namespace HangmanClient
         }
         private void RedirectToMainMenu()
         {
-            MainMenu mainMenuWindow = new MainMenu(_username);
+            MainMenu mainMenuWindow = new MainMenu();
             mainMenuWindow.Show();
             this.Close();
         }
         private void RedirectToLobby(int matchId)
         {
-            CreateMatch lobbyWindow = new CreateMatch(_username, _languageCode, matchId);
+            CreateMatch lobbyWindow = new CreateMatch(_languageCode, matchId);
             lobbyWindow.Show();
             this.Close();
         }

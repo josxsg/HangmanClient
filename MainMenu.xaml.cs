@@ -25,15 +25,11 @@ namespace HangmanClient
         public MainMenu()
         {
             InitializeComponent();
-        }
 
-        public MainMenu(string username)
-        {
-            InitializeComponent();
-
-            _username = username;
-
-            lbUsername.Content = _username;
+            if (UserSession.Instance.IsLoggedIn)
+            {
+                lbUsername.Content = UserSession.Instance.CurrentUser.Username;
+            }
         }
 
         private void btnMyPoints_Click(object sender, RoutedEventArgs e)
@@ -53,7 +49,7 @@ namespace HangmanClient
 
         private void btnCreateMatch_Click(object sender, RoutedEventArgs e)
         {
-            CreateMatch createMatchWindow = new CreateMatch(_username, _languageCode);
+            CreateMatch createMatchWindow = new CreateMatch(_languageCode);
             createMatchWindow.Show();
             this.Close();
         }

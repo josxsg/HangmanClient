@@ -177,12 +177,6 @@ namespace HangmanClient.MatchmakingServiceRef {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchmakingService/LeaveMatch", ReplyAction="http://tempuri.org/IMatchmakingService/LeaveMatchResponse")]
         System.Threading.Tasks.Task<bool> LeaveMatchAsync(int matchId, bool isCreator);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchmakingService/GetUserIdByUsername", ReplyAction="http://tempuri.org/IMatchmakingService/GetUserIdByUsernameResponse")]
-        int GetUserIdByUsername(string username);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchmakingService/GetUserIdByUsername", ReplyAction="http://tempuri.org/IMatchmakingService/GetUserIdByUsernameResponse")]
-        System.Threading.Tasks.Task<int> GetUserIdByUsernameAsync(string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -258,14 +252,6 @@ namespace HangmanClient.MatchmakingServiceRef {
         
         public System.Threading.Tasks.Task<bool> LeaveMatchAsync(int matchId, bool isCreator) {
             return base.Channel.LeaveMatchAsync(matchId, isCreator);
-        }
-        
-        public int GetUserIdByUsername(string username) {
-            return base.Channel.GetUserIdByUsername(username);
-        }
-        
-        public System.Threading.Tasks.Task<int> GetUserIdByUsernameAsync(string username) {
-            return base.Channel.GetUserIdByUsernameAsync(username);
         }
     }
 }
