@@ -70,6 +70,24 @@ namespace HangmanClient.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Unirse a partida.
+        /// </summary>
+        public static string btnJoinMatch {
+            get {
+                return ResourceManager.GetString("btnJoinMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nueva Partida.
+        /// </summary>
+        public static string btnNewMatch {
+            get {
+                return ResourceManager.GetString("btnNewMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Registrarse.
         /// </summary>
         public static string btnRegister {
@@ -295,7 +313,7 @@ namespace HangmanClient.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Welcome: .
+        ///   Busca una cadena traducida similar a Bienvenido(a): .
         /// </summary>
         public static string lbWelcome {
             get {

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HangmanClient"
         xmlns:p="clr-namespace:HangmanClient.Properties"
         mc:Ignorable="d"
-        WindowState="Maximized" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
+        WindowState="Maximized" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Image Source="/Properties/Images/Menu.png"/>
 

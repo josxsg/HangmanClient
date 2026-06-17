@@ -3,7 +3,8 @@ using System.Linq;
 using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
-using HangmanClient.GameServiceRef; 
+using HangmanClient.GameServiceRef;
+using System.Windows.Media.Imaging;
 
 namespace HangmanClient
 {
@@ -205,7 +206,7 @@ namespace HangmanClient
             txtPalabraOculta.Text = _actualWord;
         }
 
-        private void DrawHangmanPart(int mistakes)
+        /*private void DrawHangmanPart(int mistakes)
         {
             if (mistakes >= 1)
             {
@@ -246,6 +247,44 @@ namespace HangmanClient
             imgBrazoDer.Visibility = Visibility.Hidden;
             imgPiernaIzq.Visibility = Visibility.Hidden;
             imgPiernaDer.Visibility = Visibility.Hidden;
+        }*/
+
+        private void DrawHangmanPart(int mistakes)
+        {
+            // Creamos una variable para guardar la ruta de la imagen según los errores
+            string rutaImagen = "/Properties/Images/Game.png"; // Fondo por defecto (0 errores)
+
+            switch (mistakes)
+            {
+                case 1:
+                    rutaImagen = "/Properties/Images/head.png"; // Horca + Cabeza
+                    break;
+                case 2:
+                    rutaImagen = "/Properties/Images/body.png"; // Horca + Cabeza + Cuerpo
+                    break;
+                case 3:
+                    rutaImagen = "/Properties/Images/leftArm.png"; // Horca + Cabeza + Cuerpo + Brazo Izq
+                    break;
+                case 4:
+                    rutaImagen = "/Properties/Images/rightArm.png"; // Horca + ... + Brazo Der
+                    break;
+                case 5:
+                    rutaImagen = "/Properties/Images/leftLeg.png"; // Horca + ... + Pierna Izq
+                    break;
+                case 6:
+                    rutaImagen = "/Properties/Images/rightArm.png"; // Muñeco Ahorcado Completo
+                    break;
+            }
+
+            // Cambiamos la imagen de fondo dinámicamente
+            // La sintaxis "pack://application:,,," es la forma en la que WPF busca archivos Resource
+            imgBackground.Source = new BitmapImage(new Uri($"pack://application:,,,{rutaImagen}"));
+        }
+
+        private void ResetHangmanImages()
+        {
+            // Al reiniciar o empezar la partida, nos aseguramos de que el fondo sea la horca vacía
+            imgBackground.Source = new BitmapImage(new Uri("pack://application:,,,/Properties/Images/Game.png"));
         }
 
         private void DisableKeyboard()

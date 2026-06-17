@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HangmanClient"
         mc:Ignorable="d"
         xmlns:p="clr-namespace:HangmanClient.Properties"
-        WindowState="Maximized" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
+        WindowState="Maximized" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Image Source="/Properties/Images/Menu.png" Grid.ColumnSpan="2" Stretch="UniformToFill" Opacity="0.5"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0">
@@ -138,11 +138,11 @@
                    Placement="Top" 
                    StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade">
 
-                <Border Style="{StaticResource bdrCuadroTexto}" Width="400" Padding="25">
+                <Border Style="{StaticResource bdrSquareText}" Width="400" Padding="25">
                     <StackPanel>
-                        <Label Content="MI PERFIL" Style="{StaticResource lblTitulo}" FontSize="32" Margin="0,0,0,20"/>
+                        <Label Content="MI PERFIL" Style="{StaticResource lblTitle}" FontSize="32" Margin="0,0,0,20"/>
 
-                        <Label Content="NOMBRE" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
+                        <Label Content="NOMBRE" Style="{StaticResource lblSubtitle}" FontSize="14"/>
                         <TextBox x:Name="txtProfName" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15"/>
 
                         <Grid Margin="0,0,0,15">
@@ -153,23 +153,23 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0">
-                                <Label Content="APELLIDO PATERNO" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
+                                <Label Content="APELLIDO PATERNO" Style="{StaticResource lblSubtitle}" FontSize="14"/>
                                 <TextBox x:Name="txtProfPaternalSurname" Style="{StaticResource txtNormal}" Width="165" Height="35" FontSize="16"/>
                             </StackPanel>
 
                             <StackPanel Grid.Column="2">
-                                <Label Content="APELLIDO MATERNO" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
+                                <Label Content="APELLIDO MATERNO" Style="{StaticResource lblSubtitle}" FontSize="14"/>
                                 <TextBox x:Name="txtProfMaternalSurname" Style="{StaticResource txtNormal}" Width="165" Height="35" FontSize="16"/>
                             </StackPanel>
                         </Grid>
 
-                        <Label Content="NOMBRE DE USUARIO" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
+                        <Label Content="NOMBRE DE USUARIO" Style="{StaticResource lblSubtitle}" FontSize="14"/>
                         <TextBox x:Name="txtProfUsername" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15"/>
 
-                        <Label Content="CELULAR" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
+                        <Label Content="CELULAR" Style="{StaticResource lblSubtitle}" FontSize="14"/>
                         <TextBox x:Name="txtProfPhone" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15"/>
 
-                        <Label Content="CORREO ELECTRÓNICO" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
+                        <Label Content="CORREO ELECTRÓNICO" Style="{StaticResource lblSubtitle}" FontSize="14"/>
                         <TextBox x:Name="txtProfEmail" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,30" 
                  IsReadOnly="True" Background="#E0E0E0" Foreground="Gray"/>
 
@@ -183,11 +183,11 @@
             </Popup>
         </StackPanel>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,40,40">
-            <Button x:Name="btnCreateMatch" Content="NUEVA PARTIDA" 
+            <Button x:Name="btnCreateMatch" Content="{x:Static p:Resources.btnNewMatch}" 
                     Style="{StaticResource btnMain}" 
                     Width="280" Height="65" Margin="0,0,0,20" Click="btnCreateMatch_Click" Cursor=""/>
 
-            <Button x:Name="btnPlay" Content="UNIRSE A PARTIDA" 
+            <Button x:Name="btnPlay" Content="{x:Static p:Resources.btnJoinMatch}" 
                     Style="{StaticResource btnMain}" 
                     Width="280" Height="65" Click="btnPlay_Click"/>
         </StackPanel>

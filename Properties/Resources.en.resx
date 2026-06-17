@@ -154,7 +154,7 @@
     <value>Phone</value>
   </data>
   <data name="lbWelcome" xml:space="preserve">
-    <value>Bienvenido(a):</value>
+    <value>Welcome: </value>
   </data>
   <data name="ttMyPoints" xml:space="preserve">
     <value>My points</value>
@@ -206,5 +206,11 @@
   </data>
   <data name="lbLiveChat" xml:space="preserve">
     <value>LIVE Chat</value>
+  </data>
+  <data name="btnNewMatch" xml:space="preserve">
+    <value>New Match</value>
+  </data>
+  <data name="btnJoinMatch" xml:space="preserve">
+    <value>Join a Match</value>
   </data>
 </root>

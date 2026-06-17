@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
+using System.Threading;
 
 namespace HangmanClient
 {
@@ -26,6 +28,7 @@ namespace HangmanClient
         public MainMenu()
         {
             InitializeComponent();
+            _languageCode = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
 
             if (UserSession.Instance.IsLoggedIn)
             {
@@ -76,12 +79,27 @@ namespace HangmanClient
 
         private void btnSpanish_Click(object sender, RoutedEventArgs e)
         {
-            popLanguage.IsOpen = false; 
+            CambiarIdioma("es"); 
         }
 
         private void btnEnglish_Click(object sender, RoutedEventArgs e)
         {
+            CambiarIdioma("en"); 
+        }
+
+        private void CambiarIdioma(string cultureCode)
+        {
             popLanguage.IsOpen = false; 
+
+            if (_languageCode == cultureCode) return;
+
+            CultureInfo nuevaCultura = new CultureInfo(cultureCode);
+            Thread.CurrentThread.CurrentCulture = nuevaCultura;
+            Thread.CurrentThread.CurrentUICulture = nuevaCultura;
+
+            MainMenu menuActualizado = new MainMenu();
+            menuActualizado.Show();
+            this.Close();
         }
 
         private async void btnSaveProfile_Click(object sender, RoutedEventArgs e)

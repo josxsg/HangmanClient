@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HangmanClient"
         xmlns:p="clr-namespace:HangmanClient.Properties"
-        WindowState="Maximized" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
+        WindowState="Maximized" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Image Source="/Properties/Images/Game.png" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
+
+        <Image x:Name="imgBackground" Source="/Properties/Images/Game.png" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
 
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
@@ -31,11 +32,9 @@
                 ToolTip="{x:Static p:Resources.lbChat}"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,40,40" 
                 Click="btnChat_Click">
-
             <Image Source="/Properties/Images/chat.png" Width="30" Height="30" Stretch="Uniform"/>
-
         </Button>
-        
+
         <Popup x:Name="popChat" PlacementTarget="{Binding ElementName=btnChat}" 
                Placement="Left"
                StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
@@ -55,15 +54,12 @@
                         <ItemsControl x:Name="itemsChat">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-
                                     <StackPanel Margin="0,5,0,10">
                                         <TextBlock Text="{Binding NombreJugador}" Foreground="{Binding ColorNombre}" 
                                                    FontFamily="Courier New" FontWeight="Bold" FontSize="16"/>
-
                                         <TextBlock Text="{Binding TextoMensaje}" Style="{StaticResource txtBlock}" 
                                                    FontSize="16" Margin="10,2,0,0"/>
                                     </StackPanel>
-
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -119,45 +115,16 @@
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0">
 
-            <Grid Width="250" Height="350">
-
-                <Image x:Name="imgCabeza" Source="/Properties/Images/Cabeza.png" 
-                       HorizontalAlignment="Left" VerticalAlignment="Top" 
-                       Margin="125,-30,0,0" Width="80" Visibility="Visible"/>
-
-                <Image x:Name="imgCuerpo" Source="/Properties/Images/Cuerpo.png" 
-                       HorizontalAlignment="Left" VerticalAlignment="Top" 
-                       Margin="125,45,0,0" Width="80" Visibility="Hidden"/>
-
-                <Image x:Name="imgBrazoIzq" Source="/Properties/Images/BrazoIzq.png" 
-                       HorizontalAlignment="Left" VerticalAlignment="Top" 
-                       Margin="80,50,0,0" Width="45" Visibility="Hidden"/>
-
-                <Image x:Name="imgBrazoDer" Source="/Properties/Images/BrazoDer.png" 
-                       HorizontalAlignment="Left" VerticalAlignment="Top" 
-                       Margin="205,50,0,0" Width="45" Visibility="Hidden"/>
-
-                <Image x:Name="imgPiernaIzq" Source="/Properties/Images/PiernaIzq.png" 
-                       HorizontalAlignment="Left" VerticalAlignment="Top" 
-                       Margin="100,150,0,0" Width="40" Visibility="Hidden"/>
-
-                <Image x:Name="imgPiernaDer" Source="/Properties/Images/PiernaDer.png" 
-                       HorizontalAlignment="Left" VerticalAlignment="Top" 
-                       Margin="165,150,0,0" Width="40" Visibility="Hidden"/>
-
-            </Grid>
-
             <TextBlock x:Name="txtPalabraOculta" 
                        Text="_ _ _ _ _ _ _ _" 
                        Style="{StaticResource txtBlock}" 
                        FontSize="60" 
                        HorizontalAlignment="Center" 
-                       Margin="0,20,0,0"/>
+                       Margin="0,350,0,0"/>
 
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,40">
-
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
                 <Button x:Name="btnQ" Content="Q" Style="{StaticResource btnLetter}" Click="btnQ_Click"/>
                 <Button x:Name="btnW" Content="W" Style="{StaticResource btnLetter}" Click="btnW_Click"/>
@@ -192,7 +159,6 @@
                 <Button x:Name="btnN" Content="N" Style="{StaticResource btnLetter}" Click="btnN_Click"/>
                 <Button x:Name="btnM" Content="M" Style="{StaticResource btnLetter}" Click="btnM_Click"/>
             </StackPanel>
-
         </StackPanel>
     </Grid>
 </Window>

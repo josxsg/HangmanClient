@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HangmanClient"
         mc:Ignorable="d"
         xmlns:p="clr-namespace:HangmanClient.Properties"
-        WindowState="Maximized" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
+        WindowState="Maximized" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

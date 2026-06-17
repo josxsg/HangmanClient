@@ -322,5 +322,19 @@
   <ItemGroup>
     <Resource Include="Properties\Images\chat.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\Images\head.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\Images\leftArm.png" />
+    <Resource Include="Properties\Images\leftLeg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\Images\rightArm.png" />
+    <Resource Include="Properties\Images\rightLeg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\Images\body.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

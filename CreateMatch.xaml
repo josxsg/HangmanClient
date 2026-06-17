@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HangmanClient"
         mc:Ignorable="d"
         xmlns:p="clr-namespace:HangmanClient.Properties"
-        WindowState="Maximized" ResizeMode="CanResize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        WindowState="Maximized" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid>
         <Image Source="/Properties/Images/Match.png" Grid.ColumnSpan="2" Stretch="UniformToFill" Opacity="0.5"/>
 
