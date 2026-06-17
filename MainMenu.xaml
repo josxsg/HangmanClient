@@ -130,8 +130,10 @@
 
                 <Border Style="{StaticResource bdrCuadroTexto}" Width="400" Padding="25">
                     <StackPanel>
-
                         <Label Content="MI PERFIL" Style="{StaticResource lblTitulo}" FontSize="32" Margin="0,0,0,20"/>
+
+                        <Label Content="NOMBRE" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
+                        <TextBox x:Name="txtProfName" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15"/>
 
                         <Grid Margin="0,0,0,15">
                             <Grid.ColumnDefinitions>
@@ -141,30 +143,31 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0">
-                                <Label Content="NOMBRE" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
-                                <TextBox x:Name="txtProfName" Style="{StaticResource txtNormal}" Width="165" Height="35" FontSize="16"/>
+                                <Label Content="APELLIDO PATERNO" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
+                                <TextBox x:Name="txtProfPaternalSurname" Style="{StaticResource txtNormal}" Width="165" Height="35" FontSize="16"/>
                             </StackPanel>
 
                             <StackPanel Grid.Column="2">
-                                <Label Content="APELLIDO" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
-                                <TextBox x:Name="txtProfLastName" Style="{StaticResource txtNormal}" Width="165" Height="35" FontSize="16"/>
+                                <Label Content="APELLIDO MATERNO" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
+                                <TextBox x:Name="txtProfMaternalSurname" Style="{StaticResource txtNormal}" Width="165" Height="35" FontSize="16"/>
                             </StackPanel>
                         </Grid>
 
                         <Label Content="NOMBRE DE USUARIO" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
                         <TextBox x:Name="txtProfUsername" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15"/>
 
+                        <Label Content="CELULAR" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
+                        <TextBox x:Name="txtProfPhone" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15"/>
+
                         <Label Content="CORREO ELECTRÓNICO" Style="{StaticResource lblSubtitulo}" FontSize="14"/>
-                        <TextBox x:Name="txtProfEmail" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,30"/>
+                        <TextBox x:Name="txtProfEmail" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,30" 
+                 IsReadOnly="True" Background="#E0E0E0" Foreground="Gray"/>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="btnSaveProfile" Content="GUARDAR" 
-                                    Style="{StaticResource btnMain}" 
-                                    Width="150" Height="45" Margin="0,0,20,0" FontSize="16"/>
-
-                            
+                            <Button x:Name="btnSaveProfile" Content="GUARDAR" Click="btnSaveProfile_Click"
+                    Style="{StaticResource btnMain}" 
+                    Width="150" Height="45" Margin="0,0,20,0" FontSize="16"/>
                         </StackPanel>
-
                     </StackPanel>
                 </Border>
             </Popup>

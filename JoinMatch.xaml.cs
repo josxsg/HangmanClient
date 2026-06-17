@@ -10,7 +10,6 @@ namespace HangmanClient
 {
     public partial class JoinMatch : Window
     {
-        private string _username;
         private string _languageCode;
 
         public JoinMatch()
@@ -18,11 +17,9 @@ namespace HangmanClient
             InitializeComponent();
         }
 
-        public JoinMatch(string username, string languageCode)
+        public JoinMatch(string languageCode)
         {
             InitializeComponent();
-
-            _username = username;
             _languageCode = languageCode;
 
             ExecuteLoadAvailableMatchesAsync();
@@ -58,6 +55,7 @@ namespace HangmanClient
                 ExecuteLoadAvailableMatchesAsync();
             }
         }
+
         private void PopulateAvailableMatchesGrid(AvailableMatchDTO[] availableMatches)
         {
             listaPartidas.ItemsSource = availableMatches.Select(m => new
@@ -68,6 +66,7 @@ namespace HangmanClient
                 Correo = $"Categoría: {m.CategoryName}"
             }).ToList();
         }
+
         private async void ExecuteLoadAvailableMatchesAsync()
         {
             try
@@ -85,13 +84,15 @@ namespace HangmanClient
                                 "Error de Red", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private async Task<bool> TryJoinMatchSessionAsync(int matchId)
         {
             try
             {
                 using (var client = new MatchmakingServiceClient())
                 {
-                    return await client.JoinMatchAsync(matchId, _username);
+                    string currentUsername = UserSession.Instance.CurrentUser.Username;
+                    return await client.JoinMatchAsync(matchId, currentUsername);
                 }
             }
             catch (Exception ex)
@@ -101,12 +102,14 @@ namespace HangmanClient
                 return false;
             }
         }
+
         private void RedirectToMainMenu()
         {
-            MainMenu mainMenuWindow = new MainMenu();
+            MainMenu mainMenuWindow = new MainMenu(); 
             mainMenuWindow.Show();
             this.Close();
         }
+
         private void RedirectToLobby(int matchId)
         {
             CreateMatch lobbyWindow = new CreateMatch(_languageCode, matchId);

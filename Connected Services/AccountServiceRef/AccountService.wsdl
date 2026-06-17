@@ -25,6 +25,12 @@
   <wsdl:message name="IAccountService_GetUserProfile_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUserProfileResponse" />
   </wsdl:message>
+  <wsdl:message name="IAccountService_UpdateUserProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserProfile" />
+  </wsdl:message>
+  <wsdl:message name="IAccountService_UpdateUserProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserProfileResponse" />
+  </wsdl:message>
   <wsdl:portType name="IAccountService">
     <wsdl:operation name="RegisterUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/RegisterUser" message="tns:IAccountService_RegisterUser_InputMessage" />
@@ -37,6 +43,10 @@
     <wsdl:operation name="GetUserProfile">
       <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/GetUserProfile" message="tns:IAccountService_GetUserProfile_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/GetUserProfileResponse" message="tns:IAccountService_GetUserProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserProfile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAccountService/UpdateUserProfile" message="tns:IAccountService_UpdateUserProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAccountService/UpdateUserProfileResponse" message="tns:IAccountService_UpdateUserProfile_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAccountService" type="tns:IAccountService">
@@ -61,6 +71,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserProfile">
       <soap:operation soapAction="http://tempuri.org/IAccountService/GetUserProfile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserProfile">
+      <soap:operation soapAction="http://tempuri.org/IAccountService/UpdateUserProfile" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

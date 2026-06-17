@@ -191,6 +191,12 @@ namespace HangmanClient.AccountServiceRef {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/GetUserProfile", ReplyAction="http://tempuri.org/IAccountService/GetUserProfileResponse")]
         System.Threading.Tasks.Task<HangmanClient.AccountServiceRef.UserDTO> GetUserProfileAsync(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/UpdateUserProfile", ReplyAction="http://tempuri.org/IAccountService/UpdateUserProfileResponse")]
+        bool UpdateUserProfile(HangmanClient.AccountServiceRef.UserDTO userDto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/UpdateUserProfile", ReplyAction="http://tempuri.org/IAccountService/UpdateUserProfileResponse")]
+        System.Threading.Tasks.Task<bool> UpdateUserProfileAsync(HangmanClient.AccountServiceRef.UserDTO userDto);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -242,6 +248,14 @@ namespace HangmanClient.AccountServiceRef {
         
         public System.Threading.Tasks.Task<HangmanClient.AccountServiceRef.UserDTO> GetUserProfileAsync(int userId) {
             return base.Channel.GetUserProfileAsync(userId);
+        }
+        
+        public bool UpdateUserProfile(HangmanClient.AccountServiceRef.UserDTO userDto) {
+            return base.Channel.UpdateUserProfile(userDto);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateUserProfileAsync(HangmanClient.AccountServiceRef.UserDTO userDto) {
+            return base.Channel.UpdateUserProfileAsync(userDto);
         }
     }
 }
