@@ -117,22 +117,94 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnInicio" xml:space="preserve">
+  <data name="btnStart" xml:space="preserve">
     <value>Start</value>
   </data>
-  <data name="btnRegistrarse" xml:space="preserve">
-    <value>Sign up</value>
-  </data>
-  <data name="txtContraseña" xml:space="preserve">
+  <data name="lblPassword" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="txtInicioSesion" xml:space="preserve">
+  <data name="lbLogIn" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="txtNombreUsuario" xml:space="preserve">
+  <data name="lbUsername" xml:space="preserve">
     <value>Username</value>
   </data>
-  <data name="txtO" xml:space="preserve">
+  <data name="lbOr" xml:space="preserve">
     <value>Or</value>
+  </data>
+  <data name="lbSignUp" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="lbName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="lbLastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="lbLastName(Mother)" xml:space="preserve">
+    <value>Last name (mother)</value>
+  </data>
+  <data name="lbDateOfBirth" xml:space="preserve">
+    <value>Date of birth</value>
+  </data>
+  <data name="lbEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="lbPhone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="lbWelcome" xml:space="preserve">
+    <value>Bienvenido(a):</value>
+  </data>
+  <data name="ttMyPoints" xml:space="preserve">
+    <value>My points</value>
+  </data>
+  <data name="lbMatches" xml:space="preserve">
+    <value>Matches</value>
+  </data>
+  <data name="lbTotal" xml:space="preserve">
+    <value>Total: </value>
+  </data>
+  <data name="ttChangeLanguaje" xml:space="preserve">
+    <value>Change languaje</value>
+  </data>
+  <data name="lbLanguajeSpanish" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
+  <data name="lbLanguajeEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="btnRegister" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="lbLeave" xml:space="preserve">
+    <value>Leave</value>
+  </data>
+  <data name="lbWaitingOpponent" xml:space="preserve">
+    <value>Waiting for opponent...</value>
+  </data>
+  <data name="lbCategory" xml:space="preserve">
+    <value>Category: </value>
+  </data>
+  <data name="lbWord" xml:space="preserve">
+    <value>Word: </value>
+  </data>
+  <data name="lbAvailableMatches" xml:space="preserve">
+    <value>Available matches</value>
+  </data>
+  <data name="lbMadeBy" xml:space="preserve">
+    <value>By: </value>
+  </data>
+  <data name="btnJoin" xml:space="preserve">
+    <value>Join</value>
+  </data>
+  <data name="lbMatchId" xml:space="preserve">
+    <value>Match ID: </value>
+  </data>
+  <data name="lbChat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
+  <data name="lbLiveChat" xml:space="preserve">
+    <value>LIVE Chat</value>
   </data>
 </root>

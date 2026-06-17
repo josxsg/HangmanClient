@@ -10,20 +10,23 @@
     <Grid>
         <Image Source="/Properties/Images/Menu.png" Grid.ColumnSpan="2" Stretch="UniformToFill" Opacity="0.5"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0">
-            <Label Content="BIENVENIDO(A): " Style="{StaticResource lblSubtitulo}" FontSize="24"/>
-            <Label x:Name="lbUsername" Content="" Style="{StaticResource lblSubtitulo}" FontSize="24" Foreground="Maroon"/>
+            <Label Content="{x:Static p:Resources.lbWelcome}" Style="{StaticResource lblSubtitle}" FontSize="24"/>
+            <Label x:Name="lbUsername" Content="" Style="{StaticResource lblSubtitle}" FontSize="24" Foreground="Maroon"/>
         </StackPanel>
 
-        <Button x:Name="btnMyPoints" Content="" 
-                Style="{StaticResource btnCuadrado}" 
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,40,0"
-                ToolTip="Mi Puntaje" Click="btnMyPoints_Click"/>
+        <Button x:Name="btnMyPoints" 
+        Style="{StaticResource btnSquare}" 
+        HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,40,0"
+        ToolTip="{x:Static p:Resources.ttMyPoints}" Click="btnMyPoints_Click">
 
+            <Image Source="/Properties/Images/myPoints.png" Width="30" Height="30" Stretch="Uniform"/>
+
+        </Button>
         <Popup x:Name="popMyPoints" PlacementTarget="{Binding ElementName=btnMyPoints}" 
                Placement="Left" 
                StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
 
-            <Border Style="{StaticResource bdrCuadroTexto}" Width="400" MaxHeight="500" Padding="20">
+            <Border Style="{StaticResource bdrSquareText}" Width="400" MaxHeight="500" Padding="20">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -32,7 +35,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Content="MI PUNTAJE" Style="{StaticResource lblTitulo}" FontSize="28" Margin="0,0,0,10"/>
+                    <Label Grid.Row="0" Content="{x:Static p:Resources.ttMyPoints}" Style="{StaticResource lblTitle}" FontSize="28" Margin="0,0,0,10"/>
 
                     <Grid Grid.Row="1" Margin="0,0,0,10">
                         <Grid.ColumnDefinitions>
@@ -40,11 +43,11 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" Content="PARTIDAS" Style="{StaticResource lblSubtitulo}" FontSize="18" HorizontalAlignment="Left"/>
+                        <Label Grid.Column="0" Content="{x:Static p:Resources.lbMatches}" Style="{StaticResource lblSubtitle}" FontSize="18" HorizontalAlignment="Left"/>
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Label Content="Total: " Style="{StaticResource lblSubtitulo}" FontSize="18"/>
-                            <Label x:Name="lblTotalPoints" Content="0 pts" Style="{StaticResource lblSubtitulo}" FontSize="18" Foreground="#2E7D32"/>
+                            <Label Content="{x:Static p:Resources.lbTotal}" Style="{StaticResource lblSubtitle}" FontSize="18"/>
+                            <Label x:Name="lblTotalPoints" Content="0 pts" Style="{StaticResource lblSubtitle}" FontSize="18" Foreground="#2E7D32"/>
                         </StackPanel>
                     </Grid>
 
@@ -57,11 +60,11 @@
                             <Border BorderBrush="#8B4513" BorderThickness="0,0,0,1" Padding="0,10">
                                 <StackPanel>
                                     <Grid>
-                                        <TextBlock Text="ID: 1045" Style="{StaticResource txtCuadro}" FontSize="14" HorizontalAlignment="Left"/>
-                                        <TextBlock Text="05/06/2026" Style="{StaticResource txtCuadro}" FontSize="14" HorizontalAlignment="Right"/>
+                                        <TextBlock Text="ID: 1045" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="05/06/2026" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Right"/>
                                     </Grid>
-                                    <TextBlock Text="Rival: Vaquero_123" Style="{StaticResource txtCuadro}" FontSize="16" Margin="0,5,0,0"/>
-                                    <TextBlock Text="Palabra: ELEFANTE" Style="{StaticResource txtCuadro}" FontSize="16" Margin="0,5,0,0"/>
+                                    <TextBlock Text="Rival: Vaquero_123" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
+                                    <TextBlock Text="Palabra: ELEFANTE" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
                                     <TextBlock Text="GANADA: +10 pts" FontFamily="Courier New" FontWeight="Bold" FontSize="16" Foreground="#2E7D32" HorizontalAlignment="Right" Margin="0,5,0,0"/>
                                 </StackPanel>
                             </Border>
@@ -69,11 +72,11 @@
                             <Border BorderBrush="#8B4513" BorderThickness="0,0,0,1" Padding="0,10">
                                 <StackPanel>
                                     <Grid>
-                                        <TextBlock Text="ID: 1042" Style="{StaticResource txtCuadro}" FontSize="14" HorizontalAlignment="Left"/>
-                                        <TextBlock Text="04/06/2026" Style="{StaticResource txtCuadro}" FontSize="14" HorizontalAlignment="Right"/>
+                                        <TextBlock Text="ID: 1042" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="04/06/2026" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Right"/>
                                     </Grid>
-                                    <TextBlock Text="Rival: Billy_The_Kid" Style="{StaticResource txtCuadro}" FontSize="16" Margin="0,5,0,0"/>
-                                    <TextBlock Text="Palabra: ESTERNOCLEIDO" Style="{StaticResource txtCuadro}" FontSize="16" Margin="0,5,0,0"/>
+                                    <TextBlock Text="Rival: Billy_The_Kid" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
+                                    <TextBlock Text="Palabra: ESTERNOCLEIDO" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
                                     <TextBlock Text="PERDIDA: +0 pts" FontFamily="Courier New" FontWeight="Bold" FontSize="16" Foreground="#C62828" HorizontalAlignment="Right" Margin="0,5,0,0"/>
                                 </StackPanel>
                             </Border>
@@ -81,11 +84,11 @@
                             <Border BorderBrush="#8B4513" BorderThickness="0,0,0,1" Padding="0,10">
                                 <StackPanel>
                                     <Grid>
-                                        <TextBlock Text="ID: 1038" Style="{StaticResource txtCuadro}" FontSize="14" HorizontalAlignment="Left"/>
-                                        <TextBlock Text="01/06/2026" Style="{StaticResource txtCuadro}" FontSize="14" HorizontalAlignment="Right"/>
+                                        <TextBlock Text="ID: 1038" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="01/06/2026" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Right"/>
                                     </Grid>
-                                    <TextBlock Text="Rival: Sheriff_Woody" Style="{StaticResource txtCuadro}" FontSize="16" Margin="0,5,0,0"/>
-                                    <TextBlock Text="Palabra: CABALLO" Style="{StaticResource txtCuadro}" FontSize="16" Margin="0,5,0,0"/>
+                                    <TextBlock Text="Rival: Sheriff_Woody" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
+                                    <TextBlock Text="Palabra: CABALLO" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
                                     <TextBlock Text="PERDIDA POR ABANDONO: -3 pts" FontFamily="Courier New" FontWeight="Bold" FontSize="16" Foreground="#C62828" HorizontalAlignment="Right" Margin="0,5,0,0"/>
                                 </StackPanel>
                             </Border>
@@ -97,9 +100,13 @@
         </Popup>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="40,0,0,40">
 
-            <Button x:Name="btnLanguage" Content="" 
-                    Style="{StaticResource btnCuadrado}" Margin="0,0,20,0" 
-                    ToolTip="Cambiar Idioma" Click="btnLanguage_Click"/>
+            <Button x:Name="btnLanguage" 
+                    Style="{StaticResource btnSquare}" Margin="0,0,20,0" 
+                    ToolTip="{x:Static p:Resources.ttChangeLanguaje}" Click="btnLanguage_Click">
+
+                <Image Source="/Properties/Images/languaje.png" Width="30" Height="30" Stretch="Uniform"/>
+
+            </Button>
 
             <Popup x:Name="popLanguage" 
                    PlacementTarget="{Binding ElementName=btnLanguage}" 
@@ -108,20 +115,23 @@
                    AllowsTransparency="True" 
                    PopupAnimation="Slide">
 
-                <Border Style="{StaticResource bdrCuadroTexto}" Padding="10" Margin="0,0,0,10">
+                <Border Style="{StaticResource bdrSquareText}" Padding="10" Margin="0,0,0,10">
                     <StackPanel>
-                        <Button x:Name="btnSpanish" Content="ESPAÑOL" Style="{StaticResource btnMain}" 
+                        <Button x:Name="btnSpanish" Content="{x:Static p:Resources.lbLanguajeSpanish}" Style="{StaticResource btnMain}" 
                                 Width="150" Height="40" Margin="0,0,0,10" Click="btnSpanish_Click"/>
 
-                        <Button x:Name="btnEnglish" Content="ENGLISH" Style="{StaticResource btnMain}" 
+                        <Button x:Name="btnEnglish" Content="{x:Static p:Resources.lbLanguajeEnglish}" Style="{StaticResource btnMain}" 
                                 Width="150" Height="40" Click="btnEnglish_Click"/>
                     </StackPanel>
                 </Border>
             </Popup>
 
-            <Button x:Name="btnEditProfile" Content="" 
-                    Style="{StaticResource btnCuadrado}" 
-                    ToolTip="Mi Perfil" Click="btnEditProfile_Click"/>
+            <Button x:Name="btnEditProfile" 
+                    Style="{StaticResource btnSquare}" 
+                    ToolTip="Mi Perfil" Click="btnEditProfile_Click">
+                <Image Source="/Properties/Images/editProfile.png" Width="30" Height="30" Stretch="Uniform"/>
+            </Button>
+
 
             <Popup x:Name="popEditProfile" 
                    PlacementTarget="{Binding ElementName=btnEditProfile}" 
@@ -175,7 +185,7 @@
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,40,40">
             <Button x:Name="btnCreateMatch" Content="NUEVA PARTIDA" 
                     Style="{StaticResource btnMain}" 
-                    Width="280" Height="65" Margin="0,0,0,20" Click="btnCreateMatch_Click"/>
+                    Width="280" Height="65" Margin="0,0,0,20" Click="btnCreateMatch_Click" Cursor=""/>
 
             <Button x:Name="btnPlay" Content="UNIRSE A PARTIDA" 
                     Style="{StaticResource btnMain}" 

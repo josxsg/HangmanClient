@@ -117,22 +117,94 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnInicio" xml:space="preserve">
+  <data name="btnStart" xml:space="preserve">
     <value>Comenzar</value>
   </data>
-  <data name="btnRegistrarse" xml:space="preserve">
-    <value>Registrarse</value>
-  </data>
-  <data name="txtContraseña" xml:space="preserve">
+  <data name="lblPassword" xml:space="preserve">
     <value>Contraseña</value>
   </data>
-  <data name="txtInicioSesion" xml:space="preserve">
+  <data name="lbLogIn" xml:space="preserve">
     <value>Iniciar Sesión</value>
   </data>
-  <data name="txtNombreUsuario" xml:space="preserve">
+  <data name="lbUsername" xml:space="preserve">
     <value>Nombre de usuario</value>
   </data>
-  <data name="txtO" xml:space="preserve">
+  <data name="lbOr" xml:space="preserve">
     <value>Ó</value>
+  </data>
+  <data name="lbSignUp" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+  <data name="lbName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="lbLastName" xml:space="preserve">
+    <value>Apellido Paterno</value>
+  </data>
+  <data name="lbLastName(Mother)" xml:space="preserve">
+    <value>Apellido materno</value>
+  </data>
+  <data name="lbDateOfBirth" xml:space="preserve">
+    <value>Fecha de nacimiento</value>
+  </data>
+  <data name="lbEmail" xml:space="preserve">
+    <value>Correo electrónico</value>
+  </data>
+  <data name="lbPhone" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="lbWelcome" xml:space="preserve">
+    <value>Welcome: </value>
+  </data>
+  <data name="ttMyPoints" xml:space="preserve">
+    <value>Mi puntaje</value>
+  </data>
+  <data name="lbMatches" xml:space="preserve">
+    <value>Partidas</value>
+  </data>
+  <data name="lbTotal" xml:space="preserve">
+    <value>Total: </value>
+  </data>
+  <data name="ttChangeLanguaje" xml:space="preserve">
+    <value>Cambiar idioma</value>
+  </data>
+  <data name="lbLanguajeSpanish" xml:space="preserve">
+    <value>Español</value>
+  </data>
+  <data name="lbLanguajeEnglish" xml:space="preserve">
+    <value>Inglés</value>
+  </data>
+  <data name="btnRegister" xml:space="preserve">
+    <value>Registrarse</value>
+  </data>
+  <data name="lbLeave" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="lbWaitingOpponent" xml:space="preserve">
+    <value>Esperando a rival...</value>
+  </data>
+  <data name="lbCategory" xml:space="preserve">
+    <value>Categoría: </value>
+  </data>
+  <data name="lbWord" xml:space="preserve">
+    <value>Palabra: </value>
+  </data>
+  <data name="lbAvailableMatches" xml:space="preserve">
+    <value>Partidas disponibles</value>
+  </data>
+  <data name="lbMadeBy" xml:space="preserve">
+    <value>Creada por: </value>
+  </data>
+  <data name="btnJoin" xml:space="preserve">
+    <value>Unirse</value>
+  </data>
+  <data name="lbMatchId" xml:space="preserve">
+    <value>ID Partida: </value>
+  </data>
+  <data name="lbChat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
+  <data name="lbLiveChat" xml:space="preserve">
+    <value>Chat en vivo</value>
   </data>
 </root>

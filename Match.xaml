@@ -11,31 +11,36 @@
 
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <Label Content="ID PARTIDA: " Style="{StaticResource lblSubtitulo}"/>
-                <Label x:Name="lbMatchId" Content="0000" Style="{StaticResource lblSubtitulo}" Foreground="Maroon"/>
+                <Label Content="{x:Static p:Resources.lbMatchId}" Style="{StaticResource lblSubtitle}"/>
+                <Label x:Name="lbMatchId" Content="0000" Style="{StaticResource lblSubtitle}" Foreground="Maroon"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="CATEGORÍA: " Style="{StaticResource lblSubtitulo}"/>
-                <Label x:Name="lbCategory" Content="ANIMALES" Style="{StaticResource lblSubtitulo}" Foreground="Maroon"/>
+                <Label Content="{x:Static p:Resources.lbCategory}" Style="{StaticResource lblSubtitle}"/>
+                <Label x:Name="lbCategory" Content="ANIMALES" Style="{StaticResource lblSubtitle}" Foreground="Maroon"/>
             </StackPanel>
         </StackPanel>
 
-        <Button x:Name="btnLeave" Content="ABANDONAR" 
+        <Button x:Name="btnLeave" Content="{x:Static p:Resources.lbLeave}" 
                 Style="{StaticResource btnMain}" 
                 Width="200" Height="50" FontSize="18" Background="#A0522D"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,40,40,0" Click="btnLeave_Click"/>
 
-        <Button x:Name="btnChat" Content="" 
-                Style="{StaticResource btnCuadrado}" 
-                ToolTip="Chat de Partida"
-                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,40,40" Click="btnChat_Click"/>
+        <Button x:Name="btnChat" 
+                Style="{StaticResource btnSquare}" 
+                ToolTip="{x:Static p:Resources.lbChat}"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,40,40" 
+                Click="btnChat_Click">
 
+            <Image Source="/Properties/Images/chat.png" Width="30" Height="30" Stretch="Uniform"/>
+
+        </Button>
+        
         <Popup x:Name="popChat" PlacementTarget="{Binding ElementName=btnChat}" 
                Placement="Left"
                StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
 
-            <Border Style="{StaticResource bdrCuadroTexto}" Width="350" Height="450" Padding="15">
+            <Border Style="{StaticResource bdrSquareText}" Width="350" Height="450" Padding="15">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -43,7 +48,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Content="CHAT DE PARTIDA" Style="{StaticResource lblTitulo}" FontSize="22" Margin="0,0,0,10"/>
+                    <Label Grid.Row="0" Content="{x:Static p:Resources.lbLiveChat}" Style="{StaticResource lblTitle}" FontSize="22" Margin="0,0,0,10"/>
                     <Border Grid.Row="0" Height="2" Background="#8B4513" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
 
                     <ScrollViewer x:Name="scrollChat" Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,5,0,10">
@@ -55,7 +60,7 @@
                                         <TextBlock Text="{Binding NombreJugador}" Foreground="{Binding ColorNombre}" 
                                                    FontFamily="Courier New" FontWeight="Bold" FontSize="16"/>
 
-                                        <TextBlock Text="{Binding TextoMensaje}" Style="{StaticResource txtCuadro}" 
+                                        <TextBlock Text="{Binding TextoMensaje}" Style="{StaticResource txtBlock}" 
                                                    FontSize="16" Margin="10,2,0,0"/>
                                     </StackPanel>
 
@@ -74,7 +79,7 @@
                                  Width="Auto" Height="40" FontSize="16"/>
 
                         <Button x:Name="btnEnviarMensaje" Grid.Column="1" Content="➤" 
-                                Style="{StaticResource btnCuadrado}" 
+                                Style="{StaticResource btnSquare}" 
                                 Width="40" Height="40" Margin="10,0,0,0"/>
                     </Grid>
                 </Grid>
@@ -83,13 +88,13 @@
 
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,325,0,0" Width="320">
 
-            <Border Style="{StaticResource bdrCuadroTexto}" Height="auto">
+            <Border Style="{StaticResource bdrSquareText}" Height="auto">
                 <TextBlock x:Name="txtDescription" 
-                           Style="{StaticResource txtCuadro}" TextWrapping="Wrap"
+                           Style="{StaticResource txtBlock}" TextWrapping="Wrap"
                            Text="Aquí aparecerán los mensajes del juego, pistas o notificaciones..."/>
             </Border>
 
-            <Border x:Name="bdrCreatorGuide" Style="{StaticResource bdrCuadroTexto}" Margin="0,15,0,0" Visibility="Collapsed">
+            <Border x:Name="bdrCreatorGuide" Style="{StaticResource bdrSquareText}" Margin="0,15,0,0" Visibility="Visible">
                 <StackPanel Margin="5">
                     <TextBlock Text="PALABRA SECRETA (GUÍA):" Foreground="Maroon" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
                     <ItemsControl x:Name="icSecretWordGuide" HorizontalAlignment="Center">
@@ -144,7 +149,7 @@
 
             <TextBlock x:Name="txtPalabraOculta" 
                        Text="_ _ _ _ _ _ _ _" 
-                       Style="{StaticResource txtCuadro}" 
+                       Style="{StaticResource txtBlock}" 
                        FontSize="60" 
                        HorizontalAlignment="Center" 
                        Margin="0,20,0,0"/>
@@ -154,38 +159,38 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,40">
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
-                <Button x:Name="btnQ" Content="Q" Style="{StaticResource btnLetra}" Click="btnQ_Click"/>
-                <Button x:Name="btnW" Content="W" Style="{StaticResource btnLetra}" Click="btnW_Click"/>
-                <Button x:Name="btnE" Content="E" Style="{StaticResource btnLetra}" Click="btnE_Click"/>
-                <Button x:Name="btnR" Content="R" Style="{StaticResource btnLetra}" Click="btnR_Click"/>
-                <Button x:Name="btnT" Content="T" Style="{StaticResource btnLetra}" Click="btnT_Click"/>
-                <Button x:Name="btnY" Content="Y" Style="{StaticResource btnLetra}" Click="btnY_Click"/>
-                <Button x:Name="btnU" Content="U" Style="{StaticResource btnLetra}" Click="btnU_Click"/>
-                <Button x:Name="btnI" Content="I" Style="{StaticResource btnLetra}" Click="btnI_Click"/>
-                <Button x:Name="btnO" Content="O" Style="{StaticResource btnLetra}" Click="btnO_Click"/>
-                <Button x:Name="btnP" Content="P" Style="{StaticResource btnLetra}" Click="btnP_Click"/>
+                <Button x:Name="btnQ" Content="Q" Style="{StaticResource btnLetter}" Click="btnQ_Click"/>
+                <Button x:Name="btnW" Content="W" Style="{StaticResource btnLetter}" Click="btnW_Click"/>
+                <Button x:Name="btnE" Content="E" Style="{StaticResource btnLetter}" Click="btnE_Click"/>
+                <Button x:Name="btnR" Content="R" Style="{StaticResource btnLetter}" Click="btnR_Click"/>
+                <Button x:Name="btnT" Content="T" Style="{StaticResource btnLetter}" Click="btnT_Click"/>
+                <Button x:Name="btnY" Content="Y" Style="{StaticResource btnLetter}" Click="btnY_Click"/>
+                <Button x:Name="btnU" Content="U" Style="{StaticResource btnLetter}" Click="btnU_Click"/>
+                <Button x:Name="btnI" Content="I" Style="{StaticResource btnLetter}" Click="btnI_Click"/>
+                <Button x:Name="btnO" Content="O" Style="{StaticResource btnLetter}" Click="btnO_Click"/>
+                <Button x:Name="btnP" Content="P" Style="{StaticResource btnLetter}" Click="btnP_Click"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
-                <Button x:Name="btnA" Content="A" Style="{StaticResource btnLetra}" Click="btnA_Click"/>
-                <Button x:Name="btnS" Content="S" Style="{StaticResource btnLetra}" Click="btnS_Click"/>
-                <Button x:Name="btnD" Content="D" Style="{StaticResource btnLetra}" Click="btnD_Click"/>
-                <Button x:Name="btnF" Content="F" Style="{StaticResource btnLetra}" Click="btnF_Click"/>
-                <Button x:Name="btnG" Content="G" Style="{StaticResource btnLetra}" Click="btnG_Click"/>
-                <Button x:Name="btnH" Content="H" Style="{StaticResource btnLetra}" Click="btnH_Click"/>
-                <Button x:Name="btnJ" Content="J" Style="{StaticResource btnLetra}" Click="btnJ_Click"/>
-                <Button x:Name="btnK" Content="K" Style="{StaticResource btnLetra}" Click="btnK_Click"/>
-                <Button x:Name="btnL" Content="L" Style="{StaticResource btnLetra}" Click="btnL_Click"/>
+                <Button x:Name="btnA" Content="A" Style="{StaticResource btnLetter}" Click="btnA_Click"/>
+                <Button x:Name="btnS" Content="S" Style="{StaticResource btnLetter}" Click="btnS_Click"/>
+                <Button x:Name="btnD" Content="D" Style="{StaticResource btnLetter}" Click="btnD_Click"/>
+                <Button x:Name="btnF" Content="F" Style="{StaticResource btnLetter}" Click="btnF_Click"/>
+                <Button x:Name="btnG" Content="G" Style="{StaticResource btnLetter}" Click="btnG_Click"/>
+                <Button x:Name="btnH" Content="H" Style="{StaticResource btnLetter}" Click="btnH_Click"/>
+                <Button x:Name="btnJ" Content="J" Style="{StaticResource btnLetter}" Click="btnJ_Click"/>
+                <Button x:Name="btnK" Content="K" Style="{StaticResource btnLetter}" Click="btnK_Click"/>
+                <Button x:Name="btnL" Content="L" Style="{StaticResource btnLetter}" Click="btnL_Click"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="btnZ" Content="Z" Style="{StaticResource btnLetra}" Click="btnZ_Click"/>
-                <Button x:Name="btnX" Content="X" Style="{StaticResource btnLetra}" Click="btnX_Click"/>
-                <Button x:Name="btnC" Content="C" Style="{StaticResource btnLetra}" Click="btnC_Click"/>
-                <Button x:Name="btnV" Content="V" Style="{StaticResource btnLetra}" Click="btnV_Click"/>
-                <Button x:Name="btnB" Content="B" Style="{StaticResource btnLetra}" Click="btnB_Click"/>
-                <Button x:Name="btnN" Content="N" Style="{StaticResource btnLetra}" Click="btnN_Click"/>
-                <Button x:Name="btnM" Content="M" Style="{StaticResource btnLetra}" Click="btnM_Click"/>
+                <Button x:Name="btnZ" Content="Z" Style="{StaticResource btnLetter}" Click="btnZ_Click"/>
+                <Button x:Name="btnX" Content="X" Style="{StaticResource btnLetter}" Click="btnX_Click"/>
+                <Button x:Name="btnC" Content="C" Style="{StaticResource btnLetter}" Click="btnC_Click"/>
+                <Button x:Name="btnV" Content="V" Style="{StaticResource btnLetter}" Click="btnV_Click"/>
+                <Button x:Name="btnB" Content="B" Style="{StaticResource btnLetter}" Click="btnB_Click"/>
+                <Button x:Name="btnN" Content="N" Style="{StaticResource btnLetter}" Click="btnN_Click"/>
+                <Button x:Name="btnM" Content="M" Style="{StaticResource btnLetter}" Click="btnM_Click"/>
             </StackPanel>
 
         </StackPanel>

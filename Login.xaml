@@ -19,29 +19,29 @@
 
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
-                <Label Content="inicio sesion" 
-                           Style="{StaticResource lblTitulo}"/>
+                <Label Content="{x:Static p:Resources.lbLogIn}"
+                           Style="{StaticResource lblTitle}"/>
 
-                <Label Content="username" 
-                        Style="{StaticResource lblSubtitulo}"/>
+                <Label Content="{x:Static p:Resources.lbUsername}" 
+                        Style="{StaticResource lblSubtitle}"/>
 
                 <TextBox x:Name="txtBlockUsername" Width="350" Height="40" FontSize="18" FontFamily="Courier New" Margin="0,0,0,25"
                         Style="{StaticResource txtNormal}" TextChanged="txtBlockUsername_TextChanged"/>
 
-                <Label Content="contraseña" 
-                        Style="{StaticResource lblSubtitulo}"/>
+                <Label Content="{x:Static p:Resources.lblPassword}" 
+                        Style="{StaticResource lblSubtitle}"/>
 
                 <PasswordBox x:Name="pwsBoxPassword" Width="350" Height="40" FontSize="18" Margin="0,0,0,40"
                              Style="{StaticResource pwdNormal}"/>
 
-                <Button x:Name="btnLogIn" Content="inicia sesion" 
+                <Button x:Name="btnLogIn" Content="{x:Static p:Resources.lbLogIn}" 
                         Style="{StaticResource btnMain}"
                         Width="280" Height="65" Margin="0,0,0,15" Click="btnLogIn_Click"/>
 
-                <Label Content="ó" HorizontalAlignment="Center"
-                            Style="{StaticResource lblSubtitulo}"/>
+                <Label Content="{x:Static p:Resources.lbOr}" HorizontalAlignment="Center"
+                            Style="{StaticResource lblSubtitle}"/>
 
-                <Button x:Name="btnSignIn" Content="registro" 
+                <Button x:Name="btnSignIn" Content="{x:Static p:Resources.btnRegister}" 
                         Style="{StaticResource btnMain}"
                         Width="280" Height="65" Click="btnSignIn_Click"/>
 

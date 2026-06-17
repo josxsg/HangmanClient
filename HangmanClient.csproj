@@ -310,5 +310,17 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\Images\editProfile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\Images\languaje.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\Images\myPoints.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Properties\Images\chat.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

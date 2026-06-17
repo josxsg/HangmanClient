@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:HangmanClient"
         xmlns:p="clr-namespace:HangmanClient.Properties"
         mc:Ignorable="d"
-        WindowState="Maximized" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        WindowState="Maximized" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Image Source="/Properties/Images/Menu.png"/>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="300" Margin="0,0,0,0">
-            <Button x:Name="btnComenzar" Content="" 
+            <Button x:Name="btnComenzar" Content="{x:Static p:Resources.btnStart}" FontSize="45" 
                     Style="{StaticResource btnMain}"
                     Width="260" Height="70" Click="Button_Click"/>
         </StackPanel>
