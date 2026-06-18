@@ -368,6 +368,12 @@ namespace HangmanClient.GameServiceRef {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGameService/LeaveMatch")]
         System.Threading.Tasks.Task LeaveMatchAsync(int matchId, int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGameService/SendChatMessage")]
+        void SendChatMessage(int matchId, string senderUsername, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGameService/SendChatMessage")]
+        System.Threading.Tasks.Task SendChatMessageAsync(int matchId, string senderUsername, string message);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -387,6 +393,9 @@ namespace HangmanClient.GameServiceRef {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGameService/OnTimerTick")]
         void OnTimerTick(int secondsLeft);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGameService/OnChatMessageReceived")]
+        void OnChatMessageReceived(string senderUsername, string message);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -447,6 +456,14 @@ namespace HangmanClient.GameServiceRef {
         
         public System.Threading.Tasks.Task LeaveMatchAsync(int matchId, int userId) {
             return base.Channel.LeaveMatchAsync(matchId, userId);
+        }
+        
+        public void SendChatMessage(int matchId, string senderUsername, string message) {
+            base.Channel.SendChatMessage(matchId, senderUsername, message);
+        }
+        
+        public System.Threading.Tasks.Task SendChatMessageAsync(int matchId, string senderUsername, string message) {
+            return base.Channel.SendChatMessageAsync(matchId, senderUsername, message);
         }
     }
 }

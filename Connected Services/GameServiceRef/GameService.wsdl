@@ -195,6 +195,29 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IGameService_SendChatMessage_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IGameService_OnGameStarted_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -310,6 +333,29 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IGameService_OnChatMessageReceived_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:59294/Services/GameService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -330,6 +376,9 @@
   <wsdl:message name="IGameService_LeaveMatch_InputMessage">
     <wsdl:part name="parameters" element="tns:LeaveMatch" />
   </wsdl:message>
+  <wsdl:message name="IGameService_SendChatMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendChatMessage" />
+  </wsdl:message>
   <wsdl:message name="IGameService_OnGameStarted_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnGameStarted" />
   </wsdl:message>
@@ -345,6 +394,9 @@
   <wsdl:message name="IGameService_OnTimerTick_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:OnTimerTick" />
   </wsdl:message>
+  <wsdl:message name="IGameService_OnChatMessageReceived_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OnChatMessageReceived" />
+  </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="IGameService">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="JoinGameChannel">
       <wsdl:input wsaw:Action="http://tempuri.org/IGameService/JoinGameChannel" message="tns:IGameService_JoinGameChannel_InputMessage" />
@@ -357,6 +409,9 @@
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="LeaveMatch">
       <wsdl:input wsaw:Action="http://tempuri.org/IGameService/LeaveMatch" message="tns:IGameService_LeaveMatch_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SendChatMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/SendChatMessage" message="tns:IGameService_SendChatMessage_InputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="OnGameStarted">
       <wsdl:output wsaw:Action="http://tempuri.org/IGameService/OnGameStarted" message="tns:IGameService_OnGameStarted_OutputCallbackMessage" />
@@ -372,6 +427,9 @@
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="OnTimerTick">
       <wsdl:output wsaw:Action="http://tempuri.org/IGameService/OnTimerTick" message="tns:IGameService_OnTimerTick_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="OnChatMessageReceived">
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/OnChatMessageReceived" message="tns:IGameService_OnChatMessageReceived_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSDualHttpBinding_IGameService" type="tns:IGameService">
@@ -402,6 +460,13 @@
       <soap12:operation soapAction="http://tempuri.org/IGameService/LeaveMatch" style="document" />
       <wsdl:input>
         <wsp:PolicyReference URI="#WSDualHttpBinding_IGameService_LeaveMatch_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="SendChatMessage">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/SendChatMessage" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IGameService_SendChatMessage_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
@@ -437,6 +502,13 @@
       <soap12:operation soapAction="http://tempuri.org/IGameService/OnTimerTick" style="document" />
       <wsdl:output>
         <wsp:PolicyReference URI="#WSDualHttpBinding_IGameService_OnTimerTick_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnChatMessageReceived">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/OnChatMessageReceived" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IGameService_OnChatMessageReceived_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

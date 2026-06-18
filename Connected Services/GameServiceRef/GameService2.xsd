@@ -38,6 +38,15 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SendChatMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="matchId" type="xs:int" />
+        <xs:element minOccurs="0" name="senderUsername" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="OnGameStarted">
     <xs:complexType>
       <xs:sequence>
@@ -70,6 +79,14 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="secondsLeft" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OnChatMessageReceived">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="senderUsername" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using HangmanClient.GameServiceRef;
 using System.Windows.Media.Imaging;
+using System.Collections.ObjectModel; 
+using System.Windows.Input; 
 
 namespace HangmanClient
 {
@@ -14,9 +16,11 @@ namespace HangmanClient
         private int _matchId;
         private int _currentUserId;
         private bool _isCreator;
-        private string _actualWord; 
+        private string _actualWord;
         private string _username;
         private bool _isNavigatingAway = false;
+
+        private ObservableCollection<ChatMessage> _chatMessages = new ObservableCollection<ChatMessage>();
 
         public Match(int matchId, int currentUserId, bool isCreator, string username)
         {
@@ -26,13 +30,18 @@ namespace HangmanClient
             _isCreator = isCreator;
 
             ResetHangmanImages();
-            
+
             InstanceContext context = new InstanceContext(this);
             _gameClient = new GameServiceClient(context);
 
             this.Loaded += Match_Loaded;
             this.Closing += Match_Closing;
             _username = username;
+
+            itemsChat.ItemsSource = _chatMessages;
+
+            btnEnviarMensaje.Click += btnEnviarMensaje_Click;
+            txtMensajeChat.KeyDown += txtMensajeChat_KeyDown;
         }
 
         private void Match_Loaded(object sender, RoutedEventArgs e)
@@ -157,6 +166,56 @@ namespace HangmanClient
             });
         }
 
+
+        private void btnEnviarMensaje_Click(object sender, RoutedEventArgs e)
+        {
+            SendMessage();
+        }
+
+        private void txtMensajeChat_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SendMessage();
+            }
+        }
+
+        private void SendMessage()
+        {
+            string message = txtMensajeChat.Text.Trim();
+            if (!string.IsNullOrEmpty(message))
+            {
+                try
+                {
+                    _gameClient.SendChatMessage(_matchId, _username, message);
+                    txtMensajeChat.Clear();
+                    txtMensajeChat.Focus();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("No se pudo enviar el mensaje. Verifica tu conexión.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        public void OnChatMessageReceived(string senderUsername, string message)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                string color = (senderUsername == _username) ? "#005A9C" : "#4A4A4A";
+
+                _chatMessages.Add(new ChatMessage
+                {
+                    PlayerName = senderUsername + ":",
+                    MessageText = message,
+                    NameColor = color
+                });
+
+                scrollChat.ScrollToEnd();
+            });
+        }
+
+
         private void EvaluateGuessAsCreator(char letter)
         {
             MessageBoxResult result = MessageBox.Show(
@@ -184,7 +243,7 @@ namespace HangmanClient
                 }
                 else
                 {
-                    isCorrect = false; 
+                    isCorrect = false;
                 }
             }
 
@@ -206,84 +265,37 @@ namespace HangmanClient
             txtPalabraOculta.Text = _actualWord;
         }
 
-        /*private void DrawHangmanPart(int mistakes)
-        {
-            if (mistakes >= 1)
-            {
-                imgCabeza.Visibility = Visibility.Visible;
-            }
-
-            if (mistakes >= 2)
-            {
-                imgCuerpo.Visibility = Visibility.Visible;
-            }
-
-            if (mistakes >= 3)
-            {
-                imgBrazoIzq.Visibility = Visibility.Visible;
-            }
-
-            if (mistakes >= 4)
-            {
-                imgBrazoDer.Visibility = Visibility.Visible;
-            }
-
-            if (mistakes >= 5)
-            {
-                imgPiernaIzq.Visibility = Visibility.Visible;
-            }
-
-            if (mistakes >= 6)
-            {
-                imgPiernaDer.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void ResetHangmanImages()
-        {
-            imgCabeza.Visibility = Visibility.Hidden;
-            imgCuerpo.Visibility = Visibility.Hidden;
-            imgBrazoIzq.Visibility = Visibility.Hidden;
-            imgBrazoDer.Visibility = Visibility.Hidden;
-            imgPiernaIzq.Visibility = Visibility.Hidden;
-            imgPiernaDer.Visibility = Visibility.Hidden;
-        }*/
-
         private void DrawHangmanPart(int mistakes)
         {
-            // Creamos una variable para guardar la ruta de la imagen según los errores
-            string rutaImagen = "/Properties/Images/Game.png"; // Fondo por defecto (0 errores)
+            string rutaImagen = "/Properties/Images/Game.png"; 
 
             switch (mistakes)
             {
                 case 1:
-                    rutaImagen = "/Properties/Images/head.png"; // Horca + Cabeza
+                    rutaImagen = "/Properties/Images/head.png"; 
                     break;
                 case 2:
-                    rutaImagen = "/Properties/Images/body.png"; // Horca + Cabeza + Cuerpo
+                    rutaImagen = "/Properties/Images/body.png"; 
                     break;
                 case 3:
-                    rutaImagen = "/Properties/Images/leftArm.png"; // Horca + Cabeza + Cuerpo + Brazo Izq
+                    rutaImagen = "/Properties/Images/leftArm.png"; 
                     break;
                 case 4:
-                    rutaImagen = "/Properties/Images/rightArm.png"; // Horca + ... + Brazo Der
+                    rutaImagen = "/Properties/Images/rightArm.png"; 
                     break;
                 case 5:
-                    rutaImagen = "/Properties/Images/leftLeg.png"; // Horca + ... + Pierna Izq
+                    rutaImagen = "/Properties/Images/leftLeg.png"; 
                     break;
                 case 6:
-                    rutaImagen = "/Properties/Images/rightArm.png"; // Muñeco Ahorcado Completo
+                    rutaImagen = "/Properties/Images/rightArm.png"; 
                     break;
             }
 
-            // Cambiamos la imagen de fondo dinámicamente
-            // La sintaxis "pack://application:,,," es la forma en la que WPF busca archivos Resource
             imgBackground.Source = new BitmapImage(new Uri($"pack://application:,,,{rutaImagen}"));
         }
 
         private void ResetHangmanImages()
         {
-            // Al reiniciar o empezar la partida, nos aseguramos de que el fondo sea la horca vacía
             imgBackground.Source = new BitmapImage(new Uri("pack://application:,,,/Properties/Images/Game.png"));
         }
 
@@ -303,10 +315,10 @@ namespace HangmanClient
             if (_isCreator)
             {
                 return;
-            } 
+            }
 
             char letter = btn.Content.ToString()[0];
-            btn.IsEnabled = false; 
+            btn.IsEnabled = false;
 
             _gameClient.SendGuess(_matchId, _currentUserId, letter);
         }
@@ -410,7 +422,7 @@ namespace HangmanClient
             stack.Children.Add(new TextBlock() { Text = $"¿En qué posiciones está la '{letter}'?\n(Iniciando en 0. Escribe separando con comas ej: 0, 2, 4)", Margin = new Thickness(0, 0, 0, 10) });
             TextBox txtInput = new TextBox() { Margin = new Thickness(0, 0, 0, 10) };
             Button btnOk = new Button() { Content = "Aceptar", Width = 80, IsDefault = true };
-            btnOk.Click += (s, e) => { prompt.DialogResult = true; };
+            btnOk.Click += (s, ev) => { prompt.DialogResult = true; };
             stack.Children.Add(txtInput);
             stack.Children.Add(btnOk);
             prompt.Content = stack;
@@ -427,5 +439,12 @@ namespace HangmanClient
             public char Letter { get; set; }
             public int Position { get; set; }
         }
+    }
+
+    public class ChatMessage
+    {
+        public string PlayerName { get; set; }
+        public string MessageText { get; set; }
+        public string NameColor { get; set; }
     }
 }

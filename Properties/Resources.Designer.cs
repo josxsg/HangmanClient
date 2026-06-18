@@ -196,7 +196,7 @@ namespace HangmanClient.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Chat en vivo.
+        ///   Busca una cadena traducida similar a Chat .
         /// </summary>
         public static string lbLiveChat {
             get {

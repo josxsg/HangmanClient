@@ -205,7 +205,7 @@
     <value>Chat</value>
   </data>
   <data name="lbLiveChat" xml:space="preserve">
-    <value>Chat en vivo</value>
+    <value>Chat </value>
   </data>
   <data name="btnNewMatch" xml:space="preserve">
     <value>Nueva Partida</value>

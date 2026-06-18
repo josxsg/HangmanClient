@@ -54,12 +54,11 @@
                         <ItemsControl x:Name="itemsChat">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Margin="0,5,0,10">
-                                        <TextBlock Text="{Binding NombreJugador}" Foreground="{Binding ColorNombre}" 
-                                                   FontFamily="Courier New" FontWeight="Bold" FontSize="16"/>
-                                        <TextBlock Text="{Binding TextoMensaje}" Style="{StaticResource txtBlock}" 
-                                                   FontSize="16" Margin="10,2,0,0"/>
-                                    </StackPanel>
+                                    <TextBlock Margin="0,5,0,10" TextWrapping="Wrap" Style="{StaticResource txtBlock}" FontSize="16">
+                                        <Run Text="{Binding PlayerName}" Foreground="{Binding NameColor}" FontFamily="Courier New" FontWeight="Bold"/>
+                                        <Run Text=" "/>
+                                        <Run Text="{Binding MessageText}"/>
+                                    </TextBlock>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -72,7 +71,7 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox x:Name="txtMensajeChat" Grid.Column="0" Style="{StaticResource txtNormal}" 
-                                 Width="Auto" Height="40" FontSize="16"/>
+                                 Width="Auto" Height="40" FontSize="16" MaxLength="250"/>
 
                         <Button x:Name="btnEnviarMensaje" Grid.Column="1" Content="➤" 
                                 Style="{StaticResource btnSquare}" 
