@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Globalization;
 using System.Threading;
+using HangmanClient.ScoreServiceRef;
 
 namespace HangmanClient
 {
@@ -36,9 +37,82 @@ namespace HangmanClient
             }
         }
 
-        private void btnMyPoints_Click(object sender, RoutedEventArgs e)
+
+
+        private async void btnMyPoints_Click(object sender, RoutedEventArgs e)
         {
-            popMyPoints.IsOpen = true;
+            if (!UserSession.Instance.IsLoggedIn) return;
+
+            try
+            {
+                btnMyPoints.IsEnabled = false;
+
+                using (var client = new ScoreServiceClient())
+                {
+                    int userId = UserSession.Instance.CurrentUser.UserId;
+
+                    var scoreTask = client.GetPlayerScoreAsync(userId);
+                    var historyTask = client.GetMatchHistoryAsync(userId);
+
+                    await Task.WhenAll(scoreTask, historyTask);
+
+                    var score = scoreTask.Result;
+                    var history = historyTask.Result;
+
+                    lblTotalPoints.Content = $"{score.TotalScore} pts";
+                    lblTotalPoints.Foreground = score.TotalScore >= 0
+                        ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E7D32")) 
+                        : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C62828")); 
+
+    
+                    var historyViewList = history.Select(h =>
+                    {
+                        string resText = "";
+                        string resColor = "#2E7D32"; 
+
+                        switch (h.Result)
+                        {
+                            case "Ganada":
+                                resText = $"GANADA: +{h.Points} pts";
+                                resColor = "#2E7D32"; 
+                                break;
+                            case "Perdida":
+                                resText = $"PERDIDA: {h.Points} pts";
+                                resColor = "#C62828"; 
+                                break;
+                            case "Abandonada":
+                                resText = $"PERDIDA POR ABANDONO: {h.Points} pts";
+                                resColor = "#C62828"; 
+                                break;
+                            default:
+                                resText = h.Result;
+                                break;
+                        }
+
+                        return new
+                        {
+                            MatchIdText = $"ID: {h.MatchId}",
+                            DateText = h.Date.ToString("dd/MM/yyyy"),
+                            RivalText = $"Rival: {h.RivalUsername}",
+                            WordText = $"Palabra: {h.WordText}",
+                            ResultText = resText,
+                            ResultColor = resColor 
+                        };
+                    }).ToList();
+
+                    icMatchHistory.ItemsSource = historyViewList;
+                }
+
+                popMyPoints.IsOpen = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar el historial: {ex.Message}", "Error de Conexión", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                btnMyPoints.IsEnabled = true;
+            }
         }
 
         private void btnLanguage_Click(object sender, RoutedEventArgs e)

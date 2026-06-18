@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/HangmanServer.DTOs" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/HangmanServer.DTOs" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="PlayerScoreDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MatchesLost" type="xs:int" />
+      <xs:element minOccurs="0" name="MatchesWon" type="xs:int" />
+      <xs:element minOccurs="0" name="Penalties" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalScore" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlayerScoreDTO" nillable="true" type="tns:PlayerScoreDTO" />
+  <xs:complexType name="ArrayOfMatchHistoryDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MatchHistoryDTO" nillable="true" type="tns:MatchHistoryDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMatchHistoryDTO" nillable="true" type="tns:ArrayOfMatchHistoryDTO" />
+  <xs:complexType name="MatchHistoryDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MatchId" type="xs:int" />
+      <xs:element minOccurs="0" name="Points" type="xs:int" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RivalUsername" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WordText" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MatchHistoryDTO" nillable="true" type="tns:MatchHistoryDTO" />
+</xs:schema>

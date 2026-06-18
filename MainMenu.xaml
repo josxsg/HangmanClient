@@ -54,46 +54,24 @@
                     <Border Grid.Row="2" Height="3" Background="#8B4513" Margin="0,0,0,10" CornerRadius="1"/>
 
                     <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" Margin="0,0,0,0">
-
-                        <StackPanel x:Name="pnlMatchHistory">
-
-                            <Border BorderBrush="#8B4513" BorderThickness="0,0,0,1" Padding="0,10">
-                                <StackPanel>
-                                    <Grid>
-                                        <TextBlock Text="ID: 1045" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Left"/>
-                                        <TextBlock Text="05/06/2026" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Right"/>
-                                    </Grid>
-                                    <TextBlock Text="Rival: Vaquero_123" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
-                                    <TextBlock Text="Palabra: ELEFANTE" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
-                                    <TextBlock Text="GANADA: +10 pts" FontFamily="Courier New" FontWeight="Bold" FontSize="16" Foreground="#2E7D32" HorizontalAlignment="Right" Margin="0,5,0,0"/>
-                                </StackPanel>
-                            </Border>
-
-                            <Border BorderBrush="#8B4513" BorderThickness="0,0,0,1" Padding="0,10">
-                                <StackPanel>
-                                    <Grid>
-                                        <TextBlock Text="ID: 1042" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Left"/>
-                                        <TextBlock Text="04/06/2026" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Right"/>
-                                    </Grid>
-                                    <TextBlock Text="Rival: Billy_The_Kid" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
-                                    <TextBlock Text="Palabra: ESTERNOCLEIDO" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
-                                    <TextBlock Text="PERDIDA: +0 pts" FontFamily="Courier New" FontWeight="Bold" FontSize="16" Foreground="#C62828" HorizontalAlignment="Right" Margin="0,5,0,0"/>
-                                </StackPanel>
-                            </Border>
-
-                            <Border BorderBrush="#8B4513" BorderThickness="0,0,0,1" Padding="0,10">
-                                <StackPanel>
-                                    <Grid>
-                                        <TextBlock Text="ID: 1038" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Left"/>
-                                        <TextBlock Text="01/06/2026" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Right"/>
-                                    </Grid>
-                                    <TextBlock Text="Rival: Sheriff_Woody" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
-                                    <TextBlock Text="Palabra: CABALLO" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
-                                    <TextBlock Text="PERDIDA POR ABANDONO: -3 pts" FontFamily="Courier New" FontWeight="Bold" FontSize="16" Foreground="#C62828" HorizontalAlignment="Right" Margin="0,5,0,0"/>
-                                </StackPanel>
-                            </Border>
-
-                        </StackPanel>
+                        <ItemsControl x:Name="icMatchHistory">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#8B4513" BorderThickness="0,0,0,1" Padding="0,10">
+                                        <StackPanel>
+                                            <Grid>
+                                                <TextBlock Text="{Binding MatchIdText}" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Left"/>
+                                                <TextBlock Text="{Binding DateText}" Style="{StaticResource txtBlock}" FontSize="14" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                            <TextBlock Text="{Binding RivalText}" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
+                                            <TextBlock Text="{Binding WordText}" Style="{StaticResource txtBlock}" FontSize="16" Margin="0,5,0,0"/>
+                                            <TextBlock Text="{Binding ResultText}" FontFamily="Courier New" FontWeight="Bold" FontSize="16" 
+                                   Foreground="{Binding ResultColor}" HorizontalAlignment="Right" Margin="0,5,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </ScrollViewer>
                 </Grid>
             </Border>

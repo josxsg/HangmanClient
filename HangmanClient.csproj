@@ -77,6 +77,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\ScoreServiceRef\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="CreateMatch.xaml.cs">
       <DependentUpon>CreateMatch.xaml</DependentUpon>
     </Compile>
@@ -211,6 +216,22 @@
     <None Include="Connected Services\MatchmakingServiceRef\MatchmakingService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\ScoreServiceRef\HangmanClient.ScoreServiceRef.MatchHistoryDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ScoreServiceRef\HangmanClient.ScoreServiceRef.PlayerScoreDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ScoreServiceRef\ScoreService.wsdl" />
+    <None Include="Connected Services\ScoreServiceRef\ScoreService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ScoreServiceRef\ScoreService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ScoreServiceRef\ScoreService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -249,6 +270,7 @@
     <WCFMetadataStorage Include="Connected Services\CatalogServiceRef\" />
     <WCFMetadataStorage Include="Connected Services\GameServiceRef\" />
     <WCFMetadataStorage Include="Connected Services\MatchmakingServiceRef\" />
+    <WCFMetadataStorage Include="Connected Services\ScoreServiceRef\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\AccountServiceRef\AccountService.disco" />
@@ -335,6 +357,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Properties\Images\body.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ScoreServiceRef\ScoreService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ScoreServiceRef\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ScoreServiceRef\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ScoreServiceRef\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
