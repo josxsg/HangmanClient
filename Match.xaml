@@ -112,14 +112,40 @@
 
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,350,0,0">
 
-            <TextBlock x:Name="txtPalabraOculta" 
-                       Text="_ _ _ _ _ _ _ _" 
-                       Style="{StaticResource txtBlock}" 
-                       FontSize="60" 
-                       HorizontalAlignment="Center" 
-                       Margin="0,350,0,0"/>
+            <ItemsControl x:Name="icPalabraOculta" HorizontalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Letter}" 
+                                Tag="{Binding Index}"
+                                FontSize="50" 
+                                FontWeight="Bold"
+                                Width="60" Height="70"
+                                Margin="5"
+                                Background="Transparent"
+                                BorderBrush="DarkGray"
+                                BorderThickness="0,0,0,3"
+                                Foreground="#333333"
+                                IsEnabled="{Binding IsEditing}"
+                                Cursor="Hand"
+                                Click="WordSlot_Click"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Button x:Name="btnConfirmPositions" 
+                    Content="Confirmar Posiciones" 
+                    Style="{StaticResource btnMain}" 
+                    Width="200" Height="40" Margin="0,20,0,0"
+                    Visibility="Collapsed" 
+                    Background="#2E8B57"
+                    Click="btnConfirmPositions_Click"/>
 
         </StackPanel>
 

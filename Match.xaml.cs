@@ -6,7 +6,8 @@ using System.Windows.Controls;
 using HangmanClient.GameServiceRef;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel; 
-using System.Windows.Input; 
+using System.Windows.Input;
+using System.ComponentModel;
 
 namespace HangmanClient
 {
@@ -16,10 +17,11 @@ namespace HangmanClient
         private int _matchId;
         private int _currentUserId;
         private bool _isCreator;
-        private string _actualWord;
         private string _username;
         private bool _isNavigatingAway = false;
+        private char _currentEvaluatedLetter;
 
+        private ObservableCollection<WordSlot> _wordSlots = new ObservableCollection<WordSlot>();
         private ObservableCollection<ChatMessage> _chatMessages = new ObservableCollection<ChatMessage>();
 
         public Match(int matchId, int currentUserId, bool isCreator, string username)
@@ -39,6 +41,7 @@ namespace HangmanClient
             _username = username;
 
             itemsChat.ItemsSource = _chatMessages;
+            icPalabraOculta.ItemsSource = _wordSlots;
 
             btnEnviarMensaje.Click += btnEnviarMensaje_Click;
             txtMensajeChat.KeyDown += txtMensajeChat_KeyDown;
@@ -66,8 +69,11 @@ namespace HangmanClient
                 lbCategory.Content = gameContext.CategoryName;
                 txtDescription.Text = $"Categoría: {gameContext.CategoryName}\nDescripción: {gameContext.WordDescription}";
 
-                _actualWord = string.Join(" ", Enumerable.Repeat("_", gameContext.WordLength));
-                txtPalabraOculta.Text = _actualWord;
+                _wordSlots.Clear();
+                for (int i = 0; i < gameContext.WordLength; i++)
+                {
+                    _wordSlots.Add(new WordSlot { Index = i, Letter = '_', IsEditing = false });
+                }
 
                 if (_isCreator)
                 {
@@ -222,47 +228,39 @@ namespace HangmanClient
                 $"El retador propone la letra: '{letter}'.\n\n¿La palabra contiene esta letra?",
                 "Evaluar Turno", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            bool isCorrect = (result == MessageBoxResult.Yes);
-            int[] positions = null;
-
-            if (isCorrect)
+            if (result == MessageBoxResult.Yes)
             {
-                string input = PromptForPositions(letter);
+                _currentEvaluatedLetter = letter;
+                txtDescription.Text = $"Haz clic en los guiones donde aparece la letra '{letter}' y presiona Confirmar.";
 
-                if (!string.IsNullOrWhiteSpace(input))
+                foreach (var slot in _wordSlots)
                 {
-                    try
+                    if (slot.Letter == '_')
                     {
-                        positions = input.Split(',').Select(s => int.Parse(s.Trim())).ToArray();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Formato inválido. Se asumirá error del creador.", "Error");
-                        isCorrect = false;
+                        slot.IsEditing = true;
                     }
                 }
-                else
-                {
-                    isCorrect = false;
-                }
+
+                btnConfirmPositions.Visibility = Visibility.Visible;
             }
-
-            _gameClient.SubmitTurnResult(_matchId, _currentUserId, isCorrect, positions);
-            txtDescription.Text = "Evaluación enviada. Esperando siguiente turno del retador...";
+            else
+            {
+                _gameClient.SubmitTurnResult(_matchId, _currentUserId, false, null);
+                txtDescription.Text = "Evaluación enviada (Incorrecto). Esperando siguiente turno...";
+            }
         }
 
         private void UpdateWordDisplay(char letter, int[] positions)
         {
-            string[] chars = _actualWord.Split(' ');
+            if (positions == null) return;
+
             foreach (int pos in positions)
             {
-                if (pos >= 0 && pos < chars.Length)
+                if (pos >= 0 && pos < _wordSlots.Count)
                 {
-                    chars[pos] = letter.ToString();
+                    _wordSlots[pos].Letter = letter;
                 }
             }
-            _actualWord = string.Join(" ", chars);
-            txtPalabraOculta.Text = _actualWord;
         }
 
         private void DrawHangmanPart(int mistakes)
@@ -409,29 +407,43 @@ namespace HangmanClient
             popChat.IsOpen = true;
         }
 
-        private string PromptForPositions(char letter)
+        private void WordSlot_Click(object sender, RoutedEventArgs e)
         {
-            Window prompt = new Window()
+            if (sender is Button btn && btn.DataContext is WordSlot slot)
             {
-                Title = "Posiciones Correctas",
-                Width = 350,
-                Height = 150,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
-            StackPanel stack = new StackPanel() { Margin = new Thickness(10) };
-            stack.Children.Add(new TextBlock() { Text = $"¿En qué posiciones está la '{letter}'?\n(Iniciando en 0. Escribe separando con comas ej: 0, 2, 4)", Margin = new Thickness(0, 0, 0, 10) });
-            TextBox txtInput = new TextBox() { Margin = new Thickness(0, 0, 0, 10) };
-            Button btnOk = new Button() { Content = "Aceptar", Width = 80, IsDefault = true };
-            btnOk.Click += (s, ev) => { prompt.DialogResult = true; };
-            stack.Children.Add(txtInput);
-            stack.Children.Add(btnOk);
-            prompt.Content = stack;
-
-            if (prompt.ShowDialog() == true)
-            {
-                return txtInput.Text;
+                if (slot.Letter == '_')
+                {
+                    slot.Letter = _currentEvaluatedLetter;
+                }
+                else if (slot.Letter == _currentEvaluatedLetter)
+                {
+                    slot.Letter = '_';
+                }
             }
-            return string.Empty;
+        }
+
+        private void btnConfirmPositions_Click(object sender, RoutedEventArgs e)
+        {
+            int[] positions = _wordSlots
+                .Where(s => s.Letter == _currentEvaluatedLetter)
+                .Select(s => s.Index)
+                .ToArray();
+
+            if (positions.Length == 0)
+            {
+                MessageBox.Show("Debes seleccionar al menos una posición si indicaste que la letra existe.",
+                    "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            foreach (var slot in _wordSlots)
+            {
+                slot.IsEditing = false;
+            }
+            btnConfirmPositions.Visibility = Visibility.Collapsed;
+
+            _gameClient.SubmitTurnResult(_matchId, _currentUserId, true, positions);
+            txtDescription.Text = "Posiciones confirmadas y enviadas. Esperando siguiente turno...";
         }
 
         public class LetterPosition
@@ -446,5 +458,43 @@ namespace HangmanClient
         public string PlayerName { get; set; }
         public string MessageText { get; set; }
         public string NameColor { get; set; }
+    }
+
+    public class WordSlot : INotifyPropertyChanged
+    {
+        private char _letter;
+        private bool _isEditing;
+
+        public int Index { get; set; }
+
+        public char Letter
+        {
+            get
+            {
+                return _letter;
+            }
+            set
+            {
+                _letter = value; OnPropertyChanged(nameof(Letter));
+            }
+        }
+
+        public bool IsEditing
+        {
+            get
+            {
+                return _isEditing;
+            }
+            set
+            {
+                _isEditing = value; OnPropertyChanged(nameof(IsEditing));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
