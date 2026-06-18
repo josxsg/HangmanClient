@@ -84,6 +84,7 @@ namespace HangmanClient
             if (!ValidatePhoneNumber()) return false;
             if (!ValidateEmailFormat()) return false;
             if (!ValidateBirthDateRange()) return false;
+            if (!ValidatePasswordStrength()) return false;
 
             return true;
         }
@@ -165,7 +166,21 @@ namespace HangmanClient
             return true;
         }
 
-        
+        private bool ValidatePasswordStrength()
+        {
+            string password = pswPassword.Password;
+
+            string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$";
+
+            if (!Regex.IsMatch(password, passwordPattern))
+            {
+                MessageBox.Show("La contraseña es muy débil. Debe tener al menos 8 caracteres, incluir una letra mayúscula, una minúscula y un número.",
+                    "Contraseña Insegura", MessageBoxButton.OK, MessageBoxImage.Warning);
+                pswPassword.Focus();
+                return false;
+            }
+            return true;
+        }
 
         private bool ValidatePhoneNumber()
         {
@@ -184,7 +199,6 @@ namespace HangmanClient
         {
             if (string.IsNullOrWhiteSpace(txtFirstName.Text) ||
                 string.IsNullOrWhiteSpace(txtPaternalSurname.Text) ||
-                string.IsNullOrWhiteSpace(txtMaternalSurname.Text) ||
                 string.IsNullOrWhiteSpace(txtUsername.Text) ||
                 string.IsNullOrWhiteSpace(txtEmail.Text) ||
                 string.IsNullOrWhiteSpace(txtPhoneNumber.Text) ||
