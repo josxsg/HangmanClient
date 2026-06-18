@@ -46,14 +46,15 @@
                                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
 
                                             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                                <TextBlock Text="{Binding IdPartida}" Style="{StaticResource txtBlock}" FontSize="20" FontWeight="Bold" Foreground="#8B4513" Margin="0,0,30,0"/>
-                                                <TextBlock Text="{Binding FechaCreacion}" Style="{StaticResource txtBlock}" FontSize="18" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding MatchId}" Style="{StaticResource txtBlock}" FontSize="20" FontWeight="Bold" Foreground="#8B4513" Margin="0,0,30,0"/>
+                                                <TextBlock Text="{Binding CreationDate}" Style="{StaticResource txtBlock}" FontSize="18" VerticalAlignment="Center"/>
                                             </StackPanel>
 
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{x:Static p:Resources.lbMadeBy}" Style="{StaticResource txtBlock}" FontSize="18" FontWeight="Bold"/>
-                                                <TextBlock Text="{Binding NombreUsuario}" Style="{StaticResource txtBlock}" FontSize="18" Margin="0,0,15,0"/>
-                                                <TextBlock Text="{Binding Correo}" Style="{StaticResource txtBlock}" FontSize="16" FontStyle="Italic" Foreground="#5C4033" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding CreatorUsername}" Style="{StaticResource txtBlock}" FontSize="18" Margin="0,0,15,0"/>
+
+                                                <TextBlock Text="{Binding CategoryName, StringFormat='Categoría: {0}'}" Style="{StaticResource txtBlock}" FontSize="16" FontStyle="Italic" Foreground="#5C4033" VerticalAlignment="Center"/>
                                             </StackPanel>
 
                                         </StackPanel>
@@ -61,7 +62,7 @@
                                         <Button Grid.Column="1" Content="{x:Static p:Resources.btnJoin}" 
                                                 Style="{StaticResource btnMain}" 
                                                 Width="160" Height="50" FontSize="20" VerticalAlignment="Center"
-                                                Tag="{Binding IdPartida}"
+                                                Tag="{Binding MatchId}"
                                                 Click="btnJoin_Click"/>
                                     </Grid>
                                 </Border>

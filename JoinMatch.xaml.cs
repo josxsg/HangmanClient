@@ -38,9 +38,9 @@ namespace HangmanClient
             int selectedMatchId = Convert.ToInt32(clickedButton.Tag);
             clickedButton.IsEnabled = false;
 
-            bool joinSuccessful = await TryJoinMatchSessionAsync(selectedMatchId);
+            bool isJoinSuccessful = await TryJoinMatchSessionAsync(selectedMatchId);
 
-            if (joinSuccessful)
+            if (isJoinSuccessful)
             {
                 MessageBox.Show("¡Te has unido a la sala con éxito! Entrando a la sala de espera...",
                                 "Partida Inicializada", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -56,17 +56,6 @@ namespace HangmanClient
             }
         }
 
-        private void PopulateAvailableMatchesGrid(AvailableMatchDTO[] availableMatches)
-        {
-            listaPartidas.ItemsSource = availableMatches.Select(m => new
-            {
-                IdPartida = m.MatchId,
-                FechaCreacion = m.CreationDate.ToString("dd/MM/yyyy HH:mm"),
-                NombreUsuario = m.CreatorUsername,
-                Correo = $"Categoría: {m.CategoryName}"
-            }).ToList();
-        }
-
         private async void ExecuteLoadAvailableMatchesAsync()
         {
             try
@@ -74,7 +63,6 @@ namespace HangmanClient
                 using (var client = new MatchmakingServiceClient())
                 {
                     AvailableMatchDTO[] availableMatches = await client.GetAvailableMatchesAsync(_languageCode);
-
                     PopulateAvailableMatchesGrid(availableMatches);
                 }
             }
@@ -83,6 +71,31 @@ namespace HangmanClient
                 MessageBox.Show($"Error al conectar con el servidor para listar partidas: {ex.Message}",
                                 "Error de Red", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void PopulateAvailableMatchesGrid(AvailableMatchDTO[] availableMatches)
+        {
+            listaPartidas.ItemsSource = availableMatches.Select(match => new
+            {
+                MatchId = match.MatchId,
+                CreationDate = match.CreationDate.ToString("dd/MM/yyyy HH:mm"),
+                CreatorUsername = match.CreatorUsername,
+                CategoryName = match.CategoryName
+            }).ToList();
+        }
+
+        private void RedirectToMainMenu()
+        {
+            MainMenu mainMenuWindow = new MainMenu();
+            mainMenuWindow.Show();
+            this.Close();
+        }
+
+        private void RedirectToLobby(int matchId)
+        {
+            CreateMatch lobbyWindow = new CreateMatch(_languageCode, matchId);
+            lobbyWindow.Show();
+            this.Close();
         }
 
         private async Task<bool> TryJoinMatchSessionAsync(int matchId)
@@ -101,20 +114,6 @@ namespace HangmanClient
                                 "Error de Comunicación", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-        }
-
-        private void RedirectToMainMenu()
-        {
-            MainMenu mainMenuWindow = new MainMenu(); 
-            mainMenuWindow.Show();
-            this.Close();
-        }
-
-        private void RedirectToLobby(int matchId)
-        {
-            CreateMatch lobbyWindow = new CreateMatch(_languageCode, matchId);
-            lobbyWindow.Show();
-            this.Close();
         }
     }
 }

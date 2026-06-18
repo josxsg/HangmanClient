@@ -447,7 +447,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:59294/Services/GameService.svc</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>ASUSVIVOBOOK\migue</Upn>
+          <Upn>LAPTOP-HP-FIDEL\fave6</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
