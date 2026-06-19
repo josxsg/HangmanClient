@@ -29,6 +29,11 @@
                 <Setter Property="Background" Value="#F4A460"/>
                 <Setter Property="BorderBrush" Value="#5C4033"/>
             </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#E0E0E0"/>
+                <Setter Property="Foreground" Value="#A0A0A0"/>
+                <Setter Property="BorderBrush" Value="#BDBDBD"/>
+            </Trigger>
         </Style.Triggers>
     </Style>
 
@@ -102,6 +107,11 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#F4A460"/>
                 <Setter Property="BorderBrush" Value="#5C4033"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#E0E0E0"/>
+                <Setter Property="Foreground" Value="#A0A0A0"/>
+                <Setter Property="BorderBrush" Value="#BDBDBD"/>
             </Trigger>
         </Style.Triggers>
     </Style>

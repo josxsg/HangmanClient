@@ -20,6 +20,7 @@ namespace HangmanClient
         private string _username;
         private bool _isNavigatingAway = false;
         private char _currentEvaluatedLetter;
+        private string _secretWord;
 
         private ObservableCollection<WordSlot> _wordSlots = new ObservableCollection<WordSlot>();
         private ObservableCollection<ChatMessage> _chatMessages = new ObservableCollection<ChatMessage>();
@@ -77,6 +78,7 @@ namespace HangmanClient
 
                 if (_isCreator)
                 {
+                    _secretWord = gameContext.SecretWord;
                     DisableKeyboard();
                     txtDescription.Text += "\n\nERES EL CREADOR: Espera a que el retador proponga una letra.";
                     bdrCreatorGuide.Visibility = Visibility.Visible;
@@ -93,6 +95,7 @@ namespace HangmanClient
                 else
                 {
                     txtDescription.Text += "\n\nERES EL ADIVINADOR: Tu turno. Selecciona una letra.";
+                    bdrCreatorGuide.Visibility = Visibility.Collapsed;
                 }
             });
         }
@@ -172,6 +175,24 @@ namespace HangmanClient
             });
         }
 
+        public void OnEvaluationError()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                foreach (var slot in _wordSlots)
+                {
+                    slot.IsEditing = false;
+                    if (slot.Letter == _currentEvaluatedLetter)
+                    {
+                        slot.Letter = '_';
+                    }
+                }
+                btnConfirmPositions.Visibility = Visibility.Collapsed;
+                MessageBox.Show("¡Te has equivocado al evaluar la palabra! Revisa bien tu palabra secreta y vuelve a intentarlo.", "Evaluación Incorrecta", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                EvaluateGuessAsCreator(_currentEvaluatedLetter);
+            });
+        }
 
         private void btnEnviarMensaje_Click(object sender, RoutedEventArgs e)
         {
@@ -224,13 +245,23 @@ namespace HangmanClient
 
         private void EvaluateGuessAsCreator(char letter)
         {
+
+            _currentEvaluatedLetter = letter;
             MessageBoxResult result = MessageBox.Show(
                 $"El retador propone la letra: '{letter}'.\n\n¿La palabra contiene esta letra?",
                 "Evaluar Turno", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
+            string secretUpper = _secretWord.ToUpper();
+            char letterUpper = char.ToUpper(letter);
+            bool letterExists = secretUpper.Contains(letterUpper);
             if (result == MessageBoxResult.Yes)
             {
-                _currentEvaluatedLetter = letter;
+                if (!letterExists)
+                {
+                    MessageBox.Show("¡Te has equivocado al evaluar la palabra! Revisa bien tu palabra secreta y vuelve a intentarlo.", "Evaluación Incorrecta", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    EvaluateGuessAsCreator(letter); 
+                    return;
+                }
+
                 txtDescription.Text = $"Haz clic en los guiones donde aparece la letra '{letter}' y presiona Confirmar.";
 
                 foreach (var slot in _wordSlots)

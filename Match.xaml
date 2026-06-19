@@ -24,7 +24,7 @@
 
             <StackPanel Width="320" HorizontalAlignment="Left" Margin="0,0,0,20">
 
-                <Border x:Name="bdrCreatorGuide" Style="{StaticResource bdrSquareText}" Margin="0,0,0,15" Visibility="Visible">
+                <Border x:Name="bdrCreatorGuide" Style="{StaticResource bdrSquareText}" Margin="0,0,0,15" Visibility="Collapsed">
                     <StackPanel Margin="5">
                         <TextBlock Text="" Foreground="Maroon" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
                         <ItemsControl x:Name="icSecretWordGuide" HorizontalAlignment="Center">

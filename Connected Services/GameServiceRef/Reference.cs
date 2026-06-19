@@ -396,6 +396,9 @@ namespace HangmanClient.GameServiceRef {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGameService/OnChatMessageReceived")]
         void OnChatMessageReceived(string senderUsername, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGameService/OnEvaluationError")]
+        void OnEvaluationError();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
