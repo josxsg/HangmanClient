@@ -78,9 +78,9 @@
 
                 <DockPanel Width="350">
                     <Label Content="{x:Static p:Resources.lbPhone}" ContentStringFormat="{}{0}*" Style="{StaticResource lblSubtitle}" DockPanel.Dock="Left"/>
-                    <TextBlock x:Name="lbPhoneNumberCounter" Text="0/25" Foreground="#8B4513" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
+                    <TextBlock x:Name="lbPhoneNumberCounter" Text="0/10" Foreground="#8B4513" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
                 </DockPanel>
-                <TextBox x:Name="txtPhoneNumber" Style="{StaticResource txtNormal}" Width="350" Margin="0,0,0,15" MaxLength="25" TextChanged="txtPhoneNumber_TextChanged"/>
+                <TextBox x:Name="txtPhoneNumber" Style="{StaticResource txtNormal}" Width="350" Margin="0,0,0,15" MaxLength="10" TextChanged="txtPhoneNumber_TextChanged"/>
 
                 <DockPanel Width="350">
                     <Label Content="{x:Static p:Resources.lblPassword}" ContentStringFormat="{}{0}*" Style="{StaticResource lblSubtitle}" DockPanel.Dock="Left"/>

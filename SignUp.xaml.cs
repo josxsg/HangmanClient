@@ -83,7 +83,7 @@ namespace HangmanClient
 
         private void txtPhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
-            lbPhoneNumberCounter.Text = $"{txtPhoneNumber.Text.Length}/25";
+            lbPhoneNumberCounter.Text = $"{txtPhoneNumber.Text.Length}/10";
         }
 
         private UserDTO BuildUserDTO() => new UserDTO

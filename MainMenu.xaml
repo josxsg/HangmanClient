@@ -167,9 +167,9 @@
 
                         <DockPanel Width="340">
                             <Label Content="{x:Static p:Resources.lbPhone}" Style="{StaticResource lblSubtitle}" FontSize="14" DockPanel.Dock="Left"/>
-                            <TextBlock x:Name="lbProfPhoneCounter" Text="0/25" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
+                            <TextBlock x:Name="lbProfPhoneCounter" Text="0/10" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
                         </DockPanel>
-                        <TextBox x:Name="txtProfPhone" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15" MaxLength="25" TextChanged="txtProfPhone_TextChanged"/>
+                        <TextBox x:Name="txtProfPhone" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15" MaxLength="10" TextChanged="txtProfPhone_TextChanged"/>
 
                         <Label Content="{x:Static p:Resources.lbEmail}" Style="{StaticResource lblSubtitle}" FontSize="14"/>
                         <TextBox x:Name="txtProfEmail" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,30" 

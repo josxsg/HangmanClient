@@ -94,7 +94,7 @@ namespace HangmanClient
                             MatchIdText = $"ID: {h.MatchId}",
                             DateText = h.Date.ToString("dd/MM/yyyy"),
                             RivalText = string.Format(Properties.Resources.lbOpponent, h.RivalUsername),
-                            WordText = string.Format(Properties.Resources.lbWord, h.RivalUsername),
+                            WordText = $"{Properties.Resources.lbWord} {h.WordText}",
                             ResultText = resText,
                             ResultColor = resColor 
                         };
@@ -304,7 +304,7 @@ namespace HangmanClient
 
         private void txtProfPhone_TextChanged(object sender, TextChangedEventArgs e)
         {
-            lbProfPhoneCounter.Text = $"{txtProfPhone.Text.Length}/25";
+            lbProfPhoneCounter.Text = $"{txtProfPhone.Text.Length}/10";
         }
     }
 }
