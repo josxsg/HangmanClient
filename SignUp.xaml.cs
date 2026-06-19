@@ -51,6 +51,41 @@ namespace HangmanClient
             RedirectToLogin();
         }
 
+        private void pswPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            lbPasswordCounter.Text = $"{pswPassword.Password.Length}/15";
+        }
+
+        private void txtFirstName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbFirstNameCounter.Text = $"{txtFirstName.Text.Length}/25";
+        }
+
+        private void txtPaternalSurname_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbPaternalSurnameCounter.Text = $"{txtPaternalSurname.Text.Length}/25";
+        }
+
+        private void txtMaternalSurname_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbMaternalSurnameCounter.Text = $"{txtMaternalSurname.Text.Length}/25";
+        }
+
+        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbUsernameCounter.Text = $"{txtUsername.Text.Length}/25";
+        }
+
+        private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbEmailCounter.Text = $"{txtEmail.Text.Length}/25";
+        }
+
+        private void txtPhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbPhoneNumberCounter.Text = $"{txtPhoneNumber.Text.Length}/25";
+        }
+
         private UserDTO BuildUserDTO() => new UserDTO
         {
             Name = txtFirstName.Text.Trim(),
@@ -80,7 +115,6 @@ namespace HangmanClient
         private bool IsFormValid()
         {
             if (!ValidateRequiredFields()) return false;
-            if (!ValidateCharacterLengths()) return false;
             if (!ValidatePhoneNumber()) return false;
             if (!ValidateEmailFormat()) return false;
             if (!ValidateBirthDateRange()) return false;
@@ -132,25 +166,6 @@ namespace HangmanClient
             }
             return true;
         }
-
-        private bool ValidateCharacterLengths()
-        {
-            TextBox[] textFields = { txtFirstName, txtPaternalSurname, txtMaternalSurname, txtUsername, txtEmail, txtPhoneNumber };
-
-            foreach (var field in textFields)
-            {
-                if (field.Text.Trim().Length > 25)
-                {
-                    MessageBox.Show(Properties.Resources.mbCarRange, Properties.Resources.mbLimitExceeded,
-                        MessageBoxButton.OK, MessageBoxImage.Warning);
-                    field.Focus();
-                    return false;
-                }
-            }
-            return true;
-        }
-
-
 
         private bool ValidateEmailFormat()
         {

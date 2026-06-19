@@ -31,7 +31,7 @@ namespace HangmanClient
 
             string usernameInput = txtBlockUsername.Text.Trim();
 
-            string hashedPassword = ComputeSha256Hash(pwsBoxPassword.Password);
+            string hashedPassword = ComputeSha256Hash(pswPassword.Password);
 
             var authenticatedUser = await RequestLoginAuthenticationAsync(usernameInput, hashedPassword);
 
@@ -66,6 +66,16 @@ namespace HangmanClient
             RedirectToSignUp();
         }
 
+        private void txtBlockUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbUsernameCounter.Text = $"{txtBlockUsername.Text.Length}/25";
+        }
+
+        private void pswPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            lbPasswordCounter.Text = $"{pswPassword.Password.Length}/15";
+        }
+
         private static string ComputeSha256Hash(string rawPassword)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -83,7 +93,7 @@ namespace HangmanClient
 
         private bool IsFormValid()
         {
-            if (string.IsNullOrWhiteSpace(txtBlockUsername.Text) || string.IsNullOrWhiteSpace(pwsBoxPassword.Password))
+            if (string.IsNullOrWhiteSpace(txtBlockUsername.Text) || string.IsNullOrWhiteSpace(pswPassword.Password))
             {
                 MessageBox.Show(Properties.Resources.mbNullUserPsw, Properties.Resources.mbNullSpaces,
                     MessageBoxButton.OK, MessageBoxImage.Warning);

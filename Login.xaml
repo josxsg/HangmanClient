@@ -12,7 +12,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Image Source="/Properties/Images/Login.png" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
 
         <Border Grid.Column="1">
@@ -22,17 +22,20 @@
                 <Label Content="{x:Static p:Resources.lbLogIn}"
                            Style="{StaticResource lblTitle}"/>
 
-                <Label Content="{x:Static p:Resources.lbUsername}" 
-                        Style="{StaticResource lblSubtitle}"/>
+                <DockPanel Width="350">
+                    <Label Content="{x:Static p:Resources.lbUsername}" Style="{StaticResource lblSubtitle}" DockPanel.Dock="Left"/>
+                    <TextBlock x:Name="lbUsernameCounter" Text="0/25" Foreground="#8B4513" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
+                </DockPanel>
 
                 <TextBox x:Name="txtBlockUsername" Width="350" Height="40" FontSize="18" FontFamily="Courier New" Margin="0,0,0,25"
-                        Style="{StaticResource txtNormal}"/>
+                        Style="{StaticResource txtNormal}" MaxLength="25" TextChanged="txtBlockUsername_TextChanged"/>
 
-                <Label Content="{x:Static p:Resources.lblPassword}" 
-                        Style="{StaticResource lblSubtitle}"/>
-
-                <PasswordBox x:Name="pwsBoxPassword" Width="350" Height="40" FontSize="18" Margin="0,0,0,40"
-                             Style="{StaticResource pwdNormal}"/>
+                <DockPanel Width="350">
+                    <Label Content="{x:Static p:Resources.lblPassword}" ContentStringFormat="{}{0}*" Style="{StaticResource lblSubtitle}" DockPanel.Dock="Left"/>
+                    <TextBlock x:Name="lbPasswordCounter" Text="0/15" Foreground="#8B4513" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
+                </DockPanel>
+                <PasswordBox x:Name="pswPassword" Style="{StaticResource pwdNormal}" Width="350" Margin="0,0,0,25" 
+                             MaxLength="15" PasswordChanged="pswPassword_PasswordChanged"/>
 
                 <Button x:Name="btnLogIn" Content="{x:Static p:Resources.lbLogIn}" 
                         Style="{StaticResource btnMain}"

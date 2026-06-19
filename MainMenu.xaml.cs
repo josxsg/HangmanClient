@@ -250,5 +250,30 @@ namespace HangmanClient
                 this.Close();
             }
         }
+
+        private void txtProfName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbProfNameCounter.Text = $"{txtProfName.Text.Length}/25";
+        }
+
+        private void txtProfPaternalSurname_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbProfPaternalSurnameCounter.Text = $"{txtProfPaternalSurname.Text.Length}/25";
+        }
+
+        private void txtProfMaternalSurname_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbProfMaternalSurnameCounter.Text = $"{txtProfMaternalSurname.Text.Length}/25";
+        }
+
+        private void txtProfUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbProfUsernameCounter.Text = $"{txtProfUsername.Text.Length}/25";
+        }
+
+        private void txtProfPhone_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbProfPhoneCounter.Text = $"{txtProfPhone.Text.Length}/25";
+        }
     }
 }
