@@ -193,10 +193,10 @@ namespace HangmanClient.AccountServiceRef {
         System.Threading.Tasks.Task<HangmanClient.AccountServiceRef.UserDTO> GetUserProfileAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/UpdateUserProfile", ReplyAction="http://tempuri.org/IAccountService/UpdateUserProfileResponse")]
-        bool UpdateUserProfile(HangmanClient.AccountServiceRef.UserDTO userDto);
+        bool UpdateUserProfile(HangmanClient.AccountServiceRef.UserDTO userDto, string newPassword);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountService/UpdateUserProfile", ReplyAction="http://tempuri.org/IAccountService/UpdateUserProfileResponse")]
-        System.Threading.Tasks.Task<bool> UpdateUserProfileAsync(HangmanClient.AccountServiceRef.UserDTO userDto);
+        System.Threading.Tasks.Task<bool> UpdateUserProfileAsync(HangmanClient.AccountServiceRef.UserDTO userDto, string newPassword);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -250,12 +250,12 @@ namespace HangmanClient.AccountServiceRef {
             return base.Channel.GetUserProfileAsync(userId);
         }
         
-        public bool UpdateUserProfile(HangmanClient.AccountServiceRef.UserDTO userDto) {
-            return base.Channel.UpdateUserProfile(userDto);
+        public bool UpdateUserProfile(HangmanClient.AccountServiceRef.UserDTO userDto, string newPassword) {
+            return base.Channel.UpdateUserProfile(userDto, newPassword);
         }
         
-        public System.Threading.Tasks.Task<bool> UpdateUserProfileAsync(HangmanClient.AccountServiceRef.UserDTO userDto) {
-            return base.Channel.UpdateUserProfileAsync(userDto);
+        public System.Threading.Tasks.Task<bool> UpdateUserProfileAsync(HangmanClient.AccountServiceRef.UserDTO userDto, string newPassword) {
+            return base.Channel.UpdateUserProfileAsync(userDto, newPassword);
         }
     }
 }

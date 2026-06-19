@@ -31,7 +31,7 @@ namespace HangmanClient
 
             btnSignUp.IsEnabled = false;
             var newUser = BuildUserDTO();
-            string hashedPassword = ComputeSha256Hash(pswPassword.Password);
+            string hashedPassword = ComputeSha256Hash(GetActualPassword());
 
             try
             {
@@ -108,6 +108,32 @@ namespace HangmanClient
         private void txtPhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
             lbPhoneNumberCounter.Text = $"{txtPhoneNumber.Text.Length}/10";
+        }
+
+        private void chkShowPassword_Toggle(object sender, RoutedEventArgs e)
+        {
+            if (chkShowPassword.IsChecked == true)
+            {
+                txtPasswordVisible.Text = pswPassword.Password;
+                txtPasswordVisible.Visibility = Visibility.Visible;
+                pswPassword.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                pswPassword.Password = txtPasswordVisible.Text;
+                txtPasswordVisible.Visibility = Visibility.Collapsed;
+                pswPassword.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void txtPasswordVisible_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbPasswordCounter.Text = $"{txtPasswordVisible.Text.Length}/15";
+        }
+
+        private string GetActualPassword()
+        {
+            return chkShowPassword.IsChecked == true ? txtPasswordVisible.Text : pswPassword.Password;
         }
 
         private UserDTO BuildUserDTO() => new UserDTO
@@ -203,11 +229,22 @@ namespace HangmanClient
 
             return true;
         }
-
         private bool ValidatePasswordStrength()
         {
-            string password = pswPassword.Password;
-            string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$";
+            string password = GetActualPassword();
+
+            if (password.Contains(" "))
+            {
+                MessageBox.Show(Properties.Resources.mbBlankSpaces,
+                    Properties.Resources.mbValidationError, MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                if (chkShowPassword.IsChecked == true) txtPasswordVisible.Focus();
+                else pswPassword.Focus();
+
+                return false;
+            }
+
+            string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)\S{8,}$";
 
             try
             {
@@ -215,7 +252,10 @@ namespace HangmanClient
                 {
                     MessageBox.Show(Properties.Resources.mbPswWeak,
                         Properties.Resources.mbPswInsecure, MessageBoxButton.OK, MessageBoxImage.Warning);
-                    pswPassword.Focus();
+
+                    if (chkShowPassword.IsChecked == true) txtPasswordVisible.Focus();
+                    else pswPassword.Focus();
+
                     return false;
                 }
             }
@@ -257,7 +297,7 @@ namespace HangmanClient
                 string.IsNullOrWhiteSpace(txtEmail.Text) ||
                 string.IsNullOrWhiteSpace(txtPhoneNumber.Text) ||
                 !dpBirthDate.SelectedDate.HasValue ||
-                string.IsNullOrWhiteSpace(pswPassword.Password))
+                string.IsNullOrWhiteSpace(GetActualPassword())) 
             {
                 MessageBox.Show(Properties.Resources.mbNullOb, Properties.Resources.mbNullSpaces,
                     MessageBoxButton.OK, MessageBoxImage.Warning);

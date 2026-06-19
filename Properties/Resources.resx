@@ -474,4 +474,7 @@
   <data name="msgTitleNetworkError" xml:space="preserve">
     <value>Error Crítico de Red</value>
   </data>
+  <data name="mbBlankSpaces" xml:space="preserve">
+    <value>La contraseña no puede contener espacios en blanco.</value>
+  </data>
 </root>

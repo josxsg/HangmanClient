@@ -439,6 +439,15 @@ namespace HangmanClient.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La contraseña no puede contener espacios en blanco..
+        /// </summary>
+        public static string mbBlankSpaces {
+            get {
+                return ResourceManager.GetString("mbBlankSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Los campos de texto no deben superar los 25 caracteres..
         /// </summary>
         public static string mbCarRange {

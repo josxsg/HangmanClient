@@ -86,9 +86,18 @@
                     <Label Content="{x:Static p:Resources.lblPassword}" ContentStringFormat="{}{0}*" Style="{StaticResource lblSubtitle}" DockPanel.Dock="Left"/>
                     <TextBlock x:Name="lbPasswordCounter" Text="0/15" Foreground="#8B4513" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
                 </DockPanel>
-                
-                <PasswordBox x:Name="pswPassword" Style="{StaticResource pwdNormal}" Width="350" Margin="0,0,0,25" 
-                             MaxLength="15" PasswordChanged="pswPassword_PasswordChanged"/>
+
+                <Grid Width="350" Margin="0,0,0,25">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <PasswordBox x:Name="pswPassword" Style="{StaticResource pwdNormal}" MaxLength="15" PasswordChanged="pswPassword_PasswordChanged"/>
+                    <TextBox x:Name="txtPasswordVisible" Style="{StaticResource txtNormal}" MaxLength="15" Visibility="Collapsed" TextChanged="txtPasswordVisible_TextChanged"/>
+
+                    <CheckBox x:Name="chkShowPassword" Grid.Column="1" Content="👁" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Checked="chkShowPassword_Toggle" Unchecked="chkShowPassword_Toggle" Cursor="Hand"/>
+                </Grid>
 
                 <Button x:Name="btnSignUp" Content="{x:Static p:Resources.btnRegister}" 
                         Style="{StaticResource btnMain}"

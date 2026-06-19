@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -38,8 +39,6 @@ namespace HangmanClient
             }
         }
 
-
-
         private async void btnMyPoints_Click(object sender, RoutedEventArgs e)
         {
             if (!UserSession.Instance.IsLoggedIn) return;
@@ -62,28 +61,27 @@ namespace HangmanClient
 
                     lblTotalPoints.Content = $"{score.TotalScore} pts";
                     lblTotalPoints.Foreground = score.TotalScore >= 0
-                        ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E7D32")) 
-                        : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C62828")); 
+                        ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2E7D32"))
+                        : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C62828"));
 
-    
                     var historyViewList = history.Select(h =>
                     {
                         string resText = "";
-                        string resColor = "#2E7D32"; 
+                        string resColor = "#2E7D32";
 
                         switch (h.Result)
                         {
                             case "Ganada":
                                 resText = string.Format(Properties.Resources.lbStatusWin, h.Points);
-                                resColor = "#2E7D32"; 
+                                resColor = "#2E7D32";
                                 break;
                             case "Perdida":
-                                resText = string.Format(Properties.Resources.lbStatusLost, h.Points); 
-                                resColor = "#C62828"; 
+                                resText = string.Format(Properties.Resources.lbStatusLost, h.Points);
+                                resColor = "#C62828";
                                 break;
                             case "Abandonada":
                                 resText = string.Format(Properties.Resources.lbStatusAbandoned, h.Points);
-                                resColor = "#C62828"; 
+                                resColor = "#C62828";
                                 break;
                             default:
                                 resText = h.Result;
@@ -97,7 +95,7 @@ namespace HangmanClient
                             RivalText = string.Format(Properties.Resources.lbOpponent, h.RivalUsername),
                             WordText = $"{Properties.Resources.lbWord} {h.WordText}",
                             ResultText = resText,
-                            ResultColor = resColor 
+                            ResultColor = resColor
                         };
                     }).ToList();
 
@@ -145,6 +143,10 @@ namespace HangmanClient
                 txtProfUsername.Text = currentUser.Username;
                 txtProfEmail.Text = currentUser.Email;
                 txtProfPhone.Text = currentUser.PhoneNumber;
+                dpProfBirthDate.SelectedDate = currentUser.BirthDate;
+
+                pswProfPassword.Password = string.Empty;
+                if (txtProfPasswordVisible != null) txtProfPasswordVisible.Text = string.Empty;
             }
 
             popEditProfile.IsOpen = true;
@@ -154,7 +156,8 @@ namespace HangmanClient
         {
             if (!ValidateRequiredProfileFields()) return false;
             if (!ValidateProfilePhoneNumber()) return false;
-
+            if (!ValidateProfBirthDateRange()) return false;
+            if (!ValidateProfPasswordStrength()) return false;
             return true;
         }
 
@@ -163,13 +166,28 @@ namespace HangmanClient
             if (string.IsNullOrWhiteSpace(txtProfName.Text) ||
                 string.IsNullOrWhiteSpace(txtProfPaternalSurname.Text) ||
                 string.IsNullOrWhiteSpace(txtProfUsername.Text) ||
-                string.IsNullOrWhiteSpace(txtProfPhone.Text))
+                string.IsNullOrWhiteSpace(txtProfPhone.Text) ||
+                !dpProfBirthDate.SelectedDate.HasValue)
             {
                 MessageBox.Show(Properties.Resources.mbNullOb, Properties.Resources.mbNullSpaces,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
             return true;
+        }
+
+        private static string ComputeSha256Hash(string rawPassword)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(rawPassword));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
 
         private bool ValidateProfilePhoneNumber()
@@ -182,6 +200,65 @@ namespace HangmanClient
                     MessageBox.Show(Properties.Resources.mbPhoneDigits, Properties.Resources.mbInvalidPhone,
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     txtProfPhone.Focus();
+                    return false;
+                }
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateProfBirthDateRange()
+        {
+            if (!dpProfBirthDate.SelectedDate.HasValue) return false;
+
+            DateTime birthDate = dpProfBirthDate.SelectedDate.Value;
+            DateTime today = DateTime.Today;
+            DateTime minAllowedDate = today.AddYears(-100);
+            DateTime maxAllowedDate = today.AddYears(-6);
+
+            if (birthDate < minAllowedDate || birthDate > maxAllowedDate)
+            {
+                MessageBox.Show(Properties.Resources.mbBirthDateRange, Properties.Resources.mbInvalidDate,
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                dpProfBirthDate.Focus();
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateProfPasswordStrength()
+        {
+            string password = GetActualProfilePassword();
+
+            if (string.IsNullOrEmpty(password))
+                return true;
+
+            if (password.Contains(" "))
+            {
+                MessageBox.Show(Properties.Resources.mbBlankSpaces,
+                    Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                if (chkShowProfPassword.IsChecked == true) txtProfPasswordVisible.Focus();
+                else pswProfPassword.Focus();
+
+                return false;
+            }
+
+            string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)\S{8,}$";
+
+            try
+            {
+                if (!Regex.IsMatch(password, passwordPattern, RegexOptions.None, TimeSpan.FromMilliseconds(200)))
+                {
+                    MessageBox.Show(Properties.Resources.mbPswWeak, Properties.Resources.mbPswInsecure,
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                    if (chkShowProfPassword.IsChecked == true) txtProfPasswordVisible.Focus();
+                    else pswProfPassword.Focus();
+
                     return false;
                 }
             }
@@ -208,17 +285,17 @@ namespace HangmanClient
 
         private void btnSpanish_Click(object sender, RoutedEventArgs e)
         {
-            ChangueLanguage("es"); 
+            ChangueLanguage("es");
         }
 
         private void btnEnglish_Click(object sender, RoutedEventArgs e)
         {
-            ChangueLanguage("en"); 
+            ChangueLanguage("en");
         }
 
         private void ChangueLanguage(string cultureCode)
         {
-            popLanguage.IsOpen = false; 
+            popLanguage.IsOpen = false;
 
             if (_languageCode == cultureCode) return;
 
@@ -234,10 +311,14 @@ namespace HangmanClient
         private async void btnSaveProfile_Click(object sender, RoutedEventArgs e)
         {
             if (!IsProfileFormValid()) return;
-
             btnSaveProfile.IsEnabled = false;
+
             try
             {
+                string rawPassword = GetActualProfilePassword();
+
+                string hashedPassword = !string.IsNullOrEmpty(rawPassword) ? ComputeSha256Hash(rawPassword) : null;
+
                 UserDTO updatedUser = new UserDTO
                 {
                     UserId = UserSession.Instance.CurrentUser.UserId,
@@ -247,12 +328,13 @@ namespace HangmanClient
                     Username = txtProfUsername.Text.Trim(),
                     Email = txtProfEmail.Text,
                     PhoneNumber = txtProfPhone.Text.Trim(),
-                    BirthDate = UserSession.Instance.CurrentUser.BirthDate
+                    BirthDate = dpProfBirthDate.SelectedDate.Value
                 };
 
                 using (var client = new AccountServiceClient())
                 {
-                    bool success = await client.UpdateUserProfileAsync(updatedUser);
+                    bool success = await client.UpdateUserProfileAsync(updatedUser, hashedPassword);
+
                     if (success)
                     {
                         UserSession.Instance.CurrentUser = updatedUser;
@@ -289,6 +371,7 @@ namespace HangmanClient
                 btnSaveProfile.IsEnabled = true;
             }
         }
+
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show(Properties.Resources.mbConfirmLogout, Properties.Resources.mbLogout, MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -302,6 +385,35 @@ namespace HangmanClient
 
                 this.Close();
             }
+        }
+
+        private void chkShowProfPassword_Toggle(object sender, RoutedEventArgs e)
+        {
+            if (chkShowProfPassword.IsChecked == true)
+            {
+                txtProfPasswordVisible.Text = pswProfPassword.Password;
+                txtProfPasswordVisible.Visibility = Visibility.Visible;
+                pswProfPassword.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                pswProfPassword.Password = txtProfPasswordVisible.Text;
+                txtProfPasswordVisible.Visibility = Visibility.Collapsed;
+                pswProfPassword.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void txtProfPasswordVisible_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbProfPasswordCounter.Text = $"{txtProfPasswordVisible.Text.Length}/15";
+        }
+
+        private string GetActualProfilePassword()
+        {
+            if (chkShowProfPassword == null || txtProfPasswordVisible == null || pswProfPassword == null)
+                return string.Empty;
+
+            return chkShowProfPassword.IsChecked == true ? txtProfPasswordVisible.Text : pswProfPassword.Password;
         }
 
         private void txtProfName_TextChanged(object sender, TextChangedEventArgs e)
@@ -327,6 +439,11 @@ namespace HangmanClient
         private void txtProfPhone_TextChanged(object sender, TextChangedEventArgs e)
         {
             lbProfPhoneCounter.Text = $"{txtProfPhone.Text.Length}/10";
+        }
+
+        private void pswProfPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            lbProfPasswordCounter.Text = $"{pswProfPassword.Password.Length}/15";
         }
     }
 }
