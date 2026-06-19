@@ -10,10 +10,40 @@
     <Grid>
         <Image Source="/Properties/Images/Menu.png"/>
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="300" Margin="0,0,0,0">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="300" Margin="0,0,0,40">
             <Button x:Name="btnComenzar" Content="{x:Static p:Resources.btnStart}" FontSize="45" 
                     Style="{StaticResource btnMain}"
                     Width="260" Height="70" Click="Button_Click"/>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,40,40">
+
+            <Button x:Name="btnLanguage" 
+                    Style="{StaticResource btnSquare}" 
+                    ToolTip="{x:Static p:Resources.ttChangeLanguaje}" Click="btnLanguage_Click">
+
+                <Image Source="/Properties/Images/languaje.png" Width="30" Height="30" Stretch="Uniform"/>
+
+            </Button>
+
+            <Popup x:Name="popLanguage" 
+                   PlacementTarget="{Binding ElementName=btnLanguage}" 
+                   Placement="Top" 
+                   StaysOpen="False" 
+                   AllowsTransparency="True" 
+                   PopupAnimation="Slide">
+
+                <Border Style="{StaticResource bdrSquareText}" Padding="10" Margin="0,0,0,10">
+                    <StackPanel>
+                        <Button x:Name="btnSpanish" Content="{x:Static p:Resources.lbLanguajeSpanish}" Style="{StaticResource btnMain}" 
+                                Width="150" Height="45" VerticalContentAlignment="Center" Margin="0,0,0,10" Click="btnSpanish_Click"/>
+
+                        <Button x:Name="btnEnglish" Content="{x:Static p:Resources.lbLanguajeEnglish}" Style="{StaticResource btnMain}" 
+                                Width="150" Height="45" VerticalContentAlignment="Center" Click="btnEnglish_Click"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
         </StackPanel>
 
     </Grid>

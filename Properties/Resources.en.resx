@@ -213,4 +213,22 @@
   <data name="btnJoinMatch" xml:space="preserve">
     <value>Join a Match</value>
   </data>
+  <data name="ttLogOut" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="ttMyProfile" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
+  <data name="lbWaitingHost" xml:space="preserve">
+    <value>WAITING FOR HOST...</value>
+  </data>
+  <data name="lbWaitingPlayer" xml:space="preserve">
+    <value>WAITING FOR PLAYER...</value>
+  </data>
+  <data name="lbOpponentConnected" xml:space="preserve">
+    <value>OPPONENT CONNECTED: {0}</value>
+  </data>
+  <data name="btnChoosePos" xml:space="preserve">
+    <value>Choose position</value>
+  </data>
 </root>

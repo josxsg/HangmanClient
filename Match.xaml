@@ -11,17 +11,81 @@
         <Image x:Name="imgBackground" Source="/Properties/Images/Game.png" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
 
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0">
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <Label Content="{x:Static p:Resources.lbMatchId}" Style="{StaticResource lblSubtitle}"/>
                 <Label x:Name="lbMatchId" Content="0000" Style="{StaticResource lblSubtitle}" Foreground="Maroon"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <Label Content="{x:Static p:Resources.lbCategory}" Style="{StaticResource lblSubtitle}"/>
                 <Label x:Name="lbCategory" Content="ANIMALES" Style="{StaticResource lblSubtitle}" Foreground="Maroon"/>
             </StackPanel>
-        </StackPanel>
 
+            <StackPanel Width="320" HorizontalAlignment="Left" Margin="0,0,0,20">
+
+                <Border x:Name="bdrCreatorGuide" Style="{StaticResource bdrSquareText}" Margin="0,0,0,15" Visibility="Visible">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="" Foreground="Maroon" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                        <ItemsControl x:Name="icSecretWordGuide" HorizontalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="4">
+                                        <TextBlock Text="{Binding Letter}" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Position}" FontSize="14" Foreground="Gray" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource bdrSquareText}" Height="auto">
+                    <TextBlock x:Name="txtDescription" Style="{StaticResource txtBlock}" TextWrapping="Wrap"/>
+                </Border>
+
+            </StackPanel>
+
+            <ItemsControl x:Name="icPalabraOculta" HorizontalAlignment="Left">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Letter}" 
+                                Tag="{Binding Index}"
+                                FontSize="45" 
+                                FontWeight="Bold"
+                                Width="55" Height="65"
+                                Margin="0,0,10,0"
+                                Background="Transparent"
+                                BorderBrush="DarkGray"
+                                BorderThickness="0,0,0,3"
+                                Foreground="#333333"
+                                IsEnabled="{Binding IsEditing}"
+                                Cursor="Hand"
+                                Click="WordSlot_Click"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Button x:Name="btnConfirmPositions" 
+                    Content="{x:Static p:Resources.btnChoosePos}" 
+                    Style="{StaticResource btnMain}" 
+                    Height="40" Padding="20,0" Margin="0,20,0,0"
+                    Visibility="Collapsed" 
+                    Background="#2E8B57"
+                    HorizontalAlignment="Left"
+                    Click="btnConfirmPositions_Click"/>
+
+        </StackPanel>
         <Button x:Name="btnLeave" Content="{x:Static p:Resources.lbLeave}" 
                 Style="{StaticResource btnMain}" 
                 Width="200" Height="50" FontSize="18" Background="#A0522D"
@@ -80,75 +144,7 @@
                 </Grid>
             </Border>
         </Popup>
-
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,325,0,0" Width="320">
-
-            <Border Style="{StaticResource bdrSquareText}" Height="auto">
-                <TextBlock x:Name="txtDescription" 
-                           Style="{StaticResource txtBlock}" TextWrapping="Wrap"
-                           Text="Aquí aparecerán los mensajes del juego, pistas o notificaciones..."/>
-            </Border>
-
-            <Border x:Name="bdrCreatorGuide" Style="{StaticResource bdrSquareText}" Margin="0,15,0,0" Visibility="Visible">
-                <StackPanel Margin="5">
-                    <TextBlock Text="PALABRA SECRETA (GUÍA):" Foreground="Maroon" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
-                    <ItemsControl x:Name="icSecretWordGuide" HorizontalAlignment="Center">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="4">
-                                    <TextBlock Text="{Binding Letter}" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding Position}" FontSize="14" Foreground="Gray" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </Border>
-
-        </StackPanel>
-
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,350,0,0">
-
-            <ItemsControl x:Name="icPalabraOculta" HorizontalAlignment="Center">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Content="{Binding Letter}" 
-                                Tag="{Binding Index}"
-                                FontSize="50" 
-                                FontWeight="Bold"
-                                Width="60" Height="70"
-                                Margin="5"
-                                Background="Transparent"
-                                BorderBrush="DarkGray"
-                                BorderThickness="0,0,0,3"
-                                Foreground="#333333"
-                                IsEnabled="{Binding IsEditing}"
-                                Cursor="Hand"
-                                Click="WordSlot_Click"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-            <Button x:Name="btnConfirmPositions" 
-                    Content="Confirmar Posiciones" 
-                    Style="{StaticResource btnMain}" 
-                    Width="200" Height="40" Margin="0,20,0,0"
-                    Visibility="Collapsed" 
-                    Background="#2E8B57"
-                    Click="btnConfirmPositions_Click"/>
-
-        </StackPanel>
-
+        
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,40">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
                 <Button x:Name="btnQ" Content="Q" Style="{StaticResource btnLetter}" Click="btnQ_Click"/>

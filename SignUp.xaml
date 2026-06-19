@@ -31,7 +31,7 @@
                 <Label Content="{x:Static p:Resources.lbSignUp}" 
                        Style="{StaticResource lblTitle}" Margin="0,0,0,10"/>
 
-                <Label Content="Nombre*" Style="{StaticResource lblSubtitle}"/>
+                <Label Content="{x:Static p:Resources.lbName}" ContentStringFormat="{}{0}*" Style="{StaticResource lblSubtitle}" FontSize="15"/>
                 <TextBox x:Name="txtFirstName" Style="{StaticResource txtNormal}" Width="350" Margin="0,0,0,15"/>
 
                 <Grid Margin="0,0,0,15">
@@ -42,7 +42,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
-                        <Label Content="Apellido Paterno*" Style="{StaticResource lblSubtitle}" FontSize="15"/>
+                        <Label Content="{x:Static p:Resources.lbLastName}" ContentStringFormat="{}{0}*" Style="{StaticResource lblSubtitle}" FontSize="15"/>
                         <TextBox x:Name="txtPaternalSurname" Style="{StaticResource txtNormal}" Width="170"/>
                     </StackPanel>
 
@@ -52,19 +52,19 @@
                     </StackPanel>
                 </Grid>
 
-                <Label Content="Fecha de nacimiento*" Style="{StaticResource lblSubtitle}"/>
+                <Label Content="{x:Static p:Resources.lbDateOfBirth}" ContentStringFormat="{}{0}*" Style="{StaticResource lblSubtitle}"/>
                 <DatePicker x:Name="dpBirthDate" Style="{StaticResource dpNormal}" Margin="0,0,0,15"/>
 
-                <Label Content="Nombre de usuario*" Style="{StaticResource lblSubtitle}"/>
+                <Label Content="{x:Static p:Resources.lbUsername}" ContentStringFormat="{}{0}*" Style="{StaticResource lblSubtitle}"/>
                 <TextBox x:Name="txtUsername" Style="{StaticResource txtNormal}" Width="350" Margin="0,0,0,15"/>
 
-                <Label Content="Correo electrónico*" Style="{StaticResource lblSubtitle}"/>
+                <Label Content="{x:Static p:Resources.lbEmail}" ContentStringFormat="{}{0}*" Style="{StaticResource lblSubtitle}"/>
                 <TextBox x:Name="txtEmail" Style="{StaticResource txtNormal}" Width="350" Margin="0,0,0,15" />
 
-                <Label Content="Teléfono*" Style="{StaticResource lblSubtitle}"/>
+                <Label Content="{x:Static p:Resources.lbPhone}" ContentStringFormat="{}{0}*" Style="{StaticResource lblSubtitle}"/>
                 <TextBox x:Name="txtPhoneNumber" Style="{StaticResource txtNormal}" Width="350" Margin="0,0,0,15" />
 
-                <Label Content="Contraseña*" Style="{StaticResource lblSubtitle}"/>
+                <Label Content="{x:Static p:Resources.lblPassword}" ContentStringFormat="{}{0}*" Style="{StaticResource lblSubtitle}"/>
                 <PasswordBox x:Name="pswPassword" Style="{StaticResource pwdNormal}" Width="350" Margin="0,0,0,25"/>
 
                 <Button x:Name="btnSignUp" Content="{x:Static p:Resources.btnRegister}" 

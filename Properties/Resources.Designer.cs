@@ -61,6 +61,15 @@ namespace HangmanClient.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Elegir posición.
+        /// </summary>
+        public static string btnChoosePos {
+            get {
+                return ResourceManager.GetString("btnChoosePos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Unirse.
         /// </summary>
         public static string btnJoin {
@@ -259,6 +268,15 @@ namespace HangmanClient.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a RIVAL CONECTADO: {0}.
+        /// </summary>
+        public static string lbOpponentConnected {
+            get {
+                return ResourceManager.GetString("lbOpponentConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Ó.
         /// </summary>
         public static string lbOr {
@@ -304,11 +322,29 @@ namespace HangmanClient.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a ESPERANDO A QUE EL ANFITRIÓN INICIE....
+        /// </summary>
+        public static string lbWaitingHost {
+            get {
+                return ResourceManager.GetString("lbWaitingHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Esperando a rival....
         /// </summary>
         public static string lbWaitingOpponent {
             get {
                 return ResourceManager.GetString("lbWaitingOpponent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ESPERANDO JUGADOR....
+        /// </summary>
+        public static string lbWaitingPlayer {
+            get {
+                return ResourceManager.GetString("lbWaitingPlayer", resourceCulture);
             }
         }
         
@@ -340,11 +376,29 @@ namespace HangmanClient.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cerrar Sesión.
+        /// </summary>
+        public static string ttLogOut {
+            get {
+                return ResourceManager.GetString("ttLogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Mi puntaje.
         /// </summary>
         public static string ttMyPoints {
             get {
                 return ResourceManager.GetString("ttMyPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Mi Perfil.
+        /// </summary>
+        public static string ttMyProfile {
+            get {
+                return ResourceManager.GetString("ttMyProfile", resourceCulture);
             }
         }
     }

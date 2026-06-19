@@ -55,7 +55,7 @@ namespace HangmanClient
                 btnStart.Visibility = Visibility.Collapsed;
 
                 lblMatchIdDisplay.Content = _matchId.ToString("D4");
-                lbWaitingOpponent.Content = "ESPERANDO A QUE EL ANFITRIÓN INICIE...";
+                lbWaitingOpponent.Content = Properties.Resources.lbWaitingHost;
                 lbWaitingOpponent.Visibility = Visibility.Visible;
 
                 StartCheckingForOpponent();
@@ -187,7 +187,7 @@ namespace HangmanClient
             _matchId = createdMatchId;
             lblMatchIdDisplay.Content = _matchId.ToString("D4");
 
-            lbWaitingOpponent.Content = "ESPERANDO JUGADOR...";
+            lbWaitingOpponent.Content = Properties.Resources.lbWaitingPlayer;
             lbWaitingOpponent.Visibility = Visibility.Visible;
 
             cmbCategory.IsEnabled = false;
@@ -212,12 +212,12 @@ namespace HangmanClient
         {
             if (!string.IsNullOrEmpty(matchStatus.ChallengerUsername))
             {
-                lbWaitingOpponent.Content = $"RIVAL CONECTADO: {matchStatus.ChallengerUsername}";
+                lbWaitingOpponent.Content = string.Format(Properties.Resources.lbOpponentConnected, matchStatus.ChallengerUsername);
                 btnStart.IsEnabled = true;
             }
             else
             {
-                lbWaitingOpponent.Content = "ESPERANDO JUGADOR...";
+                lbWaitingOpponent.Content = Properties.Resources.lbWaitingPlayer;
                 btnStart.IsEnabled = false;
             }
 

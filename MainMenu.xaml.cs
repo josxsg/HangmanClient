@@ -153,23 +153,23 @@ namespace HangmanClient
 
         private void btnSpanish_Click(object sender, RoutedEventArgs e)
         {
-            CambiarIdioma("es"); 
+            ChangueLanguage("es"); 
         }
 
         private void btnEnglish_Click(object sender, RoutedEventArgs e)
         {
-            CambiarIdioma("en"); 
+            ChangueLanguage("en"); 
         }
 
-        private void CambiarIdioma(string cultureCode)
+        private void ChangueLanguage(string cultureCode)
         {
             popLanguage.IsOpen = false; 
 
             if (_languageCode == cultureCode) return;
 
-            CultureInfo nuevaCultura = new CultureInfo(cultureCode);
-            Thread.CurrentThread.CurrentCulture = nuevaCultura;
-            Thread.CurrentThread.CurrentUICulture = nuevaCultura;
+            CultureInfo newCulture = new CultureInfo(cultureCode);
+            Thread.CurrentThread.CurrentCulture = newCulture;
+            Thread.CurrentThread.CurrentUICulture = newCulture;
 
             MainMenu menuActualizado = new MainMenu();
             menuActualizado.Show();
@@ -228,6 +228,21 @@ namespace HangmanClient
             finally
             {
                 btnSaveProfile.IsEnabled = true;
+            }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("¿Estás seguro de que deseas cerrar sesión?", "Cerrar Sesión", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                UserSession.Instance.Logout();
+
+                Login loginWindow = new Login();
+                loginWindow.Show();
+
+                this.Close();
             }
         }
     }
