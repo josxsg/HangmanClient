@@ -1,0 +1,61 @@
+﻿C:\Users\migue\OneDrive\Escritorio\HangmanClient\CreateMatch.xaml.cs
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\JoinMatch.xaml.cs
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\MainMenu.xaml.cs
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Match.xaml.cs
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\SignUp.xaml.cs
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\UserSession.cs
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\App.xaml.cs
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Login.xaml.cs
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\MainWindow.xaml.cs
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Properties\AssemblyInfo.cs
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Properties\Resources.resx
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Properties\Resources.en.resx
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\AccountServiceRef\AccountService.wsdl
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\AccountServiceRef\AccountService.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\AccountServiceRef\AccountService1.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\AccountServiceRef\AccountService2.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\AccountServiceRef\HangmanClient.AccountServiceRef.UserDTO.datasource
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\CatalogServiceRef\CatalogService.wsdl
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\CatalogServiceRef\CatalogService.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\CatalogServiceRef\CatalogService1.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\CatalogServiceRef\CatalogService2.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\CatalogServiceRef\HangmanClient.CatalogServiceRef.CategoryDTO.datasource
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\CatalogServiceRef\HangmanClient.CatalogServiceRef.WordDTO.datasource
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\GameServiceRef\GameService.wsdl
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\GameServiceRef\GameService.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\GameServiceRef\GameService1.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\GameServiceRef\GameService2.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\GameServiceRef\GameService3.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\MatchmakingServiceRef\HangmanClient.MatchmakingServiceRef.AvailableMatchDTO.datasource
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\MatchmakingServiceRef\MatchmakingService.wsdl
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\MatchmakingServiceRef\MatchmakingService.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\MatchmakingServiceRef\MatchmakingService1.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\MatchmakingServiceRef\MatchmakingService2.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\ScoreServiceRef\HangmanClient.ScoreServiceRef.MatchHistoryDTO.datasource
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\ScoreServiceRef\HangmanClient.ScoreServiceRef.PlayerScoreDTO.datasource
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\ScoreServiceRef\ScoreService.wsdl
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\ScoreServiceRef\ScoreService.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\ScoreServiceRef\ScoreService1.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\ScoreServiceRef\ScoreService2.xsd
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Properties\Settings.settings
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\App.config
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\AccountServiceRef\AccountService.disco
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\AccountServiceRef\configuration91.svcinfo
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\AccountServiceRef\configuration.svcinfo
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\AccountServiceRef\Reference.svcmap
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\MatchmakingServiceRef\MatchmakingService.disco
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\MatchmakingServiceRef\configuration91.svcinfo
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\MatchmakingServiceRef\configuration.svcinfo
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\MatchmakingServiceRef\Reference.svcmap
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\CatalogServiceRef\CatalogService.disco
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\CatalogServiceRef\configuration91.svcinfo
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\CatalogServiceRef\configuration.svcinfo
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\CatalogServiceRef\Reference.svcmap
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\GameServiceRef\GameService.disco
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\GameServiceRef\configuration91.svcinfo
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\GameServiceRef\configuration.svcinfo
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\GameServiceRef\Reference.svcmap
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\ScoreServiceRef\ScoreService.disco
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\ScoreServiceRef\configuration91.svcinfo
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\ScoreServiceRef\configuration.svcinfo
+C:\Users\migue\OneDrive\Escritorio\HangmanClient\Connected Services\ScoreServiceRef\Reference.svcmap

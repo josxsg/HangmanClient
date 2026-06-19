@@ -1,0 +1,6 @@
+projectKey=hangmanClient
+serverUrl=http://localhost:9000
+serverVersion=25.10.0.114319
+dashboardUrl=http://localhost:9000/dashboard?id=hangmanClient
+ceTaskId=e328cefc-b4c2-4dae-8808-b26819751eb9
+ceTaskUrl=http://localhost:9000/api/ce/task?id=e328cefc-b4c2-4dae-8808-b26819751eb9

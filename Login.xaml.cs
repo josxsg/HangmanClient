@@ -66,7 +66,7 @@ namespace HangmanClient
             RedirectToSignUp();
         }
 
-        private string ComputeSha256Hash(string rawPassword)
+        private static string ComputeSha256Hash(string rawPassword)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
@@ -106,7 +106,7 @@ namespace HangmanClient
             this.Close();
         }
 
-        private async Task<UserDTO> RequestLoginAuthenticationAsync(string username, string hashedPassword)
+        private static async Task<UserDTO> RequestLoginAuthenticationAsync(string username, string hashedPassword)
         {
             try
             {
@@ -122,11 +122,6 @@ namespace HangmanClient
                                 MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
-        }
-
-        private void txtBlockUsername_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

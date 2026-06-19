@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using HangmanClient.GameServiceRef;
 using System.Windows.Media.Imaging;
-using System.Collections.ObjectModel; 
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.ComponentModel;
 
@@ -24,6 +24,8 @@ namespace HangmanClient
 
         private ObservableCollection<WordSlot> _wordSlots = new ObservableCollection<WordSlot>();
         private ObservableCollection<ChatMessage> _chatMessages = new ObservableCollection<ChatMessage>();
+
+        private const string GAME_BACKGROUND_IMAGE_PATH = "/Properties/Images/Game.png";
 
         public Match(int matchId, int currentUserId, bool isCreator, string username)
         {
@@ -239,7 +241,6 @@ namespace HangmanClient
             });
         }
 
-
         private void EvaluateGuessAsCreator(char letter)
         {
             _currentEvaluatedLetter = letter;
@@ -281,6 +282,7 @@ namespace HangmanClient
                 txtDescription.Text = Properties.Resources.msgEvaluationSent;
             }
         }
+
         private void UpdateWordDisplay(char letter, int[] positions)
         {
             if (positions == null) return;
@@ -296,36 +298,36 @@ namespace HangmanClient
 
         private void DrawHangmanPart(int mistakes)
         {
-            string rutaImagen = "/Properties/Images/Game.png"; 
+            string rutaImagen = "/Properties/Images/Game.png";
 
             switch (mistakes)
             {
                 case 1:
-                    rutaImagen = "/Properties/Images/head.png"; 
+                    rutaImagen = "/Properties/Images/head.png";
                     break;
                 case 2:
-                    rutaImagen = "/Properties/Images/body.png"; 
+                    rutaImagen = "/Properties/Images/body.png";
                     break;
                 case 3:
-                    rutaImagen = "/Properties/Images/leftArm.png"; 
+                    rutaImagen = "/Properties/Images/leftArm.png";
                     break;
                 case 4:
-                    rutaImagen = "/Properties/Images/rightArm.png"; 
+                    rutaImagen = "/Properties/Images/rightArm.png";
                     break;
                 case 5:
-                    rutaImagen = "/Properties/Images/leftLeg.png"; 
+                    rutaImagen = "/Properties/Images/leftLeg.png";
                     break;
                 case 6:
-                    rutaImagen = "/Properties/Images/rightArm.png"; 
+                    rutaImagen = "/Properties/Images/rightArm.png";
                     break;
             }
 
-            imgBackground.Source = new BitmapImage(new Uri($"pack://application:,,,{rutaImagen}"));
+            imgBackground.Source = new BitmapImage(new Uri(rutaImagen, UriKind.Relative));
         }
 
         private void ResetHangmanImages()
         {
-            imgBackground.Source = new BitmapImage(new Uri("pack://application:,,,/Properties/Images/Game.png"));
+            imgBackground.Source = new BitmapImage(new Uri(GAME_BACKGROUND_IMAGE_PATH, UriKind.Relative));
         }
 
         private void DisableKeyboard()

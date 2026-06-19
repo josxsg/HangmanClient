@@ -26,7 +26,7 @@
                         Style="{StaticResource lblSubtitle}"/>
 
                 <TextBox x:Name="txtBlockUsername" Width="350" Height="40" FontSize="18" FontFamily="Courier New" Margin="0,0,0,25"
-                        Style="{StaticResource txtNormal}" TextChanged="txtBlockUsername_TextChanged"/>
+                        Style="{StaticResource txtNormal}"/>
 
                 <Label Content="{x:Static p:Resources.lblPassword}" 
                         Style="{StaticResource lblSubtitle}"/>

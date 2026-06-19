@@ -46,7 +46,7 @@ namespace HangmanClient
             if (_isCreator)
             {
                 lbWaitingOpponent.Visibility = Visibility.Collapsed;
-                ExecuteLoadCategoriesAsync();
+                _ = ExecuteLoadCategoriesAsync();
             }
             else
             {
@@ -243,7 +243,7 @@ namespace HangmanClient
             }
         }
 
-        private async void ExecuteLoadCategoriesAsync()
+        private async Task ExecuteLoadCategoriesAsync()
         {
             try
             {
@@ -261,7 +261,7 @@ namespace HangmanClient
             }
         }
 
-        private async Task<WordDTO[]> FetchWordsByCategoryFromServerAsync(int categoryId)
+        private static async Task<WordDTO[]> FetchWordsByCategoryFromServerAsync(int categoryId)
         {
             try
             {
@@ -298,7 +298,7 @@ namespace HangmanClient
             }
         }
 
-        private async Task<AvailableMatchDTO> FetchMatchStatusFromServerAsync(int matchId)
+        private static async Task<AvailableMatchDTO> FetchMatchStatusFromServerAsync(int matchId)
         {
             try
             {

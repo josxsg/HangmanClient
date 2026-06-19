@@ -22,7 +22,7 @@ namespace HangmanClient
             InitializeComponent();
             _languageCode = languageCode;
 
-            ExecuteLoadAvailableMatchesAsync();
+            _ = ExecuteLoadAvailableMatchesAsync();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -52,11 +52,11 @@ namespace HangmanClient
                                 Properties.Resources.mbLobbyNotAv, MessageBoxButton.OK, MessageBoxImage.Warning);
 
                 clickedButton.IsEnabled = true;
-                ExecuteLoadAvailableMatchesAsync();
+                _ = ExecuteLoadAvailableMatchesAsync();
             }
         }
 
-        private async void ExecuteLoadAvailableMatchesAsync()
+        private async Task ExecuteLoadAvailableMatchesAsync()
         {
             try
             {
@@ -99,7 +99,7 @@ namespace HangmanClient
             this.Close();
         }
 
-        private async Task<bool> TryJoinMatchSessionAsync(int matchId)
+        private static async Task<bool> TryJoinMatchSessionAsync(int matchId)
         {
             try
             {

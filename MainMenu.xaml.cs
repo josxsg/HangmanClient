@@ -23,8 +23,7 @@ namespace HangmanClient
     /// </summary>
     public partial class MainMenu : Window
     {
-        private string _username;
-        private string _languageCode = "es";
+        private string _languageCode;
 
         public MainMenu()
         {

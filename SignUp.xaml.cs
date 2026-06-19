@@ -62,7 +62,7 @@ namespace HangmanClient
             PhoneNumber = txtPhoneNumber.Text.Trim()
         };
 
-        private string ComputeSha256Hash(string rawPassword)
+        private static string ComputeSha256Hash(string rawPassword)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
@@ -89,7 +89,7 @@ namespace HangmanClient
             return true;
         }
 
-        private async Task<bool> RequestUserRegistrationAsync(UserDTO user, string password)
+        private static async Task<bool> RequestUserRegistrationAsync(UserDTO user, string password)
         {
             try
             {
@@ -150,49 +150,73 @@ namespace HangmanClient
             return true;
         }
 
-        
+
 
         private bool ValidateEmailFormat()
         {
             string email = txtEmail.Text.Trim();
             string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
 
-            if (!Regex.IsMatch(email, emailPattern))
+            try
             {
-                MessageBox.Show(Properties.Resources.mbInvalidEmail, Properties.Resources.mbInEmail,
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                txtEmail.Focus();
+                if (!Regex.IsMatch(email, emailPattern, RegexOptions.None, TimeSpan.FromMilliseconds(200)))
+                {
+                    MessageBox.Show(Properties.Resources.mbInvalidEmail, Properties.Resources.mbInEmail,
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    txtEmail.Focus();
+                    return false;
+                }
+            }
+            catch (RegexMatchTimeoutException)
+            {
                 return false;
             }
+
             return true;
         }
 
         private bool ValidatePasswordStrength()
         {
             string password = pswPassword.Password;
-
             string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$";
 
-            if (!Regex.IsMatch(password, passwordPattern))
+            try
             {
-                MessageBox.Show(Properties.Resources.mbPswWeak,
-                    Properties.Resources.mbPswInsecure, MessageBoxButton.OK, MessageBoxImage.Warning);
-                pswPassword.Focus();
+                if (!Regex.IsMatch(password, passwordPattern, RegexOptions.None, TimeSpan.FromMilliseconds(200)))
+                {
+                    MessageBox.Show(Properties.Resources.mbPswWeak,
+                        Properties.Resources.mbPswInsecure, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    pswPassword.Focus();
+                    return false;
+                }
+            }
+            catch (RegexMatchTimeoutException)
+            {
                 return false;
             }
+
             return true;
         }
 
         private bool ValidatePhoneNumber()
         {
             string phone = txtPhoneNumber.Text.Trim();
-            if (!Regex.IsMatch(phone, @"^\d{10}$"))
+
+            try
             {
-                MessageBox.Show(Properties.Resources.mbPhoneDigits, Properties.Resources.mbInvalidPhone,
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                txtPhoneNumber.Focus();
+                if (!Regex.IsMatch(phone, @"^\d{10}$", RegexOptions.None, TimeSpan.FromMilliseconds(200)))
+                {
+                    MessageBox.Show(Properties.Resources.mbPhoneDigits, Properties.Resources.mbInvalidPhone,
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    txtPhoneNumber.Focus();
+                    return false;
+                }
+            }
+            catch (RegexMatchTimeoutException)
+            {
                 return false;
             }
+
             return true;
         }
 
