@@ -1,8 +1,12 @@
 ﻿using HangmanClient.AccountServiceRef;
+using HangmanClient.ScoreServiceRef;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,9 +16,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Globalization;
-using System.Threading;
-using HangmanClient.ScoreServiceRef;
 
 namespace HangmanClient
 {
@@ -138,6 +139,48 @@ namespace HangmanClient
             popEditProfile.IsOpen = true;
         }
 
+        private bool IsProfileFormValid()
+        {
+            if (!ValidateRequiredProfileFields()) return false;
+            if (!ValidateProfilePhoneNumber()) return false;
+
+            return true;
+        }
+
+        private bool ValidateRequiredProfileFields()
+        {
+            if (string.IsNullOrWhiteSpace(txtProfName.Text) ||
+                string.IsNullOrWhiteSpace(txtProfPaternalSurname.Text) ||
+                string.IsNullOrWhiteSpace(txtProfUsername.Text) ||
+                string.IsNullOrWhiteSpace(txtProfPhone.Text))
+            {
+                MessageBox.Show(Properties.Resources.mbNullOb, Properties.Resources.mbNullSpaces,
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateProfilePhoneNumber()
+        {
+            string phone = txtProfPhone.Text.Trim();
+            try
+            {
+                if (!Regex.IsMatch(phone, @"^\d{10}$", RegexOptions.None, TimeSpan.FromMilliseconds(200)))
+                {
+                    MessageBox.Show(Properties.Resources.mbPhoneDigits, Properties.Resources.mbInvalidPhone,
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    txtProfPhone.Focus();
+                    return false;
+                }
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+            return true;
+        }
+
         private void btnCreateMatch_Click(object sender, RoutedEventArgs e)
         {
             CreateMatch createMatchWindow = new CreateMatch(_languageCode);
@@ -179,17 +222,9 @@ namespace HangmanClient
 
         private async void btnSaveProfile_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtProfName.Text) ||
-                string.IsNullOrWhiteSpace(txtProfPaternalSurname.Text) ||
-                string.IsNullOrWhiteSpace(txtProfUsername.Text))
-            {
-                MessageBox.Show(Properties.Resources.mbNullOb, Properties.Resources.mbNullSpaces, 
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+            if (!IsProfileFormValid()) return;
 
             btnSaveProfile.IsEnabled = false;
-
             try
             {
                 UserDTO updatedUser = new UserDTO
@@ -207,21 +242,18 @@ namespace HangmanClient
                 using (var client = new AccountServiceClient())
                 {
                     bool success = await client.UpdateUserProfileAsync(updatedUser);
-
                     if (success)
                     {
                         UserSession.Instance.CurrentUser = updatedUser;
-
                         lbUsername.Content = updatedUser.Username;
-
-                        MessageBox.Show(Properties.Resources.mbUpdateSuccess, Properties.Resources.mbProfileUpdated, 
-                            MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(Properties.Resources.mbUpdateSuccess, Properties.Resources.mbProfileUpdated,
+                             MessageBoxButton.OK, MessageBoxImage.Information);
                         popEditProfile.IsOpen = false;
                     }
                     else
                     {
-                        MessageBox.Show(Properties.Resources.mbUpdateError, Properties.Resources.mbError, 
-                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show(Properties.Resources.mbUpdateError, Properties.Resources.mbError,
+                             MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
             }
@@ -235,7 +267,6 @@ namespace HangmanClient
                 btnSaveProfile.IsEnabled = true;
             }
         }
-
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show(Properties.Resources.mbConfirmLogout, Properties.Resources.mbLogout, MessageBoxButton.YesNo, MessageBoxImage.Question);
