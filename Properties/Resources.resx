@@ -462,4 +462,10 @@
   <data name="msgPositionsConfirmed" xml:space="preserve">
     <value>Posiciones confirmadas y enviadas. Esperando siguiente turno...</value>
   </data>
+  <data name="mbServerUnavailable" xml:space="preserve">
+    <value>El servidor no se encuentra disponible en este momento. Por favor, inténtalo más tarde.</value>
+  </data>
+  <data name="mbServerTimeout" xml:space="preserve">
+    <value>El tiempo de espera con el servidor se ha agotado. Revisa tu conexión e inténtalo de nuevo.</value>
+  </data>
 </root>

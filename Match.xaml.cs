@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.ServiceModel;
+using System.ServiceModel; 
 using System.Windows;
 using System.Windows.Controls;
 using HangmanClient.GameServiceRef;
@@ -57,11 +57,25 @@ namespace HangmanClient
                 _gameClient.JoinGameChannel(_matchId, _currentUserId);
                 txtDescription.Text = Properties.Resources.lbJoining;
             }
-            catch (Exception ex)
+            catch (EndpointNotFoundException)
             {
-                string errorMessage = string.Format(Properties.Resources.mbNetworkError, ex.Message);
-
-                MessageBox.Show(errorMessage, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error); ReturnToMenu();
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                ReturnToMenu();
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                ReturnToMenu();
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                ReturnToMenu();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                ReturnToMenu();
             }
         }
 
@@ -217,9 +231,21 @@ namespace HangmanClient
                     txtMensajeChat.Clear();
                     txtMensajeChat.Focus();
                 }
+                catch (EndpointNotFoundException)
+                {
+                    MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (TimeoutException)
+                {
+                    MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (CommunicationException)
+                {
+                    MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 catch (Exception)
                 {
-                    MessageBox.Show(Properties.Resources.mbNetworkError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -277,9 +303,27 @@ namespace HangmanClient
             }
             else
             {
-                _gameClient.SubmitTurnResult(_matchId, _currentUserId, false, null);
-
-                txtDescription.Text = Properties.Resources.msgEvaluationSent;
+                try
+                {
+                    _gameClient.SubmitTurnResult(_matchId, _currentUserId, false, null);
+                    txtDescription.Text = Properties.Resources.msgEvaluationSent;
+                }
+                catch (EndpointNotFoundException)
+                {
+                    MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (TimeoutException)
+                {
+                    MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (CommunicationException)
+                {
+                    MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -351,7 +395,30 @@ namespace HangmanClient
             char letter = btn.Content.ToString()[0];
             btn.IsEnabled = false;
 
-            _gameClient.SendGuess(_matchId, _currentUserId, letter);
+            try
+            {
+                _gameClient.SendGuess(_matchId, _currentUserId, letter);
+            }
+            catch (EndpointNotFoundException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                btn.IsEnabled = true;
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                btn.IsEnabled = true;
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                btn.IsEnabled = true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                btn.IsEnabled = true;
+            }
         }
 
         private void btnQ_Click(object sender, RoutedEventArgs e) { HandleKeyPress(btnQ); }
@@ -388,10 +455,21 @@ namespace HangmanClient
                 return;
             }
             MessageBoxResult dialogResult = MessageBox.Show(Properties.Resources.msgConfirmLeave, Properties.Resources.msgTitleLeaveMatch, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
             if (dialogResult == MessageBoxResult.Yes)
             {
-                _gameClient.LeaveMatch(_matchId, _currentUserId);
-                ReturnToMenu();
+                try
+                {
+                    _gameClient.LeaveMatch(_matchId, _currentUserId);
+                }
+                catch (Exception)
+                {
+
+                }
+                finally
+                {
+                    ReturnToMenu();
+                }
             }
         }
 
@@ -409,17 +487,8 @@ namespace HangmanClient
                     _gameClient.Close();
                 }
             }
-            catch (TimeoutException ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.Message);
-            }
-            catch (CommunicationException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
             }
         }
 
@@ -474,8 +543,31 @@ namespace HangmanClient
             }
             btnConfirmPositions.Visibility = Visibility.Collapsed;
 
-            _gameClient.SubmitTurnResult(_matchId, _currentUserId, true, positions);
-            txtDescription.Text = Properties.Resources.msgPositionsConfirmed;
+            try
+            {
+                _gameClient.SubmitTurnResult(_matchId, _currentUserId, true, positions);
+                txtDescription.Text = Properties.Resources.msgPositionsConfirmed;
+            }
+            catch (EndpointNotFoundException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                btnConfirmPositions.Visibility = Visibility.Visible;
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                btnConfirmPositions.Visibility = Visibility.Visible;
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                btnConfirmPositions.Visibility = Visibility.Visible;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                btnConfirmPositions.Visibility = Visibility.Visible;
+            }
         }
 
         public class LetterPosition

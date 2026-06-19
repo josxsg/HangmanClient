@@ -754,6 +754,24 @@ namespace HangmanClient.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El tiempo de espera con el servidor se ha agotado. Revisa tu conexión e inténtalo de nuevo..
+        /// </summary>
+        public static string mbServerTimeout {
+            get {
+                return ResourceManager.GetString("mbServerTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El servidor no se encuentra disponible en este momento. Por favor, inténtalo más tarde..
+        /// </summary>
+        public static string mbServerUnavailable {
+            get {
+                return ResourceManager.GetString("mbServerUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No se pudo conectar con el servidor: {0}.
         /// </summary>
         public static string mbSrvrNetError {

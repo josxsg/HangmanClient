@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -66,11 +67,21 @@ namespace HangmanClient
                     PopulateAvailableMatchesGrid(availableMatches);
                 }
             }
-            catch (Exception ex)
+            catch (EndpointNotFoundException)
             {
-                string errorMessage = string.Format(Properties.Resources.mbMatchListLoadError, ex.Message);
-
-                MessageBox.Show(errorMessage, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -109,11 +120,24 @@ namespace HangmanClient
                     return await client.JoinMatchAsync(matchId, currentUsername);
                 }
             }
-            catch (Exception ex)
+            catch (EndpointNotFoundException)
             {
-                string errorMessage = string.Format(Properties.Resources.mbNetworkError, ex.Message);
-
-                MessageBox.Show(errorMessage, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }

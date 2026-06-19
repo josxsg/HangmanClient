@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,32 +31,58 @@ namespace HangmanClient
             btnLogIn.IsEnabled = false;
 
             string usernameInput = txtBlockUsername.Text.Trim();
-
             string hashedPassword = ComputeSha256Hash(pswPassword.Password);
 
-            var authenticatedUser = await RequestLoginAuthenticationAsync(usernameInput, hashedPassword);
-
-            if (authenticatedUser != null)
+            try
             {
-                if (authenticatedUser.Username != usernameInput)
+                var authenticatedUser = await RequestLoginAuthenticationAsync(usernameInput, hashedPassword);
+
+                if (authenticatedUser != null)
                 {
-                    MessageBox.Show(Properties.Resources.mbLetterCase,
-                                    Properties.Resources.mbIncorrectUser, MessageBoxButton.OK, MessageBoxImage.Warning);
-                    btnLogIn.IsEnabled = true;
-                    txtBlockUsername.Focus();
-                    return;
+                    if (authenticatedUser.Username != usernameInput)
+                    {
+                        MessageBox.Show(Properties.Resources.mbLetterCase,
+                                        Properties.Resources.mbIncorrectUser, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        btnLogIn.IsEnabled = true;
+                        txtBlockUsername.Focus();
+                        return;
+                    }
+
+                    UserSession.Instance.CurrentUser = authenticatedUser;
+
+                    string message = string.Format(Properties.Resources.mbWelcomeBack, authenticatedUser.Name);
+                    MessageBox.Show(message, Properties.Resources.mbSuccess, MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    RedirectToMainMenu();
                 }
-
-                UserSession.Instance.CurrentUser = authenticatedUser;
-
-                string message = string.Format(Properties.Resources.mbWelcomeBack, authenticatedUser.Name);
-                MessageBox.Show(message, Properties.Resources.mbSuccess, MessageBoxButton.OK, MessageBoxImage.Information);
-
-                RedirectToMainMenu();
+                else
+                {
+                    MessageBox.Show(Properties.Resources.mbUserOrPswIncorrect, Properties.Resources.mbAuthenticationError,
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    btnLogIn.IsEnabled = true;
+                }
             }
-            else
+            catch (EndpointNotFoundException)
             {
-                MessageBox.Show(Properties.Resources.mbUserOrPswIncorrect, Properties.Resources.mbAuthenticationError,
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError,
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                btnLogIn.IsEnabled = true;
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError,
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                btnLogIn.IsEnabled = true;
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError,
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                btnLogIn.IsEnabled = true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError,
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 btnLogIn.IsEnabled = true;
             }
@@ -118,19 +145,9 @@ namespace HangmanClient
 
         private static async Task<UserDTO> RequestLoginAuthenticationAsync(string username, string hashedPassword)
         {
-            try
+            using (var client = new AccountServiceClient())
             {
-                using (var client = new AccountServiceClient())
-                {
-                    return await client.LoginAsync(username, hashedPassword);
-                }
-            }
-            catch (Exception ex)
-            {
-                string errorMessage = string.Format(Properties.Resources.mbSrvrNetError, ex.Message);
-                MessageBox.Show(errorMessage, Properties.Resources.mbNetworkError,
-                                MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
+                return await client.LoginAsync(username, hashedPassword);
             }
         }
     }

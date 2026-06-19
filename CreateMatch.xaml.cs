@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel; 
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -233,7 +234,7 @@ namespace HangmanClient
             }
             else if (matchStatus.StatusId == 4)
             {
-                MessageBox.Show(Properties.Resources.mbHostLobbyCancelled,"",
+                MessageBox.Show(Properties.Resources.mbHostLobbyCancelled, "",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 RedirectToMainMenu();
             }
@@ -253,11 +254,21 @@ namespace HangmanClient
                     PopulateCategoriesComboBox(categories);
                 }
             }
-            catch (Exception ex)
+            catch (EndpointNotFoundException)
             {
-                string errorMessage = string.Format(Properties.Resources.mbCategoryListLoadError, ex.Message);
-
-                MessageBox.Show(errorMessage, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -270,11 +281,24 @@ namespace HangmanClient
                     return await client.GetWordsByCategoryAsync(categoryId);
                 }
             }
-            catch (Exception ex)
+            catch (EndpointNotFoundException)
             {
-                string errorMessage = string.Format(Properties.Resources.mbWordListLoadError, ex.Message);
-
-                MessageBox.Show(errorMessage, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
         }
@@ -289,11 +313,24 @@ namespace HangmanClient
                     return await client.CreateMatchAsync(currentUsername, categoryName, wordText, _languageCode);
                 }
             }
-            catch (Exception ex)
+            catch (EndpointNotFoundException)
             {
-                string errorMessage = string.Format(Properties.Resources.mbLobbyError, ex.Message);
-
-                MessageBox.Show(errorMessage, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return 0;
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return 0;
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return 0;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
                 return 0;
             }
         }
@@ -323,11 +360,24 @@ namespace HangmanClient
                     return await client.LeaveMatchAsync(_matchId, _isCreator);
                 }
             }
-            catch (Exception ex)
+            catch (EndpointNotFoundException)
             {
-                string errorMessage = string.Format(Properties.Resources.mbLeaveLobbyNetError, ex.Message);
-
-                MessageBox.Show(errorMessage, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }
@@ -341,11 +391,24 @@ namespace HangmanClient
                     return await client.StartMatchAsync(_matchId);
                 }
             }
-            catch (Exception ex)
+            catch (EndpointNotFoundException)
             {
-                string errorMessage = string.Format(Properties.Resources.mbMatchStartError, ex.Message);
-
-                MessageBox.Show(errorMessage, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }

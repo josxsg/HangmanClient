@@ -1,9 +1,11 @@
-﻿using System;
+﻿using HangmanClient.AccountServiceRef;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +15,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HangmanClient.AccountServiceRef;
 
 namespace HangmanClient
 {
@@ -32,16 +33,39 @@ namespace HangmanClient
             var newUser = BuildUserDTO();
             string hashedPassword = ComputeSha256Hash(pswPassword.Password);
 
-            bool isRegistrationSuccessful = await RequestUserRegistrationAsync(newUser, hashedPassword);
+            try
+            {
+                bool isRegistrationSuccessful = await RequestUserRegistrationAsync(newUser, hashedPassword);
 
-            if (isRegistrationSuccessful)
-            {
-                MessageBox.Show(Properties.Resources.mbRegisterSuccess, Properties.Resources.mbSuccess,
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                RedirectToLogin();
+                if (isRegistrationSuccessful)
+                {
+                    MessageBox.Show(Properties.Resources.mbRegisterSuccess, Properties.Resources.mbSuccess,
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    RedirectToLogin();
+                }
+                else
+                {
+                    btnSignUp.IsEnabled = true;
+                }
             }
-            else
+            catch (EndpointNotFoundException)
             {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                btnSignUp.IsEnabled = true;
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                btnSignUp.IsEnabled = true;
+            }
+            catch (CommunicationException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                btnSignUp.IsEnabled = true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
                 btnSignUp.IsEnabled = true;
             }
         }
@@ -125,30 +149,20 @@ namespace HangmanClient
 
         private static async Task<bool> RequestUserRegistrationAsync(UserDTO user, string password)
         {
-            try
+            using (var client = new AccountServiceClient())
             {
-                using (var client = new AccountServiceClient())
+                bool result = await client.RegisterUserAsync(user, password);
+
+                if (!result)
                 {
-                    bool result = await client.RegisterUserAsync(user, password);
-
-                    if (!result)
-                    {
-                        MessageBox.Show(Properties.Resources.mbEmailOrUsernameExists, Properties.Resources.mbValidationError,
-                            MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                    return result;
+                    MessageBox.Show(Properties.Resources.mbEmailOrUsernameExists, Properties.Resources.mbValidationError,
+                        MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }
-            catch (Exception ex)
-            {
-                string errorMessage = string.Format(Properties.Resources.mbAccountSrvrNetError, ex.Message);
-                MessageBox.Show(errorMessage, Properties.Resources.mbNetworkError,
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
+
+                return result;
             }
         }
-        
+
         private bool ValidateBirthDateRange()
         {
             DateTime birthDate = dpBirthDate.SelectedDate.Value;
