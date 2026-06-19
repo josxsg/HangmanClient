@@ -231,4 +231,235 @@
   <data name="btnChoosePos" xml:space="preserve">
     <value>Elegir posición</value>
   </data>
+  <data name="mbLetterCase" xml:space="preserve">
+    <value>El nombre de usuario no coincide en mayúsculas y minúsculas con el registrado.</value>
+  </data>
+  <data name="mbIncorrectUser" xml:space="preserve">
+    <value>Usuario incorrecto.</value>
+  </data>
+  <data name="mbWelcomeBack" xml:space="preserve">
+    <value>¡Bienvenido, {0}!</value>
+  </data>
+  <data name="mbSuccess" xml:space="preserve">
+    <value>Éxito</value>
+  </data>
+  <data name="mbUserOrPswIncorrect" xml:space="preserve">
+    <value>El usuario o la contraseña son incorrectos.</value>
+  </data>
+  <data name="mbAuthenticationError" xml:space="preserve">
+    <value>Error de autenticación</value>
+  </data>
+  <data name="mbNullUserPsw" xml:space="preserve">
+    <value>Por favor, introduce tu usuario y contraseña.</value>
+  </data>
+  <data name="mbNullSpaces" xml:space="preserve">
+    <value>Campos vacíos</value>
+  </data>
+  <data name="mbSrvrNetError" xml:space="preserve">
+    <value>No se pudo conectar con el servidor: {0}</value>
+  </data>
+  <data name="mbNetworkError" xml:space="preserve">
+    <value>Error de red</value>
+  </data>
+  <data name="mbRegisterSuccess" xml:space="preserve">
+    <value>¡Registro completado con éxito!</value>
+  </data>
+  <data name="mbEmailOrUsernameExists" xml:space="preserve">
+    <value>El correo electrónico o nombre de usuario ya existen.</value>
+  </data>
+  <data name="mbValidationError" xml:space="preserve">
+    <value>Error de validación</value>
+  </data>
+  <data name="mbAccountSrvrNetError" xml:space="preserve">
+    <value>Error de conexión con el servidor de cuentas: {0}</value>
+  </data>
+  <data name="mbBirthDateRange" xml:space="preserve">
+    <value>La edad permitida para registrarse debe estar entre los 6 y los 100 años.</value>
+  </data>
+  <data name="mbInvalidDate" xml:space="preserve">
+    <value>Fecha no admitida</value>
+  </data>
+  <data name="mbCarRange" xml:space="preserve">
+    <value>Los campos de texto no deben superar los 25 caracteres.</value>
+  </data>
+  <data name="mbLimitExceeded" xml:space="preserve">
+    <value>Límite superado.</value>
+  </data>
+  <data name="mbInvalidEmail" xml:space="preserve">
+    <value>Por favor, ingresa un correo electrónico valido (ejemplo@dominio.com).</value>
+  </data>
+  <data name="mbInEmail" xml:space="preserve">
+    <value>Correo inválido</value>
+  </data>
+  <data name="mbPswWeak" xml:space="preserve">
+    <value>La contraseña es muy débil. Debe tener al menos 8 caracteres, incluir una letra mayúscula, una minúscula y un número.</value>
+  </data>
+  <data name="mbPswInsecure" xml:space="preserve">
+    <value>Contraseña insegura</value>
+  </data>
+  <data name="mbPhoneDigits" xml:space="preserve">
+    <value>El teléfono debe contener exactamente 10 dígitos numéricos.</value>
+  </data>
+  <data name="mbInvalidPhone" xml:space="preserve">
+    <value>Teléfono inválido</value>
+  </data>
+  <data name="mbNullOb" xml:space="preserve">
+    <value>Por favor, llena todos los campos obligatorios.</value>
+  </data>
+  <data name="lbStatusWin" xml:space="preserve">
+    <value>GANADA: {0} pts</value>
+  </data>
+  <data name="lbStatusLost" xml:space="preserve">
+    <value>PERDIDA: {0} pts</value>
+  </data>
+  <data name="lbStatusAbandoned" xml:space="preserve">
+    <value>PERDIDA POR ABANDONO: {0} pts</value>
+  </data>
+  <data name="lbOpponent" xml:space="preserve">
+    <value>Rival: {0}</value>
+  </data>
+  <data name="mbHistoryLoadError" xml:space="preserve">
+    <value>Error al cargar el historial: {0}</value>
+  </data>
+  <data name="mbUpdateSuccess" xml:space="preserve">
+    <value>Tus datos han sido actualizados con éxito.</value>
+  </data>
+  <data name="mbProfileUpdated" xml:space="preserve">
+    <value>Perfil actualizado</value>
+  </data>
+  <data name="mbUpdateError" xml:space="preserve">
+    <value>No se pudo actualizar. Es probable que el nombre de usuario ya esté ocupado por otro jugador.</value>
+  </data>
+  <data name="mbError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="mbSavingConnError" xml:space="preserve">
+    <value>Error de conexión al guardar los datos: {0}</value>
+  </data>
+  <data name="mbServerError" xml:space="preserve">
+    <value>Error de servidor</value>
+  </data>
+  <data name="mbConfirmLogout" xml:space="preserve">
+    <value>¿Estás seguro de que deseas cerrar sesión?</value>
+  </data>
+  <data name="mbLogout" xml:space="preserve">
+    <value>Cerrar sesión</value>
+  </data>
+  <data name="mbMatchStarted" xml:space="preserve">
+    <value>¡Partida iniciada! Redireccionando al tablero...</value>
+  </data>
+  <data name="mbHostMatchStarted" xml:space="preserve">
+    <value>¡El anfitrión ha iniciado la partida!</value>
+  </data>
+  <data name="mbToPlay" xml:space="preserve">
+    <value>¡A jugar!</value>
+  </data>
+  <data name="mbHostLobbyCancelled" xml:space="preserve">
+    <value>El anfitrión ha cancelado la sala. La sala se ha cerrado</value>
+  </data>
+  <data name="mbCategoryListLoadError" xml:space="preserve">
+    <value>Error de base de datos. No se pudo cargar la lista de categorías</value>
+  </data>
+  <data name="mbWordListLoadError" xml:space="preserve">
+    <value>Error de base de datos. No se pudo cargar la lista de palabras de la categoría.</value>
+  </data>
+  <data name="mbLobbyError" xml:space="preserve">
+    <value>Error de redirección. No se pudo registrar la sala en la base de datos.</value>
+  </data>
+  <data name="mbLeaveLobbyNetError" xml:space="preserve">
+    <value>Fallo de conexión al intentar abandonar la sala</value>
+  </data>
+  <data name="mbMatchStartError" xml:space="preserve">
+    <value>Error al iniciar la partida_ {0}</value>
+  </data>
+  <data name="mbJoinSuccess" xml:space="preserve">
+    <value>Te has unido a la sala con éxito. Entrando a la sala de espera...</value>
+  </data>
+  <data name="mbJoinError" xml:space="preserve">
+    <value>No fue posible ingresar a la sala. Probablemente otro jugador se unió primero.</value>
+  </data>
+  <data name="mbLobbyNotAv" xml:space="preserve">
+    <value>Sala no disponible</value>
+  </data>
+  <data name="mbMatchListLoadError" xml:space="preserve">
+    <value>Error al conectar con el servidor para listar partidas: {0}</value>
+  </data>
+  <data name="lbJoining" xml:space="preserve">
+    <value>Conectando con la partida... Esperando jugadores.</value>
+  </data>
+  <data name="txtCategoryDescription" xml:space="preserve">
+    <value>Categoria: {0} / Descripción: {1}</value>
+  </data>
+  <data name="txtIsCreator" xml:space="preserve">
+    <value>ERES EL CREADOR: Espera a que el retador proponga una letra</value>
+  </data>
+  <data name="txtGuesserTurn" xml:space="preserve">
+    <value>ERES EL ADIVINADOR: Tu turno. Selecciona una letra</value>
+  </data>
+  <data name="txtWaitingEv" xml:space="preserve">
+    <value>Propusiste la letra {0}. Esperando que el creador la evalúe...</value>
+  </data>
+  <data name="txtLetterCorrect" xml:space="preserve">
+    <value>La letra '{0}' ES CORRECTA</value>
+  </data>
+  <data name="txtLetterIncorrect" xml:space="preserve">
+    <value>La letra '{0}' es INCORRECTA</value>
+  </data>
+  <data name="txtYourTurnGuess" xml:space="preserve">
+    <value>Tu turno. Selecciona otra letra</value>
+  </data>
+  <data name="msgEndWordGuessed" xml:space="preserve">
+    <value>¡El adivinador ha completado la palabra y GANA la partida!</value>
+  </data>
+  <data name="msgEndMaxMistakes" xml:space="preserve">
+    <value>¡El muñeco ha sido ahorcado! El creador GANA la partida.</value>
+  </data>
+  <data name="msgEndAbandoned" xml:space="preserve">
+    <value>Un jugador ha abandonado. La partida ha terminado por penalización.</value>
+  </data>
+  <data name="msgEndTimeout" xml:space="preserve">
+    <value>El tiempo se agotó. Partida finalizada por inactividad.</value>
+  </data>
+  <data name="msgTitleGameOver" xml:space="preserve">
+    <value>Fin del juego</value>
+  </data>
+  <data name="msgTimeRemaining" xml:space="preserve">
+    <value>Ahorcado Multijugador - Tiempo restante: {0}s</value>
+  </data>
+  <data name="msgEvaluationError" xml:space="preserve">
+    <value>¡Te has equivocado al evaluar la palabra! Revisa bien tu palabra secreta y vuelve a intentarlo.</value>
+  </data>
+  <data name="msgTitleEvaluationError" xml:space="preserve">
+    <value>Evaluación incorrecta</value>
+  </data>
+  <data name="msgChallengerProposes" xml:space="preserve">
+    <value>El retador propone la letra: '{0}'.</value>
+  </data>
+  <data name="msgContainsLetterQuestion" xml:space="preserve">
+    <value>¿La palabra contiene esta letra?</value>
+  </data>
+  <data name="msgTitleEvaluateTurn" xml:space="preserve">
+    <value>Evaluar turnno</value>
+  </data>
+  <data name="msgClickDashes" xml:space="preserve">
+    <value>Haz clic en los guiones donde aparece la letra '{0}' y presiona Confirmar.</value>
+  </data>
+  <data name="msgEvaluationSent" xml:space="preserve">
+    <value>Evaluación enviada (Incorrecto). Esperando siguiente turno...</value>
+  </data>
+  <data name="msgConfirmLeave" xml:space="preserve">
+    <value>¿Seguro que deseas abandonar la partida? Serás penalizado.</value>
+  </data>
+  <data name="msgTitleLeaveMatch" xml:space="preserve">
+    <value>Abandonar partida</value>
+  </data>
+  <data name="msgSelectAtLeastOne" xml:space="preserve">
+    <value>Debes seleccionar al menos una posición si indicaste que la letra existe.</value>
+  </data>
+  <data name="msgTitleWarning" xml:space="preserve">
+    <value>Aviso</value>
+  </data>
+  <data name="msgPositionsConfirmed" xml:space="preserve">
+    <value>Posiciones confirmadas y enviadas. Esperando siguiente turno...</value>
+  </data>
 </root>

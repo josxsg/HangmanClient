@@ -73,15 +73,15 @@ namespace HangmanClient
                         switch (h.Result)
                         {
                             case "Ganada":
-                                resText = $"GANADA: +{h.Points} pts";
+                                resText = string.Format(Properties.Resources.lbStatusWin, h.Points);
                                 resColor = "#2E7D32"; 
                                 break;
                             case "Perdida":
-                                resText = $"PERDIDA: {h.Points} pts";
+                                resText = string.Format(Properties.Resources.lbStatusLost, h.Points); 
                                 resColor = "#C62828"; 
                                 break;
                             case "Abandonada":
-                                resText = $"PERDIDA POR ABANDONO: {h.Points} pts";
+                                resText = string.Format(Properties.Resources.lbStatusAbandoned, h.Points);
                                 resColor = "#C62828"; 
                                 break;
                             default:
@@ -93,8 +93,8 @@ namespace HangmanClient
                         {
                             MatchIdText = $"ID: {h.MatchId}",
                             DateText = h.Date.ToString("dd/MM/yyyy"),
-                            RivalText = $"Rival: {h.RivalUsername}",
-                            WordText = $"Palabra: {h.WordText}",
+                            RivalText = string.Format(Properties.Resources.lbOpponent, h.RivalUsername),
+                            WordText = string.Format(Properties.Resources.lbWord, h.RivalUsername),
                             ResultText = resText,
                             ResultColor = resColor 
                         };
@@ -107,7 +107,9 @@ namespace HangmanClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar el historial: {ex.Message}", "Error de Conexión", MessageBoxButton.OK, MessageBoxImage.Error);
+                string errorMessage = string.Format(Properties.Resources.mbHistoryLoadError, ex.Message);
+                MessageBox.Show(errorMessage, Properties.Resources.mbNetworkError,
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -182,7 +184,8 @@ namespace HangmanClient
                 string.IsNullOrWhiteSpace(txtProfPaternalSurname.Text) ||
                 string.IsNullOrWhiteSpace(txtProfUsername.Text))
             {
-                MessageBox.Show("El nombre, apellido paterno y nombre de usuario son obligatorios.", "Campos vacíos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Properties.Resources.mbNullOb, Properties.Resources.mbNullSpaces, 
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -212,18 +215,21 @@ namespace HangmanClient
 
                         lbUsername.Content = updatedUser.Username;
 
-                        MessageBox.Show("Tus datos han sido actualizados con éxito.", "Perfil actualizado", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(Properties.Resources.mbUpdateSuccess, Properties.Resources.mbProfileUpdated, 
+                            MessageBoxButton.OK, MessageBoxImage.Information);
                         popEditProfile.IsOpen = false;
                     }
                     else
                     {
-                        MessageBox.Show("No se pudo actualizar. Es probable que el nombre de usuario ya esté ocupado por otro jugador.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show(Properties.Resources.mbUpdateError, Properties.Resources.mbError, 
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error de conexión al guardar los datos: {ex.Message}", "Error de Servidor", MessageBoxButton.OK, MessageBoxImage.Error);
+                string errorMessage = string.Format(Properties.Resources.mbSavingConnError, ex.Message);
+                MessageBox.Show(errorMessage, Properties.Resources.mbServerError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -233,7 +239,7 @@ namespace HangmanClient
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("¿Estás seguro de que deseas cerrar sesión?", "Cerrar Sesión", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show(Properties.Resources.mbConfirmLogout, Properties.Resources.mbLogout, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {

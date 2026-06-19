@@ -147,7 +147,7 @@ namespace HangmanClient
             if (successfullyStarted)
             {
                 _opponentTimer?.Stop();
-                MessageBox.Show("¡Partida iniciada! Redireccionando al tablero...", "Éxito");
+                MessageBox.Show(Properties.Resources.mbMatchStarted, Properties.Resources.mbSuccess);
                 RedirectToMatch();
             }
             else
@@ -228,12 +228,12 @@ namespace HangmanClient
         {
             if (matchStatus.StatusId == 2)
             {
-                MessageBox.Show("¡El anfitrión ha iniciado la partida!", "¡A jugar!");
+                MessageBox.Show(Properties.Resources.mbHostMatchStarted, Properties.Resources.mbToPlay);
                 RedirectToMatch();
             }
             else if (matchStatus.StatusId == 4)
             {
-                MessageBox.Show("El anfitrión ha cancelado la sala.", "Sala Cerrada",
+                MessageBox.Show(Properties.Resources.mbHostLobbyCancelled,"",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 RedirectToMainMenu();
             }
@@ -255,8 +255,9 @@ namespace HangmanClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar categorías desde el catálogo: {ex.Message}",
-                                "Error de Base de Datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                string errorMessage = string.Format(Properties.Resources.mbCategoryListLoadError, ex.Message);
+
+                MessageBox.Show(errorMessage, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -271,8 +272,9 @@ namespace HangmanClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al recuperar las palabras de la categoría: {ex.Message}",
-                                "Error de Base de Datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                string errorMessage = string.Format(Properties.Resources.mbWordListLoadError, ex.Message);
+
+                MessageBox.Show(errorMessage, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
         }
@@ -289,8 +291,9 @@ namespace HangmanClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"No se pudo registrar la sala en la base de datos: {ex.Message}",
-                                "Error de Redirección", MessageBoxButton.OK, MessageBoxImage.Error);
+                string errorMessage = string.Format(Properties.Resources.mbLobbyError, ex.Message);
+
+                MessageBox.Show(errorMessage, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
                 return 0;
             }
         }
@@ -322,8 +325,9 @@ namespace HangmanClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Fallo de conexión al intentar abandonar la sala: {ex.Message}",
-                                "Error de Red", MessageBoxButton.OK, MessageBoxImage.Error);
+                string errorMessage = string.Format(Properties.Resources.mbLeaveLobbyNetError, ex.Message);
+
+                MessageBox.Show(errorMessage, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }
@@ -339,8 +343,9 @@ namespace HangmanClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al iniciar la partida: {ex.Message}",
-                                "Error de Red", MessageBoxButton.OK, MessageBoxImage.Error);
+                string errorMessage = string.Format(Properties.Resources.mbMatchStartError, ex.Message);
+
+                MessageBox.Show(errorMessage, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }

@@ -39,8 +39,8 @@ namespace HangmanClient
             {
                 if (authenticatedUser.Username != usernameInput)
                 {
-                    MessageBox.Show("El nombre de usuario no coincide en mayúsculas y minúsculas con el registrado.",
-                                    "Usuario incorrecto", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(Properties.Resources.mbLetterCase,
+                                    Properties.Resources.mbIncorrectUser, MessageBoxButton.OK, MessageBoxImage.Warning);
                     btnLogIn.IsEnabled = true;
                     txtBlockUsername.Focus();
                     return;
@@ -48,14 +48,14 @@ namespace HangmanClient
 
                 UserSession.Instance.CurrentUser = authenticatedUser;
 
-                MessageBox.Show($"¡Bienvenido de nuevo, {authenticatedUser.Name}!", "Éxito",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                string message = string.Format(Properties.Resources.mbWelcomeBack, authenticatedUser.Name);
+                MessageBox.Show(message, Properties.Resources.mbSuccess, MessageBoxButton.OK, MessageBoxImage.Information);
 
                 RedirectToMainMenu();
             }
             else
             {
-                MessageBox.Show("El usuario o la contraseña son incorrectos.", "Error de autenticación",
+                MessageBox.Show(Properties.Resources.mbUserOrPswIncorrect, Properties.Resources.mbAuthenticationError,
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 btnLogIn.IsEnabled = true;
             }
@@ -85,7 +85,7 @@ namespace HangmanClient
         {
             if (string.IsNullOrWhiteSpace(txtBlockUsername.Text) || string.IsNullOrWhiteSpace(pwsBoxPassword.Password))
             {
-                MessageBox.Show("Por favor, introduce tu usuario y contraseña.", "Campos vacíos",
+                MessageBox.Show(Properties.Resources.mbNullUserPsw, Properties.Resources.mbNullSpaces,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
@@ -117,8 +117,9 @@ namespace HangmanClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"No se pudo conectar con el servidor: {ex.Message}", "Error de red",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                string errorMessage = string.Format(Properties.Resources.mbSrvrNetError, ex.Message);
+                MessageBox.Show(errorMessage, Properties.Resources.mbNetworkError,
+                                MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
         }

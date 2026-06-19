@@ -53,12 +53,13 @@ namespace HangmanClient
             try
             {
                 _gameClient.JoinGameChannel(_matchId, _currentUserId);
-                txtDescription.Text = "Conectando con la partida... Esperando jugadores.";
+                txtDescription.Text = Properties.Resources.lbJoining;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error de conexión: {ex.Message}", "Error WCF", MessageBoxButton.OK, MessageBoxImage.Error);
-                ReturnToMenu();
+                string errorMessage = string.Format(Properties.Resources.mbNetworkError, ex.Message);
+
+                MessageBox.Show(errorMessage, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error); ReturnToMenu();
             }
         }
 
@@ -68,8 +69,7 @@ namespace HangmanClient
             {
                 lbMatchId.Content = gameContext.MatchId;
                 lbCategory.Content = gameContext.CategoryName;
-                txtDescription.Text = $"Categoría: {gameContext.CategoryName}\nDescripción: {gameContext.WordDescription}";
-
+                txtDescription.Text = string.Format(Properties.Resources.txtCategoryDescription, gameContext.CategoryName, "\n" + gameContext.WordDescription);
                 _wordSlots.Clear();
                 for (int i = 0; i < gameContext.WordLength; i++)
                 {
@@ -80,8 +80,7 @@ namespace HangmanClient
                 {
                     _secretWord = gameContext.SecretWord;
                     DisableKeyboard();
-                    txtDescription.Text += "\n\nERES EL CREADOR: Espera a que el retador proponga una letra.";
-                    bdrCreatorGuide.Visibility = Visibility.Visible;
+                    txtDescription.Text += "\n\n" + Properties.Resources.txtIsCreator; bdrCreatorGuide.Visibility = Visibility.Visible;
 
                     if (!string.IsNullOrEmpty(gameContext.SecretWord))
                     {
@@ -94,8 +93,7 @@ namespace HangmanClient
                 }
                 else
                 {
-                    txtDescription.Text += "\n\nERES EL ADIVINADOR: Tu turno. Selecciona una letra.";
-                    bdrCreatorGuide.Visibility = Visibility.Collapsed;
+                    txtDescription.Text += "\n\n" + Properties.Resources.txtGuesserTurn; bdrCreatorGuide.Visibility = Visibility.Collapsed;
                 }
             });
         }
@@ -110,7 +108,7 @@ namespace HangmanClient
                 }
                 else
                 {
-                    txtDescription.Text = $"Propusiste la letra {guessedLetter}. Esperando que el creador la evalúe...";
+                    txtDescription.Text = string.Format(Properties.Resources.txtWaitingEv, guessedLetter);
                 }
             });
         }
@@ -121,18 +119,18 @@ namespace HangmanClient
             {
                 if (turnResult.IsCorrect)
                 {
-                    txtDescription.Text = $"¡La letra '{turnResult.GuessedLetter}' ES CORRECTA!";
+                    txtDescription.Text = string.Format(Properties.Resources.txtLetterCorrect, turnResult.GuessedLetter);
                     UpdateWordDisplay(turnResult.GuessedLetter, turnResult.CorrectPositions);
                 }
                 else
                 {
-                    txtDescription.Text = $"La letra '{turnResult.GuessedLetter}' es INCORRECTA.";
+                    txtDescription.Text = string.Format(Properties.Resources.txtLetterIncorrect, turnResult.GuessedLetter);
                     DrawHangmanPart(turnResult.CurrentMistakes);
                 }
 
                 if (!_isCreator)
                 {
-                    txtDescription.Text += "\nTu turno. Selecciona otra letra.";
+                    txtDescription.Text += "\n" + Properties.Resources.txtYourTurnGuess;
                 }
             });
         }
@@ -149,20 +147,20 @@ namespace HangmanClient
                 switch (endResult.Reason)
                 {
                     case MatchEndReason.WordGuessed:
-                        mensaje = "¡El adivinador ha completado la palabra y GANA la partida!";
+                        mensaje = Properties.Resources.msgEndWordGuessed;
                         break;
                     case MatchEndReason.MaxMistakesReached:
-                        mensaje = "¡El muñeco ha sido ahorcado! El creador GANA la partida.";
+                        mensaje = Properties.Resources.msgEndMaxMistakes;
                         break;
                     case MatchEndReason.Abandoned:
-                        mensaje = "Un jugador ha abandonado. La partida ha terminado por penalización.";
+                        mensaje = Properties.Resources.msgEndAbandoned;
                         break;
                     case MatchEndReason.Timeout:
-                        mensaje = "El tiempo se agotó. Partida finalizada por inactividad.";
+                        mensaje = Properties.Resources.msgEndTimeout;
                         break;
                 }
 
-                MessageBox.Show(mensaje, "Fin del Juego", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(mensaje, Properties.Resources.msgTitleGameOver, MessageBoxButton.OK, MessageBoxImage.Information);
                 ReturnToMenu();
             });
         }
@@ -171,7 +169,7 @@ namespace HangmanClient
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                this.Title = $"Ahorcado Multijugador - Tiempo restante: {secondsLeft}s";
+                this.Title = string.Format(Properties.Resources.msgTimeRemaining, secondsLeft);
             });
         }
 
@@ -188,8 +186,7 @@ namespace HangmanClient
                     }
                 }
                 btnConfirmPositions.Visibility = Visibility.Collapsed;
-                MessageBox.Show("¡Te has equivocado al evaluar la palabra! Revisa bien tu palabra secreta y vuelve a intentarlo.", "Evaluación Incorrecta", MessageBoxButton.OK, MessageBoxImage.Warning);
-
+                MessageBox.Show(Properties.Resources.msgEvaluationError, Properties.Resources.msgTitleEvaluationError, MessageBoxButton.OK, MessageBoxImage.Warning);
                 EvaluateGuessAsCreator(_currentEvaluatedLetter);
             });
         }
@@ -220,7 +217,7 @@ namespace HangmanClient
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("No se pudo enviar el mensaje. Verifica tu conexión.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(Properties.Resources.mbNetworkError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }
@@ -245,24 +242,27 @@ namespace HangmanClient
 
         private void EvaluateGuessAsCreator(char letter)
         {
-
             _currentEvaluatedLetter = letter;
-            MessageBoxResult result = MessageBox.Show(
-                $"El retador propone la letra: '{letter}'.\n\n¿La palabra contiene esta letra?",
-                "Evaluar Turno", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            string questionMessage = string.Format(Properties.Resources.msgChallengerProposes, letter) + "\n\n" + Properties.Resources.msgContainsLetterQuestion;
+
+            MessageBoxResult result = MessageBox.Show(questionMessage, Properties.Resources.msgTitleEvaluateTurn, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
             string secretUpper = _secretWord.ToUpper();
             char letterUpper = char.ToUpper(letter);
             bool letterExists = secretUpper.Contains(letterUpper);
+
             if (result == MessageBoxResult.Yes)
             {
                 if (!letterExists)
                 {
-                    MessageBox.Show("¡Te has equivocado al evaluar la palabra! Revisa bien tu palabra secreta y vuelve a intentarlo.", "Evaluación Incorrecta", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    EvaluateGuessAsCreator(letter); 
+                    MessageBox.Show(Properties.Resources.msgEvaluationError, Properties.Resources.msgTitleEvaluationError, MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                    EvaluateGuessAsCreator(letter);
                     return;
                 }
 
-                txtDescription.Text = $"Haz clic en los guiones donde aparece la letra '{letter}' y presiona Confirmar.";
+                txtDescription.Text = string.Format(Properties.Resources.msgClickDashes, letter);
 
                 foreach (var slot in _wordSlots)
                 {
@@ -277,10 +277,10 @@ namespace HangmanClient
             else
             {
                 _gameClient.SubmitTurnResult(_matchId, _currentUserId, false, null);
-                txtDescription.Text = "Evaluación enviada (Incorrecto). Esperando siguiente turno...";
+
+                txtDescription.Text = Properties.Resources.msgEvaluationSent;
             }
         }
-
         private void UpdateWordDisplay(char letter, int[] positions)
         {
             if (positions == null) return;
@@ -385,7 +385,7 @@ namespace HangmanClient
             {
                 return;
             }
-            MessageBoxResult dialogResult = MessageBox.Show("¿Seguro que deseas abandonar la partida? Serás penalizado.", "Abandonar Partida", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            MessageBoxResult dialogResult = MessageBox.Show(Properties.Resources.msgConfirmLeave, Properties.Resources.msgTitleLeaveMatch, MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (dialogResult == MessageBoxResult.Yes)
             {
                 _gameClient.LeaveMatch(_matchId, _currentUserId);
@@ -409,15 +409,15 @@ namespace HangmanClient
             }
             catch (TimeoutException ex)
             {
-                Console.WriteLine($"Tiempo de espera agotado al cerrar la comunicación: {ex.Message}");
+                Console.WriteLine(ex.Message);
             }
             catch (CommunicationException ex)
             {
-                Console.WriteLine($"Error de comunicación al cerrar la ventana: {ex.Message}");
+                Console.WriteLine(ex.Message);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error inesperado al cerrar la ventana: {ex.Message}");
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -462,8 +462,7 @@ namespace HangmanClient
 
             if (positions.Length == 0)
             {
-                MessageBox.Show("Debes seleccionar al menos una posición si indicaste que la letra existe.",
-                    "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Properties.Resources.msgSelectAtLeastOne, Properties.Resources.msgTitleWarning, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -474,7 +473,7 @@ namespace HangmanClient
             btnConfirmPositions.Visibility = Visibility.Collapsed;
 
             _gameClient.SubmitTurnResult(_matchId, _currentUserId, true, positions);
-            txtDescription.Text = "Posiciones confirmadas y enviadas. Esperando siguiente turno...";
+            txtDescription.Text = Properties.Resources.msgPositionsConfirmed;
         }
 
         public class LetterPosition

@@ -36,7 +36,7 @@ namespace HangmanClient
 
             if (isRegistrationSuccessful)
             {
-                MessageBox.Show("¡Registro completado con éxito!", "Éxito",
+                MessageBox.Show(Properties.Resources.mbRegisterSuccess, Properties.Resources.mbSuccess,
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 RedirectToLogin();
             }
@@ -99,7 +99,7 @@ namespace HangmanClient
 
                     if (!result)
                     {
-                        MessageBox.Show("El correo electrónico o nombre de usuario ya existen.", "Error de Validación",
+                        MessageBox.Show(Properties.Resources.mbEmailOrUsernameExists, Properties.Resources.mbValidationError,
                             MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
@@ -108,7 +108,8 @@ namespace HangmanClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error de conexión con el servidor de cuentas: {ex.Message}", "Error de Red",
+                string errorMessage = string.Format(Properties.Resources.mbAccountSrvrNetError, ex.Message);
+                MessageBox.Show(errorMessage, Properties.Resources.mbNetworkError,
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
@@ -124,7 +125,7 @@ namespace HangmanClient
 
             if (birthDate < minAllowedDate || birthDate > maxAllowedDate)
             {
-                MessageBox.Show("La edad permitida para registrarse debe estar entre los 6 y los 100 años.", "Fecha no admitida",
+                MessageBox.Show(Properties.Resources.mbBirthDateRange, Properties.Resources.mbInvalidDate,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 dpBirthDate.Focus();
                 return false;
@@ -140,7 +141,7 @@ namespace HangmanClient
             {
                 if (field.Text.Trim().Length > 25)
                 {
-                    MessageBox.Show("Los campos de texto no deben superar los 25 caracteres.", "Límite superado",
+                    MessageBox.Show(Properties.Resources.mbCarRange, Properties.Resources.mbLimitExceeded,
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     field.Focus();
                     return false;
@@ -158,7 +159,7 @@ namespace HangmanClient
 
             if (!Regex.IsMatch(email, emailPattern))
             {
-                MessageBox.Show("Por favor, ingresa un correo electrónico válido (ejemplo@dominio.com).", "Correo inválido",
+                MessageBox.Show(Properties.Resources.mbInvalidEmail, Properties.Resources.mbInEmail,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 txtEmail.Focus();
                 return false;
@@ -174,8 +175,8 @@ namespace HangmanClient
 
             if (!Regex.IsMatch(password, passwordPattern))
             {
-                MessageBox.Show("La contraseña es muy débil. Debe tener al menos 8 caracteres, incluir una letra mayúscula, una minúscula y un número.",
-                    "Contraseña Insegura", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Properties.Resources.mbPswWeak,
+                    Properties.Resources.mbPswInsecure, MessageBoxButton.OK, MessageBoxImage.Warning);
                 pswPassword.Focus();
                 return false;
             }
@@ -187,7 +188,7 @@ namespace HangmanClient
             string phone = txtPhoneNumber.Text.Trim();
             if (!Regex.IsMatch(phone, @"^\d{10}$"))
             {
-                MessageBox.Show("El teléfono debe contener exactamente 10 dígitos numéricos.", "Teléfono inválido",
+                MessageBox.Show(Properties.Resources.mbPhoneDigits, Properties.Resources.mbInvalidPhone,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 txtPhoneNumber.Focus();
                 return false;
@@ -205,7 +206,7 @@ namespace HangmanClient
                 !dpBirthDate.SelectedDate.HasValue ||
                 string.IsNullOrWhiteSpace(pswPassword.Password))
             {
-                MessageBox.Show("Por favor, llena todos los campos obligatorios.", "Campos vacíos",
+                MessageBox.Show(Properties.Resources.mbNullOb, Properties.Resources.mbNullSpaces,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }

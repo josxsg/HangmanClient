@@ -42,14 +42,14 @@ namespace HangmanClient
 
             if (isJoinSuccessful)
             {
-                MessageBox.Show("¡Te has unido a la sala con éxito! Entrando a la sala de espera...",
-                                "Partida Inicializada", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Properties.Resources.mbJoinSuccess,
+                                Properties.Resources.mbMatchStarted, MessageBoxButton.OK, MessageBoxImage.Information);
                 RedirectToLobby(selectedMatchId);
             }
             else
             {
-                MessageBox.Show("No fue posible ingresar a la sala. Es probable que otro jugador se haya unido primero.",
-                                "Sala No Disponible", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Properties.Resources.mbJoinError,
+                                Properties.Resources.mbLobbyNotAv, MessageBoxButton.OK, MessageBoxImage.Warning);
 
                 clickedButton.IsEnabled = true;
                 ExecuteLoadAvailableMatchesAsync();
@@ -68,8 +68,9 @@ namespace HangmanClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al conectar con el servidor para listar partidas: {ex.Message}",
-                                "Error de Red", MessageBoxButton.OK, MessageBoxImage.Error);
+                string errorMessage = string.Format(Properties.Resources.mbMatchListLoadError, ex.Message);
+
+                MessageBox.Show(errorMessage, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -110,8 +111,9 @@ namespace HangmanClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocurrió un fallo de red al intentar conectar con el servidor: {ex.Message}",
-                                "Error de Comunicación", MessageBoxButton.OK, MessageBoxImage.Error);
+                string errorMessage = string.Format(Properties.Resources.mbNetworkError, ex.Message);
+
+                MessageBox.Show(errorMessage, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }
