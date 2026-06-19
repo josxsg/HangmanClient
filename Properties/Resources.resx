@@ -468,4 +468,10 @@
   <data name="mbServerTimeout" xml:space="preserve">
     <value>El tiempo de espera con el servidor se ha agotado. Revisa tu conexión e inténtalo de nuevo.</value>
   </data>
+  <data name="msgConnectionLost" xml:space="preserve">
+    <value>Se ha perdido la conexión con el servidor. La partida ha sido interrumpida.</value>
+  </data>
+  <data name="msgTitleNetworkError" xml:space="preserve">
+    <value>Error Crítico de Red</value>
+  </data>
 </root>

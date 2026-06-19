@@ -468,4 +468,10 @@
   <data name="mbServerTimeout" xml:space="preserve">
     <value>The connection to the server has timed out. Please check your connection and try again.</value>
   </data>
+  <data name="msgConnectionLost" xml:space="preserve">
+    <value>The connection to the server has been lost. The game has been interrupted.</value>
+  </data>
+  <data name="msgTitleNetworkError" xml:space="preserve">
+    <value>Critical Network Error</value>
+  </data>
 </root>

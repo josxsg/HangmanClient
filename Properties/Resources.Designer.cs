@@ -880,6 +880,15 @@ namespace HangmanClient.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Se ha perdido la conexión con el servidor. La partida ha sido interrumpida..
+        /// </summary>
+        public static string msgConnectionLost {
+            get {
+                return ResourceManager.GetString("msgConnectionLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a ¿La palabra contiene esta letra?.
         /// </summary>
         public static string msgContainsLetterQuestion {
@@ -1002,6 +1011,15 @@ namespace HangmanClient.Properties {
         public static string msgTitleLeaveMatch {
             get {
                 return ResourceManager.GetString("msgTitleLeaveMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error Crítico de Red.
+        /// </summary>
+        public static string msgTitleNetworkError {
+            get {
+                return ResourceManager.GetString("msgTitleNetworkError", resourceCulture);
             }
         }
         
