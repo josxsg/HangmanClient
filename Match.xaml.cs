@@ -280,12 +280,12 @@ namespace HangmanClient
             });
         }
 
+
         private void EvaluateGuessAsCreator(char letter)
         {
             _currentEvaluatedLetter = letter;
 
             string questionMessage = string.Format(Properties.Resources.msgChallengerProposes, letter) + "\n\n" + Properties.Resources.msgContainsLetterQuestion;
-
             MessageBoxResult result = MessageBox.Show(questionMessage, Properties.Resources.msgTitleEvaluateTurn, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             string secretUpper = _secretWord.ToUpper();
@@ -297,46 +297,55 @@ namespace HangmanClient
                 if (!letterExists)
                 {
                     MessageBox.Show(Properties.Resources.msgEvaluationError, Properties.Resources.msgTitleEvaluationError, MessageBoxButton.OK, MessageBoxImage.Warning);
-
                     EvaluateGuessAsCreator(letter);
                     return;
                 }
 
-                txtDescription.Text = string.Format(Properties.Resources.msgClickDashes, letter);
-
-                foreach (var slot in _wordSlots)
-                {
-                    if (slot.Letter == '_')
-                    {
-                        slot.IsEditing = true;
-                    }
-                }
-
-                btnConfirmPositions.Visibility = Visibility.Visible;
+                EnableWordSlotsForEditing(letter);
             }
             else
             {
-                try
+                SubmitIncorrectTurnResult();
+            }
+        }
+
+        private void EnableWordSlotsForEditing(char letter)
+        {
+            txtDescription.Text = string.Format(Properties.Resources.msgClickDashes, letter);
+
+            foreach (var slot in _wordSlots)
+            {
+                if (slot.Letter == '_')
                 {
-                    _gameClient.SubmitTurnResult(_matchId, _currentUserId, false, null);
-                    txtDescription.Text = Properties.Resources.msgEvaluationSent;
+                    slot.IsEditing = true;
                 }
-                catch (EndpointNotFoundException)
-                {
-                    HandleConnectionError();
-                }
-                catch (TimeoutException)
-                {
-                    HandleConnectionError();
-                }
-                catch (CommunicationException)
-                {
-                    HandleConnectionError();
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+            }
+
+            btnConfirmPositions.Visibility = Visibility.Visible;
+        }
+
+        private void SubmitIncorrectTurnResult()
+        {
+            try
+            {
+                _gameClient.SubmitTurnResult(_matchId, _currentUserId, false, null);
+                txtDescription.Text = Properties.Resources.msgEvaluationSent;
+            }
+            catch (EndpointNotFoundException)
+            {
+                HandleConnectionError();
+            }
+            catch (TimeoutException)
+            {
+                HandleConnectionError();
+            }
+            catch (CommunicationException)
+            {
+                HandleConnectionError();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void UpdateWordDisplay(char letter, int[] positions)

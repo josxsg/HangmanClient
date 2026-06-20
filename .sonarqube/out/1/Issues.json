@@ -18,12 +18,33 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "file:///C:/Users/migue/OneDrive/Escritorio/HangmanClient/MainMenu.xaml.cs",
+                "region": {
+                  "startLine": 238,
+                  "startColumn": 20,
+                  "endLine": 238,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2068",
+          "level": "warning",
+          "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
+          "locations": [
+            {
+              "resultFile": {
                 "uri": "file:///C:/Users/migue/OneDrive/Escritorio/HangmanClient/SignUp.xaml.cs",
                 "region": {
-                  "startLine": 181,
+                  "startLine": 247,
                   "startColumn": 20,
-                  "endLine": 181,
-                  "endColumn": 78
+                  "endLine": 247,
+                  "endColumn": 79
                 }
               }
             }

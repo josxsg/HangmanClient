@@ -67,21 +67,9 @@ namespace HangmanClient
                     PopulateAvailableMatchesGrid(availableMatches);
                 }
             }
-            catch (EndpointNotFoundException)
+            catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (TimeoutException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (CommunicationException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                HandleWcfException(ex);
             }
         }
 
@@ -120,25 +108,26 @@ namespace HangmanClient
                     return await client.JoinMatchAsync(matchId, currentUsername);
                 }
             }
-            catch (EndpointNotFoundException)
+            catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                HandleWcfException(ex);
                 return false;
             }
-            catch (TimeoutException)
+        }
+
+        private static void HandleWcfException(Exception ex)
+        {
+            if (ex is TimeoutException)
             {
                 MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
             }
-            catch (CommunicationException)
+            else if (ex is CommunicationException)
             {
                 MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
             }
-            catch (Exception)
+            else
             {
                 MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
             }
         }
     }

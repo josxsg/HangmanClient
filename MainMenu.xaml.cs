@@ -104,21 +104,9 @@ namespace HangmanClient
 
                 popMyPoints.IsOpen = true;
             }
-            catch (EndpointNotFoundException)
+            catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (TimeoutException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (CommunicationException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                HandleWcfException(ex);
             }
             finally
             {
@@ -350,21 +338,9 @@ namespace HangmanClient
                     }
                 }
             }
-            catch (EndpointNotFoundException)
+            catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (TimeoutException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (CommunicationException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                HandleWcfException(ex);
             }
             finally
             {
@@ -444,6 +420,22 @@ namespace HangmanClient
         private void pswProfPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
             lbProfPasswordCounter.Text = $"{pswProfPassword.Password.Length}/15";
+        }
+
+        private static void HandleWcfException(Exception ex)
+        {
+            if (ex is TimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (ex is CommunicationException) 
+            {
+                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

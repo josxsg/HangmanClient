@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel; 
+using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -254,21 +254,9 @@ namespace HangmanClient
                     PopulateCategoriesComboBox(categories);
                 }
             }
-            catch (EndpointNotFoundException)
+            catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (TimeoutException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (CommunicationException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                HandleWcfException(ex);
             }
         }
 
@@ -281,24 +269,9 @@ namespace HangmanClient
                     return await client.GetWordsByCategoryAsync(categoryId);
                 }
             }
-            catch (EndpointNotFoundException)
+            catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
-            }
-            catch (TimeoutException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
-            }
-            catch (CommunicationException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
+                HandleWcfException(ex);
                 return null;
             }
         }
@@ -313,25 +286,43 @@ namespace HangmanClient
                     return await client.CreateMatchAsync(currentUsername, categoryName, wordText, _languageCode);
                 }
             }
-            catch (EndpointNotFoundException)
+            catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
+                HandleWcfException(ex);
                 return 0;
             }
-            catch (TimeoutException)
+        }
+
+        private async Task<bool> RequestLeaveMatchOnServerAsync()
+        {
+            try
             {
-                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return 0;
+                using (var client = new MatchmakingServiceClient())
+                {
+                    _opponentTimer?.Stop();
+                    return await client.LeaveMatchAsync(_matchId, _isCreator);
+                }
             }
-            catch (CommunicationException)
+            catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return 0;
+                HandleWcfException(ex);
+                return false;
             }
-            catch (Exception)
+        }
+
+        private async Task<bool> RequestStartMatchOnServerAsync()
+        {
+            try
             {
-                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return 0;
+                using (var client = new MatchmakingServiceClient())
+                {
+                    return await client.StartMatchAsync(_matchId);
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleWcfException(ex);
+                return false;
             }
         }
 
@@ -350,66 +341,19 @@ namespace HangmanClient
             }
         }
 
-        private async Task<bool> RequestLeaveMatchOnServerAsync()
+        private static void HandleWcfException(Exception ex)
         {
-            try
-            {
-                using (var client = new MatchmakingServiceClient())
-                {
-                    _opponentTimer?.Stop();
-                    return await client.LeaveMatchAsync(_matchId, _isCreator);
-                }
-            }
-            catch (EndpointNotFoundException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            catch (TimeoutException)
+            if (ex is TimeoutException)
             {
                 MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
             }
-            catch (CommunicationException)
+            else if (ex is CommunicationException) 
             {
                 MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
             }
-            catch (Exception)
+            else
             {
                 MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-        }
-
-        private async Task<bool> RequestStartMatchOnServerAsync()
-        {
-            try
-            {
-                using (var client = new MatchmakingServiceClient())
-                {
-                    return await client.StartMatchAsync(_matchId);
-                }
-            }
-            catch (EndpointNotFoundException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            catch (TimeoutException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerTimeout, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            catch (CommunicationException)
-            {
-                MessageBox.Show(Properties.Resources.mbServerUnavailable, Properties.Resources.mbNetworkError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
             }
         }
 
