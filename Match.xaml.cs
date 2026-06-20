@@ -23,6 +23,7 @@ namespace HangmanClient
         private char _currentEvaluatedLetter;
         private string _secretWord;
         private DispatcherTimer _watchdogTimer;
+        private bool _isWaitingForEvaluation = false;
 
         private ObservableCollection<WordSlot> _wordSlots = new ObservableCollection<WordSlot>();
         private ObservableCollection<ChatMessage> _chatMessages = new ObservableCollection<ChatMessage>();
@@ -69,7 +70,6 @@ namespace HangmanClient
             {
                 _gameClient.JoinGameChannel(_matchId, _currentUserId);
                 txtDescription.Text = Properties.Resources.lbJoining;
-                _watchdogTimer.Start();
             }
             catch (EndpointNotFoundException)
             {
@@ -122,12 +122,13 @@ namespace HangmanClient
                 {
                     txtDescription.Text += "\n\n" + Properties.Resources.txtGuesserTurn; bdrCreatorGuide.Visibility = Visibility.Collapsed;
                 }
+                _watchdogTimer.Start();
             });
         }
 
         public void OnGuessReceived(char guessedLetter)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 if (_isCreator)
                 {
@@ -137,7 +138,7 @@ namespace HangmanClient
                 {
                     txtDescription.Text = string.Format(Properties.Resources.txtWaitingEv, guessedLetter);
                 }
-            });
+            }));
         }
 
         public void OnTurnResultReceived(TurnResultDTO turnResult)
@@ -158,14 +159,19 @@ namespace HangmanClient
                 if (!_isCreator)
                 {
                     txtDescription.Text += "\n" + Properties.Resources.txtYourTurnGuess;
+                    _isWaitingForEvaluation = false;
                 }
             });
         }
 
         public void OnGameEnded(GameEndDTO endResult)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
+                if (_watchdogTimer != null)
+                {
+                    _watchdogTimer.Stop();
+                }
                 if (_isNavigatingAway)
                 {
                     return;
@@ -189,7 +195,7 @@ namespace HangmanClient
 
                 MessageBox.Show(mensaje, Properties.Resources.msgTitleGameOver, MessageBoxButton.OK, MessageBoxImage.Information);
                 ReturnToMenu();
-            });
+            }));
         }
 
         public void OnTimerTick(int secondsLeft)
@@ -204,7 +210,7 @@ namespace HangmanClient
 
         public void OnEvaluationError()
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 foreach (var slot in _wordSlots)
                 {
@@ -217,7 +223,7 @@ namespace HangmanClient
                 btnConfirmPositions.Visibility = Visibility.Collapsed;
                 MessageBox.Show(Properties.Resources.msgEvaluationError, Properties.Resources.msgTitleEvaluationError, MessageBoxButton.OK, MessageBoxImage.Warning);
                 EvaluateGuessAsCreator(_currentEvaluatedLetter);
-            });
+            }));
         }
 
         private void btnEnviarMensaje_Click(object sender, RoutedEventArgs e)
@@ -408,11 +414,11 @@ namespace HangmanClient
 
         private void HandleKeyPress(Button btn)
         {
-            if (_isCreator)
+            if (_isCreator || _isWaitingForEvaluation)
             {
                 return;
             }
-
+            _isWaitingForEvaluation = true;
             char letter = btn.Content.ToString()[0];
             btn.IsEnabled = false;
 
@@ -436,6 +442,7 @@ namespace HangmanClient
             {
                 MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
                 btn.IsEnabled = true;
+                _isWaitingForEvaluation = false;
             }
         }
 
