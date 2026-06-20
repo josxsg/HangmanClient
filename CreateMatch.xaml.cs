@@ -143,7 +143,10 @@ namespace HangmanClient
         private async void btnStart_Click(object sender, RoutedEventArgs e)
         {
             btnStart.IsEnabled = false;
-            bool successfullyStarted = await RequestStartMatchOnServerAsync();
+            bool successfullyStarted = await Task.Run(async () =>
+            {
+                return await RequestStartMatchOnServerAsync();
+            });
 
             if (successfullyStarted)
             {

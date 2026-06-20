@@ -121,85 +121,91 @@
             </Button>
 
             <Popup x:Name="popEditProfile" 
-                    PlacementTarget="{Binding ElementName=btnEditProfile}" 
-                    Placement="Top" 
-                    StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade">
+       PlacementTarget="{Binding ElementName=btnEditProfile}" 
+       Placement="Top" 
+       StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade">
 
-                <Border Style="{StaticResource bdrSquareText}" Width="400" Padding="25">
-                    <StackPanel>
-                        <Label Content="{x:Static p:Resources.ttMyProfile}" Style="{StaticResource lblTitle}" FontSize="32" Margin="0,0,0,20"/>
+                <Border Style="{StaticResource bdrSquareText}" Width="430" MaxHeight="550" Padding="25,25,5,25">
 
-                        <DockPanel Width="340">
-                            <Label Content="{x:Static p:Resources.lbName}" Style="{StaticResource lblSubtitle}" FontSize="14" DockPanel.Dock="Left"/>
-                            <TextBlock x:Name="lbProfNameCounter" Text="0/25" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
-                        </DockPanel>
-                        <TextBox x:Name="txtProfName" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15" MaxLength="25" TextChanged="txtProfName_TextChanged"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-                        <Grid Margin="0,0,0,15">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="165"/>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="165"/>
-                            </Grid.ColumnDefinitions>
+                        <StackPanel Margin="0,0,20,0">
 
-                            <StackPanel Grid.Column="0">
-                                <DockPanel Width="165">
-                                    <Label Content="{x:Static p:Resources.lbLastName}" Style="{StaticResource lblSubtitle}" FontSize="13" DockPanel.Dock="Left"/>
-                                    <TextBlock x:Name="lbProfPaternalSurnameCounter" Text="0/25" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
-                                </DockPanel>
-                                <TextBox x:Name="txtProfPaternalSurname" Style="{StaticResource txtNormal}" Width="165" Height="35" FontSize="16" MaxLength="25" TextChanged="txtProfPaternalSurname_TextChanged"/>
+                            <Label Content="{x:Static p:Resources.ttMyProfile}" Style="{StaticResource lblTitle}" FontSize="32" Margin="0,0,0,20"/>
+
+                            <DockPanel Width="340">
+                                <Label Content="{x:Static p:Resources.lbName}" Style="{StaticResource lblSubtitle}" FontSize="14" DockPanel.Dock="Left"/>
+                                <TextBlock x:Name="lbProfNameCounter" Text="0/25" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
+                            </DockPanel>
+                            <TextBox x:Name="txtProfName" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15" MaxLength="25" TextChanged="txtProfName_TextChanged"/>
+
+                            <Grid Margin="0,0,0,15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="165"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="165"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <DockPanel Width="165">
+                                        <Label Content="{x:Static p:Resources.lbLastName}" Style="{StaticResource lblSubtitle}" FontSize="13" DockPanel.Dock="Left"/>
+                                        <TextBlock x:Name="lbProfPaternalSurnameCounter" Text="0/25" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
+                                    </DockPanel>
+                                    <TextBox x:Name="txtProfPaternalSurname" Style="{StaticResource txtNormal}" Width="165" Height="35" FontSize="16" MaxLength="25" TextChanged="txtProfPaternalSurname_TextChanged"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2">
+                                    <DockPanel Width="165">
+                                        <Label Content="{x:Static p:Resources.lbLastName_Mother_}" Style="{StaticResource lblSubtitle}" FontSize="13" DockPanel.Dock="Left"/>
+                                        <TextBlock x:Name="lbProfMaternalSurnameCounter" Text="0/25" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
+                                    </DockPanel>
+                                    <TextBox x:Name="txtProfMaternalSurname" Style="{StaticResource txtNormal}" Width="165" Height="35" FontSize="16" MaxLength="25" TextChanged="txtProfMaternalSurname_TextChanged"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <DockPanel Width="340">
+                                <Label Content="{x:Static p:Resources.lbUsername}" Style="{StaticResource lblSubtitle}" FontSize="14" DockPanel.Dock="Left"/>
+                                <TextBlock x:Name="lbProfUsernameCounter" Text="0/25" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
+                            </DockPanel>
+                            <TextBox x:Name="txtProfUsername" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15" MaxLength="25" TextChanged="txtProfUsername_TextChanged"/>
+
+                            <DockPanel Width="340">
+                                <Label Content="{x:Static p:Resources.lbPhone}" Style="{StaticResource lblSubtitle}" FontSize="14" DockPanel.Dock="Left"/>
+                                <TextBlock x:Name="lbProfPhoneCounter" Text="0/10" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
+                            </DockPanel>
+                            <TextBox x:Name="txtProfPhone" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15" MaxLength="10" TextChanged="txtProfPhone_TextChanged"/>
+
+                            <Label Content="{x:Static p:Resources.lbEmail}" Style="{StaticResource lblSubtitle}" FontSize="14"/>
+                            <TextBox x:Name="txtProfEmail" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,30" 
+                         IsReadOnly="True" Background="#E0E0E0" Foreground="Gray"/>
+
+                            <Label Content="{x:Static p:Resources.lbDateOfBirth}" Style="{StaticResource lblSubtitle}" FontSize="14"/>
+                            <DatePicker x:Name="dpProfBirthDate" Style="{StaticResource dpNormal}" Width="340" Height="35" Margin="0,0,0,15"/>
+
+                            <DockPanel Width="340">
+                                <Label Content="{x:Static p:Resources.lblPassword}" Style="{StaticResource lblSubtitle}" FontSize="14" DockPanel.Dock="Left"/>
+                                <TextBlock x:Name="lbProfPasswordCounter" Text="0/15" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
+                            </DockPanel>
+
+                            <Grid Width="340" Margin="0,0,0,30">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <PasswordBox x:Name="pswProfPassword" Style="{StaticResource pwdNormal}" Height="35" MaxLength="15" PasswordChanged="pswProfPassword_PasswordChanged"/>
+                                <TextBox x:Name="txtProfPasswordVisible" Style="{StaticResource txtNormal}" Height="35" MaxLength="15" Visibility="Collapsed" TextChanged="txtProfPasswordVisible_TextChanged"/>
+
+                                <CheckBox x:Name="chkShowProfPassword" Grid.Column="1" Content="👁" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Checked="chkShowProfPassword_Toggle" Unchecked="chkShowProfPassword_Toggle" Cursor="Hand"/>
+                            </Grid>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button x:Name="btnSaveProfile" Content="GUARDAR" Click="btnSaveProfile_Click"
+                            Style="{StaticResource btnMain}" 
+                            Width="150" Height="45" Margin="0,0,0,10" FontSize="16"/>
                             </StackPanel>
-
-                            <StackPanel Grid.Column="2">
-                                <DockPanel Width="165">
-                                    <Label Content="{x:Static p:Resources.lbLastName_Mother_}" Style="{StaticResource lblSubtitle}" FontSize="13" DockPanel.Dock="Left"/>
-                                    <TextBlock x:Name="lbProfMaternalSurnameCounter" Text="0/25" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
-                                </DockPanel>
-                                <TextBox x:Name="txtProfMaternalSurname" Style="{StaticResource txtNormal}" Width="165" Height="35" FontSize="16" MaxLength="25" TextChanged="txtProfMaternalSurname_TextChanged"/>
-                            </StackPanel>
-                        </Grid>
-
-                        <DockPanel Width="340">
-                            <Label Content="{x:Static p:Resources.lbUsername}" Style="{StaticResource lblSubtitle}" FontSize="14" DockPanel.Dock="Left"/>
-                            <TextBlock x:Name="lbProfUsernameCounter" Text="0/25" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
-                        </DockPanel>
-                        <TextBox x:Name="txtProfUsername" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15" MaxLength="25" TextChanged="txtProfUsername_TextChanged"/>
-
-                        <DockPanel Width="340">
-                            <Label Content="{x:Static p:Resources.lbPhone}" Style="{StaticResource lblSubtitle}" FontSize="14" DockPanel.Dock="Left"/>
-                            <TextBlock x:Name="lbProfPhoneCounter" Text="0/10" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
-                        </DockPanel>
-                        <TextBox x:Name="txtProfPhone" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,15" MaxLength="10" TextChanged="txtProfPhone_TextChanged"/>
-
-                        <Label Content="{x:Static p:Resources.lbEmail}" Style="{StaticResource lblSubtitle}" FontSize="14"/>
-                        <TextBox x:Name="txtProfEmail" Style="{StaticResource txtNormal}" Width="340" Height="35" FontSize="16" Margin="0,0,0,30" 
-                                 IsReadOnly="True" Background="#E0E0E0" Foreground="Gray"/>
-
-                        <Label Content="{x:Static p:Resources.lbDateOfBirth}" Style="{StaticResource lblSubtitle}" FontSize="14"/>
-                        <DatePicker x:Name="dpProfBirthDate" Style="{StaticResource dpNormal}" Width="340" Height="35" Margin="0,0,0,15"/>
-
-                        <DockPanel Width="340">
-                            <Label Content="{x:Static p:Resources.lblPassword}" Style="{StaticResource lblSubtitle}" FontSize="14" DockPanel.Dock="Left"/>
-                            <TextBlock x:Name="lbProfPasswordCounter" Text="0/15" Foreground="#8B4513" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
-                        </DockPanel>
-                        <Grid Width="340" Margin="0,0,0,30">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <PasswordBox x:Name="pswProfPassword" Style="{StaticResource pwdNormal}" Height="35" MaxLength="15" PasswordChanged="pswProfPassword_PasswordChanged"/>
-                            <TextBox x:Name="txtProfPasswordVisible" Style="{StaticResource txtNormal}" Height="35" MaxLength="15" Visibility="Collapsed" TextChanged="txtProfPasswordVisible_TextChanged"/>
-
-                            <CheckBox x:Name="chkShowProfPassword" Grid.Column="1" Content="👁" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Checked="chkShowProfPassword_Toggle" Unchecked="chkShowProfPassword_Toggle" Cursor="Hand"/>
-                        </Grid>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="btnSaveProfile" Content="GUARDAR" Click="btnSaveProfile_Click"
-                                    Style="{StaticResource btnMain}" 
-                                    Width="150" Height="45" Margin="0,0,20,0" FontSize="16"/>
                         </StackPanel>
-                    </StackPanel>
+                    </ScrollViewer>
                 </Border>
             </Popup>
         </StackPanel>

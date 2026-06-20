@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.ServiceModel; 
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
 using HangmanClient.GameServiceRef;
@@ -9,9 +9,11 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Windows.Threading;
+using System.Threading.Tasks; 
 
 namespace HangmanClient
 {
+    [CallbackBehavior(UseSynchronizationContext = false)]
     public partial class Match : Window, IGameServiceCallback
     {
         private GameServiceClient _gameClient;
@@ -36,26 +38,21 @@ namespace HangmanClient
             _matchId = matchId;
             _currentUserId = currentUserId;
             _isCreator = isCreator;
+            _username = username;
 
             ResetHangmanImages();
 
-            InstanceContext context = new InstanceContext(this);
-            _gameClient = new GameServiceClient(context);
-
-            _gameClient.InnerChannel.Faulted += GameClient_ConnectionLost;
-            _gameClient.InnerChannel.Closed += GameClient_ConnectionLost;
 
             _watchdogTimer = new DispatcherTimer();
-            _watchdogTimer.Interval = TimeSpan.FromSeconds(5); 
+            _watchdogTimer.Interval = TimeSpan.FromSeconds(5);
             _watchdogTimer.Tick += (s, ev) =>
             {
                 _watchdogTimer.Stop();
-                HandleConnectionError(); 
+                HandleConnectionError();
             };
 
             this.Loaded += Match_Loaded;
             this.Closing += Match_Closing;
-            _username = username;
 
             itemsChat.ItemsSource = _chatMessages;
             icPalabraOculta.ItemsSource = _wordSlots;
@@ -64,12 +61,22 @@ namespace HangmanClient
             txtMensajeChat.KeyDown += txtMensajeChat_KeyDown;
         }
 
-        private void Match_Loaded(object sender, RoutedEventArgs e)
+        private async void Match_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                _gameClient.JoinGameChannel(_matchId, _currentUserId);
                 txtDescription.Text = Properties.Resources.lbJoining;
+
+                InstanceContext context = new InstanceContext(this);
+                _gameClient = new GameServiceClient(context);
+
+                _gameClient.InnerChannel.Faulted += GameClient_ConnectionLost;
+                _gameClient.InnerChannel.Closed += GameClient_ConnectionLost;
+
+                await Task.Run(() =>
+                {
+                    _gameClient.JoinGameChannel(_matchId, _currentUserId);
+                });
             }
             catch (EndpointNotFoundException)
             {
@@ -239,16 +246,20 @@ namespace HangmanClient
             }
         }
 
-        private void SendMessage()
+        private async void SendMessage()
         {
             string message = txtMensajeChat.Text.Trim();
             if (!string.IsNullOrEmpty(message))
             {
                 try
                 {
-                    _gameClient.SendChatMessage(_matchId, _username, message);
                     txtMensajeChat.Clear();
                     txtMensajeChat.Focus();
+
+                    await Task.Run(() =>
+                    {
+                        _gameClient.SendChatMessage(_matchId, _username, message);
+                    });
                 }
                 catch (EndpointNotFoundException)
                 {
@@ -330,12 +341,16 @@ namespace HangmanClient
             btnConfirmPositions.Visibility = Visibility.Visible;
         }
 
-        private void SubmitIncorrectTurnResult()
+        private async void SubmitIncorrectTurnResult()
         {
             try
             {
-                _gameClient.SubmitTurnResult(_matchId, _currentUserId, false, null);
                 txtDescription.Text = Properties.Resources.msgEvaluationSent;
+
+                await Task.Run(() =>
+                {
+                    _gameClient.SubmitTurnResult(_matchId, _currentUserId, false, null);
+                });
             }
             catch (EndpointNotFoundException)
             {
@@ -354,6 +369,7 @@ namespace HangmanClient
                 MessageBox.Show(Properties.Resources.mbServerError, Properties.Resources.mbError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void UpdateWordDisplay(char letter, int[] positions)
         {
             if (positions == null) return;
@@ -412,7 +428,8 @@ namespace HangmanClient
             btnN.IsEnabled = false; btnM.IsEnabled = false;
         }
 
-        private void HandleKeyPress(Button btn)
+        // AGREGAMOS ASYNC AQUÍ
+        private async void HandleKeyPress(Button btn)
         {
             if (_isCreator || _isWaitingForEvaluation)
             {
@@ -424,7 +441,11 @@ namespace HangmanClient
 
             try
             {
-                _gameClient.SendGuess(_matchId, _currentUserId, letter);
+                // ENVIAMOS LA LETRA EN SEGUNDO PLANO
+                await Task.Run(() =>
+                {
+                    _gameClient.SendGuess(_matchId, _currentUserId, letter);
+                });
             }
             catch (EndpointNotFoundException)
             {
@@ -473,7 +494,8 @@ namespace HangmanClient
         private void btnN_Click(object sender, RoutedEventArgs e) { HandleKeyPress(btnN); }
         private void btnM_Click(object sender, RoutedEventArgs e) { HandleKeyPress(btnM); }
 
-        private void btnLeave_Click(object sender, RoutedEventArgs e)
+        // AGREGAMOS ASYNC AQUÍ
+        private async void btnLeave_Click(object sender, RoutedEventArgs e)
         {
             if (_isNavigatingAway)
             {
@@ -485,7 +507,11 @@ namespace HangmanClient
             {
                 try
                 {
-                    _gameClient.LeaveMatch(_matchId, _currentUserId);
+                    // SALIMOS DE LA PARTIDA EN SEGUNDO PLANO
+                    await Task.Run(() =>
+                    {
+                        _gameClient.LeaveMatch(_matchId, _currentUserId);
+                    });
                 }
                 catch (Exception)
                 {
@@ -506,7 +532,7 @@ namespace HangmanClient
                 {
                     return;
                 }
-                if (_gameClient.State == CommunicationState.Opened)
+                if (_gameClient != null && _gameClient.State == CommunicationState.Opened)
                 {
                     _gameClient.LeaveMatch(_matchId, _currentUserId);
                     _gameClient.Close();
@@ -577,7 +603,7 @@ namespace HangmanClient
             });
         }
 
-        private void btnConfirmPositions_Click(object sender, RoutedEventArgs e)
+        private async void btnConfirmPositions_Click(object sender, RoutedEventArgs e)
         {
             int[] positions = _wordSlots
                 .Where(s => s.Letter == _currentEvaluatedLetter)
@@ -595,11 +621,14 @@ namespace HangmanClient
                 slot.IsEditing = false;
             }
             btnConfirmPositions.Visibility = Visibility.Collapsed;
+            txtDescription.Text = Properties.Resources.msgPositionsConfirmed;
 
             try
             {
-                _gameClient.SubmitTurnResult(_matchId, _currentUserId, true, positions);
-                txtDescription.Text = Properties.Resources.msgPositionsConfirmed;
+                await Task.Run(() =>
+                {
+                    _gameClient.SubmitTurnResult(_matchId, _currentUserId, true, positions);
+                });
             }
             catch (EndpointNotFoundException)
             {
