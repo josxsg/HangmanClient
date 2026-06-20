@@ -146,9 +146,33 @@ namespace HangmanClient
             if (!ValidateProfilePhoneNumber()) return false;
             if (!ValidateProfBirthDateRange()) return false;
             if (!ValidateProfPasswordStrength()) return false;
+            if (!ValidateProfileNameFormat()) return false; 
+
             return true;
         }
 
+        private bool ValidateProfileNameFormat()
+        {
+            string namePattern = @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$";
+            TimeSpan timeout = TimeSpan.FromMilliseconds(200); 
+
+            try
+            {
+                if (!Regex.IsMatch(txtProfName.Text.Trim(), namePattern, RegexOptions.None, timeout) ||
+                    !Regex.IsMatch(txtProfPaternalSurname.Text.Trim(), namePattern, RegexOptions.None, timeout) ||
+                    (!string.IsNullOrWhiteSpace(txtProfMaternalSurname.Text) && !Regex.IsMatch(txtProfMaternalSurname.Text.Trim(), namePattern, RegexOptions.None, timeout)))
+                {
+                    MessageBox.Show(Properties.Resources.mbInvalidNameFormat, Properties.Resources.mbInvalidNameTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                return true;
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbInvalidNameFormat, Properties.Resources.mbInvalidNameTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+        }
         private bool ValidateRequiredProfileFields()
         {
             if (string.IsNullOrWhiteSpace(txtProfName.Text) ||

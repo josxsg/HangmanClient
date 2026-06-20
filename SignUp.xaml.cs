@@ -169,10 +169,33 @@ namespace HangmanClient
             if (!ValidateEmailFormat()) return false;
             if (!ValidateBirthDateRange()) return false;
             if (!ValidatePasswordStrength()) return false;
+            if (!ValidateNameFormat()) return false; 
 
             return true;
         }
 
+        private bool ValidateNameFormat()
+        {
+            string namePattern = @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$";
+            TimeSpan timeout = TimeSpan.FromMilliseconds(200);
+
+            try
+            {
+                if (!Regex.IsMatch(txtFirstName.Text.Trim(), namePattern, RegexOptions.None, timeout) ||
+                    !Regex.IsMatch(txtPaternalSurname.Text.Trim(), namePattern, RegexOptions.None, timeout) ||
+                    (!string.IsNullOrWhiteSpace(txtMaternalSurname.Text) && !Regex.IsMatch(txtMaternalSurname.Text.Trim(), namePattern, RegexOptions.None, timeout)))
+                {
+                    MessageBox.Show(Properties.Resources.mbInvalidNameFormat, Properties.Resources.mbInvalidNameTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+                return true;
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                MessageBox.Show(Properties.Resources.mbInvalidNameFormat, Properties.Resources.mbInvalidNameTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+        }
         private static async Task<bool> RequestUserRegistrationAsync(UserDTO user, string password)
         {
             using (var client = new AccountServiceClient())

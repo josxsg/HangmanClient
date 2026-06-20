@@ -477,4 +477,10 @@
   <data name="mbBlankSpaces" xml:space="preserve">
     <value>La contraseña no puede contener espacios en blanco.</value>
   </data>
+  <data name="mbInvalidNameFormat" xml:space="preserve">
+    <value>El nombre y los apellidos solo deben contener letras.</value>
+  </data>
+  <data name="mbInvalidNameTitle" xml:space="preserve">
+    <value>Formato invalido</value>
+  </data>
 </root>

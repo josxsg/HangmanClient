@@ -556,6 +556,24 @@ namespace HangmanClient.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El nombre y los apellidos solo deben contener letras..
+        /// </summary>
+        public static string mbInvalidNameFormat {
+            get {
+                return ResourceManager.GetString("mbInvalidNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Formato invalido.
+        /// </summary>
+        public static string mbInvalidNameTitle {
+            get {
+                return ResourceManager.GetString("mbInvalidNameTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Teléfono inválido.
         /// </summary>
         public static string mbInvalidPhone {

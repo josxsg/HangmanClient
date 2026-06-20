@@ -10,11 +10,11 @@
     },
     {
       "key": "sonar.scanner.bootstrapStartTime",
-      "value": "1781919879000"
+      "value": "1781920359000"
     },
     {
       "key": "sonar.projectKey",
-      "value": "hangmanClient"
+      "value": "hangmanCliente"
     },
     {
       "key": "sonar.working.directory",
@@ -42,7 +42,7 @@
     },
     {
       "key": "DF9688BF-49BD-4C74-B7F0-A6B57F603574.sonar.projectKey",
-      "value": "hangmanClient:DF9688BF-49BD-4C74-B7F0-A6B57F603574"
+      "value": "hangmanCliente:DF9688BF-49BD-4C74-B7F0-A6B57F603574"
     },
     {
       "key": "DF9688BF-49BD-4C74-B7F0-A6B57F603574.sonar.projectName",
